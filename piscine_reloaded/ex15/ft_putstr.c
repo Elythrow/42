@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 17:58:15 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 11:30:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/14 11:33:03 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/14 12:37:02 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_factorial(int nb)
+void	ft_putstr(char *str)
 {
 	int	i;
 
-	i = nb;
-	if (nb < 0)
-		return (0);
-	else if (nb == 0)
-		return (1);
-	else
+	i = 0;
+	while (str[i])
 	{
-		while (i > 1)
-		{
-			i --;
-			nb = nb * i;
-		}
-		return (nb);
+			ft_putchar(str[i]);
+			i ++;
 	}
 }

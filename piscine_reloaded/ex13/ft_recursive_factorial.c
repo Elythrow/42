@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_recursive_factorial.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 17:58:15 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 11:30:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/14 11:29:04 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/14 11:31:14 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_factorial(int nb)
+int	ft_recursive_factorial(int nb)
 {
-	int	i;
-
-	i = nb;
 	if (nb < 0)
 		return (0);
 	else if (nb == 0)
 		return (1);
 	else
-	{
-		while (i > 1)
-		{
-			i --;
-			nb = nb * i;
-		}
-		return (nb);
-	}
+		return (ft_recursive_factorial(nb - 1) * nb);
 }

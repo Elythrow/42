@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_abs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 17:58:15 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 11:30:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/14 13:42:55 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/14 13:57:42 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_factorial(int nb)
-{
-	int	i;
+#ifndef FT_ABS_H
+# define FT_ABS_H
 
-	i = nb;
-	if (nb < 0)
-		return (0);
-	else if (nb == 0)
-		return (1);
-	else
-	{
-		while (i > 1)
-		{
-			i --;
-			nb = nb * i;
-		}
-		return (nb);
-	}
-}
+# define ABS(Value) ((Value < 0) ? (Value * -1) : Value)
+
+#endif

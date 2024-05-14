@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 17:58:15 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 11:30:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/14 13:32:16 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/14 13:42:37 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_factorial(int nb)
+int	*ft_range(int min, int max)
 {
+	int	diff;
 	int	i;
+	int	*range;
 
-	i = nb;
-	if (nb < 0)
-		return (0);
-	else if (nb == 0)
-		return (1);
-	else
+	i = 0;
+	diff = max - min;
+	if (diff <= 0)
+		return (NULL);
+	range = malloc(sizeof(int) * diff);
+	if (range == NULL)
+		return (NULL);
+	while (i < diff)
 	{
-		while (i > 1)
-		{
-			i --;
-			nb = nb * i;
-		}
-		return (nb);
+		range[i] = min + i;
+		i ++;
 	}
+	return (range);
 }

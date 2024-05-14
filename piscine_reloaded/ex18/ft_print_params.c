@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iterative_factorial.c                           :+:      :+:    :+:   */
+/*   ft_print_params.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 17:58:15 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 11:30:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/14 12:20:24 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/14 12:39:41 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_iterative_factorial(int nb)
+int	main(int argc, char **argv)
 {
 	int	i;
+	int	j;
 
-	i = nb;
-	if (nb < 0)
-		return (0);
-	else if (nb == 0)
-		return (1);
-	else
+	i = 1;
+	if (argc > 2)
 	{
-		while (i > 1)
+		while (i < argc)
 		{
-			i --;
-			nb = nb * i;
+			j = 0;
+			while (argv[i][j])
+			{
+				ft_putchar(argv[i][j]);
+				j ++;
+			}
+			ft_putchar('\n');
+			i ++;
 		}
-		return (nb);
 	}
+	return (0);
 }
