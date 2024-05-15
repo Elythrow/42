@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_if.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:01:56 by hello             #+#    #+#             */
-/*   Updated: 2024/05/14 19:07:10 by hello            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:50:44 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@ int	ft_count_if(char **tab, int (*f)(char*))
 {
 	int	i;
 	int	count;
-	
+
 	i = 0;
 	count = 0;
-	while (tab[i] &&)
+	while (tab[i])
 	{
 		if (f(tab[i]) == 1)
 			count ++;
 		i ++;
 	}
-	return count;
+	return (count);
 }

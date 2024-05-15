@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:33:03 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 12:37:02 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:33:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putstr(char *str)
 	i = 0;
 	while (str[i])
 	{
-			ft_putchar(str[i]);
-			i ++;
+		ft_putchar(str[i]);
+		i ++;
 	}
 }

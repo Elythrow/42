@@ -6,9 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:47:40 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/13 17:12:14 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:47:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+void	ft_putchar(char c);
 
 void	ft_print_numbers(void)
 {

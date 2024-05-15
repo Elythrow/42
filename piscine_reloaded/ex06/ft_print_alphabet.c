@@ -6,9 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:52:56 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/13 16:34:37 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:45:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+void	ft_putchar(char c);
 
 void	ft_print_alphabet(void)
 {

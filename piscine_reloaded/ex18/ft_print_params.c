@@ -6,9 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:20:24 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 12:39:41 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:48:58 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+void	ft_putchar(char c);
 
 int	main(int argc, char **argv)
 {

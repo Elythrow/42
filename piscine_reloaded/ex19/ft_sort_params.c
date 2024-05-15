@@ -6,9 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:35:56 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/14 13:10:36 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:49:07 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+void	ft_putchar(char c);
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
