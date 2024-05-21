@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:11:58 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 14:51:43 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/21 17:34:06 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*memset(void *s, int c, size_t n)
 	if (s == NULL)
 		return (NULL);
 	str = s;
-	while (s[i] && n > 0)
+	while (str[i] && n > 0)
 	{
 		str[i] = (unsigned char)c;
 		i ++;
