@@ -14,10 +14,34 @@
 
 char	*ft_strnstr(const char *str1, const char *str2, size_t len)
 {
-	char	*r;
+	size_t	i;
+	size_t	j;
 
-	str1 = str2;
-	len ++;
-	r = (char *)str1;
-	return (r);
+	if (str2 == NULL)
+		return ((char *)str1);
+	i = 0;
+	while (str1[i] && i < len)
+	{
+		j = 0;
+		while (str2[j] == str1[i + j] && str1[i + j] && i + j < len)
+		{
+			if (str2[j + 1] == '\0')
+				return ((char *)&str1[i]);
+			j ++;
+		}
+		i ++;
+	}
+	return (NULL);
 }
+
+/*
+#include <stdio.h>
+int	main(void)
+{
+	char *str = "Hello World!";
+	char *to_find = "lo";
+	size_t n = 12;
+
+	printf("%s\n", ft_strnstr(str, to_find, n));
+	return (0);
+}*/
