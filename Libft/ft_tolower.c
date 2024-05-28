@@ -6,15 +6,15 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:07:03 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 15:13:08 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:32:47 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	toupper(int c)
+int	ft_tolower(int c)
 {
-	if (c > 96 && c < 123)
-		return (c - 32);
+	if (c > 64 && c < 91)
+		return (c + 32);
 	return (c);
 }

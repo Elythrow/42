@@ -6,7 +6,18 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:30:39 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 17:30:40 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:51:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	int	i;
+
+	s1 = s2;
+	s2 = s1;
+	i = n;
+	return (i);
+}

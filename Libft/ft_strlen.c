@@ -6,13 +6,13 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:03:46 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 12:14:45 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:45:03 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	int	i;
 

@@ -6,7 +6,16 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:30:36 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 17:30:36 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:50:36 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	c = 1;
+	n = 1;
+	c = c + n;
+	return ((void *) s);
+}

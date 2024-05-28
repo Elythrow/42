@@ -6,43 +6,44 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:52:07 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 12:13:02 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:07:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static unsigned int	ft_number_size(int number)
+static int	ft_number_size(int number)
 {
-	unsigned int	length;
+	unsigned int	size;
 
-	length = 0;
+	size = 0;
 	if (number == 0)
 		return (1);
 	if (number < 0)
-		length += 1;
+		size += 1;
 	while (number != 0)
 	{
+		size ++;
 		number /= 10;
-		length++;
 	}
-	return (length);
+	return (size);
 }
 
 char	*ft_itoa(int n)
 {
 	char			*string;
 	unsigned long	number;
-	unsigned int	length;
+	int				length;
 
 	length = ft_number_size(n);
-	string = (char *)malloc(sizeof(char) * (length + 1));
+	string = malloc(length + 1);
 	if (string == NULL)
 		return (NULL);
-	if (number < 0)
+	if (n < 0)
 	{
 		string[0] = '-';
-		number = -n;
+		number = -(long)n;
 	}
 	else
 		number = n;

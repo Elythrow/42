@@ -6,7 +6,18 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:30:45 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 17:30:46 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:53:36 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	int	i;
+
+	i = n;
+	i ++;
+	dest = (void *)src;
+	return (dest);
+}
