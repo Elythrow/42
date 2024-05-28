@@ -14,17 +14,17 @@
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	unsigned int	s_dest;
-	unsigned int	s_src;
+	unsigned int	size_dest;
+	unsigned int	size_src;
 	unsigned int	i;
 	unsigned int	j;
 
 	j = 0;
-	s_dest = ft_strlen(dest);
-	s_src = ft_strlen(src);
+	size_dest = ft_strlen(dest);
+	size_src = ft_strlen(src);
 	i = ft_strlen(dest);
 	if (size == 0)
-		return (s_src + size);
+		return (size_src + size);
 	while (src[j] && i < size - 1)
 	{
 		dest[i] = src[j];
@@ -32,7 +32,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		j++;
 	}
 	dest[i] = '\0';
-	if (size < s_dest)
-		return (s_src + size);
-	return (s_dest + s_src);
+	if (size < size_dest)
+		return (size_src + size);
+	return (size_dest + size_src);
 }

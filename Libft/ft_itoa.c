@@ -32,29 +32,29 @@ static int	ft_number_size(int number)
 
 char	*ft_itoa(int n)
 {
-	char			*string;
+	char			*str;
 	unsigned long	number;
 	int				length;
 
 	length = ft_number_size(n);
-	string = malloc(length + 1);
-	if (string == NULL)
+	str = malloc(length + 1);
+	if (str == NULL)
 		return (NULL);
 	if (n < 0)
 	{
-		string[0] = '-';
+		str[0] = '-';
 		number = -(long)n;
 	}
 	else
 		number = n;
 	if (number == 0)
-		string[0] = '0';
-	string[length] = '\0';
+		str[0] = '0';
+	str[length] = '\0';
 	while (number != 0)
 	{
-		string[length - 1] = (number % 10) + '0';
+		str[length - 1] = (number % 10) + '0';
 		number = number / 10;
 		length--;
 	}
-	return (string);
+	return (str);
 }

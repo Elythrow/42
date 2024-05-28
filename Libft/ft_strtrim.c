@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *str1, char const *set)
 {
-	s1 = set;
-	return ((char *)s1);
+	str1 = set;
+	return ((char *)str1);
 }

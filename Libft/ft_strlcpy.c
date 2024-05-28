@@ -15,13 +15,13 @@
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	unsigned int	i;
-	unsigned int	s_src;
+	unsigned int	size_src;
 
 	i = 0;
-	s_src = ft_strlen(src);
+	size_src = ft_strlen(src);
 	if (size < 1)
 	{
-		return (s_src);
+		return (size_src);
 	}
 	while (src[i] && i < (size - 1))
 	{
@@ -29,5 +29,5 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		i++;
 	}
 	dst[i] = '\0';
-	return (s_src);
+	return (size_src);
 }

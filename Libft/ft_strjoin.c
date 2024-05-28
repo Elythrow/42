@@ -12,8 +12,8 @@
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *str1, char const *str2)
 {
-	s1 = s2;
-	return ((char *)s1);
+	str1 = str2;
+	return ((char *)str1);
 }
