@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:10 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/28 17:13:08 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/05/30 21:48:52 by hello            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 void	ft_striteri(char *str, void (*f)(unsigned int, char*))
 {
-	f(1, str);
+	size_t	i;
+
+	i = 0;
+	while (i < ft_strlen(str))
+	{
+		str[i] = (char)f(i, &str[i]);
+		i ++;
+	}
 }
