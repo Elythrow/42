@@ -3,103 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:20 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/28 17:48:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/06/02 23:07:46 by hello            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	is_sep(char c, char *charset)
+static char	**free_array(char **strs, int size)
 {
 	int	i;
 
 	i = 0;
-	while (charset[i])
+	while (i < size)
 	{
-		if (c == charset[i])
-			return (1);
-		i ++;
+		free(strs[i]);
+		i++;
 	}
-	return (0);
+	free(strs);
+	return (NULL);
 }
 
-int	count_words(char *str, char *charset)
+static int	count_words(const char *str, char c)
 {
 	int	i;
-	int	word;
 	int	count;
 
 	i = 0;
 	count = 0;
-	word = 0;
 	while (str[i])
 	{
-		if (is_sep(str[i], charset) == 0 && word == 0)
-		{
-			word = 1;
-			count ++;
-		}
-		if (is_sep(str[i], charset) == 1)
-			word = 0;
-		i ++;
+		while (str[i] && str[i] == c)
+			i++;
+		if (str[i] && str[i] != c)
+			count++;
+		while (str[i] && str[i] != c)
+			i++;
 	}
 	return (count);
 }
 
-char	**ft_splitter(char *str, char *charset, char **array)
+static char	*ft_strndup(const char *src, int s, int e)
+{
+	char	*dest;
+
+	dest = malloc(sizeof(char) * (e - s + 1));
+	if (!dest)
+		return (NULL);
+	ft_memcpy(dest, &src[s], e - s + 1);
+	dest[e - s] = '\0';
+	return (dest);
+}
+
+static char	**ft_spliting(const char *str, char c, char **strs)
 {
 	int	i;
 	int	j;
-	int	k;
+	int	word;
 
 	i = 0;
-	k = 0;
-	while (str[k])
+	word = 0;
+	while (str[i])
 	{
-		j = 0;
-		while (is_sep(str[k], charset) == 1)
-			k ++;
-		while (!is_sep(str[k], charset) && str[k])
+		while (str[i] && str[i] == c)
+			i++;
+		j = i;
+		while (str[j] && str[j] != c)
+			j++;
+		if (j != i)
 		{
-			array[i][j] = str[k];
-			k ++;
-			j ++;
+			strs[word] = ft_strndup(str, i, j);
+			if (!strs[word])
+				return (free_array(strs, word));
+			word++;
 		}
-		array[i][j] = '\0';
-		i ++;
+		i = j;
 	}
-	array[i] = 0;
-	return (array);
+	strs[word] = NULL;
+	return (strs);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *str, char c)
 {
-	char	**array;
-	int		count;
-	int		i;
-	char	*str;
+	char	**strs;
 
-	i = 0;
-	str = (char *)s;
-	if (ft_strlen(str) == 0)
-	{
-		array = malloc(sizeof(char *));
-		array[0] = 0;
-		return (array);
-	}
-	count = count_words(str, &c) + 1;
-	array = malloc(sizeof(char *) * count);
-	if (!array)
+	strs = malloc(sizeof(char *) * (count_words(str, c) + 1));
+	if (!strs)
 		return (NULL);
-	while (i < count - 1)
-	{
-		array[i] = malloc((ft_strlen(str) + 1) * sizeof(char));
-		if (!array[i])
-			return (NULL);
-		i ++;
-	}
-	return (ft_splitter(str, &c, array));
+	return (ft_spliting(str, c, strs));
 }
