@@ -3,26 +3,62 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hello <hello@student.42.fr>                +#+  +:+       +#+         #
+#    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 16:35:40 by gbazin            #+#    #+#              #
-#    Updated: 2024/05/29 11:30:43 by hello            ###   ########.fr        #
+#    Updated: 2024/06/04 19:58:34 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBC =    ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
-        ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c \
-        ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c \
-        ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c \
-        ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c
+LIBC = 	ft_atoi.c
+LIBC +=	ft_bzero.c
+LIBC +=	ft_calloc.c
+LIBC +=	ft_isalnum.c
+LIBC +=	ft_isalpha.c
+LIBC +=	ft_isascii.c
+LIBC +=	ft_isdigit.c
+LIBC +=	ft_isprint.c
+LIBC +=	ft_memchr.c
+LIBC +=	ft_memcmp.c
+LIBC +=	ft_memcpy.c
+LIBC +=	ft_memmove.c
+LIBC +=	ft_memset.c
+LIBC +=	ft_strchr.c
+LIBC +=	ft_strdup.c
+LIBC +=	ft_strlcat.c
+LIBC +=	ft_strlcpy.c
+LIBC +=	ft_strlen.c
+LIBC +=	ft_strncmp.c
+LIBC +=	ft_strnstr.c
+LIBC +=	ft_strrchr.c
+LIBC +=	ft_tolower.c
+LIBC +=	ft_toupper.c
 
-ADDITIONAL =    ft_itoa.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
-                ft_split.c ft_strjoin.c ft_strmapi.c ft_strtrim.c ft_substr.c ft_striteri.c
+ADDITIONAL =    ft_itoa.c 
+ADDITIONAL +=	ft_putchar_fd.c 
+ADDITIONAL +=	ft_putendl_fd.c
+ADDITIONAL +=	ft_putnbr_fd.c
+ADDITIONAL +=	ft_putstr_fd.c
+ADDITIONAL +=	ft_split.c
+ADDITIONAL +=	ft_strjoin.c
+ADDITIONAL +=	ft_strmapi.c
+ADDITIONAL +=	ft_strtrim.c
+ADDITIONAL +=	ft_substr.c
+ADDITIONAL +=	ft_striteri.c
 
+BONUS =		ft_lstnew_bonus.c
+BONUS +=	ft_lstadd_front_bonus.c
+BONUS +=	ft_lstsize_bonus.c
+BONUS +=	ft_lstlast_bonus.c
+BONUS +=	ft_lstadd_back_bonus.c
+BONUS +=	ft_lstdelone_bonus.c
+BONUS +=	ft_lstclear_bonus.c
+BONUS +=	ft_lstiter_bonus.c
+BONUS +=	ft_lstmap_bonus.c
 
 SRCS = ${LIBC} ${ADDITIONAL}
 
-SRCSALL = ${LIBC} ${ADDITIONAL}
+SRCSALL = ${LIBC} ${ADDITIONAL} ${BONUS}
 
 OBJS = ${SRCS:.c=.o}
 

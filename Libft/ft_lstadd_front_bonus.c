@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:51 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/28 16:00:05 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/06/04 19:16:53 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,8 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:20 by gbazin            #+#    #+#             */
-/*   Updated: 2024/06/04 08:04:13 by hello            ###   ########.fr       */
+/*   Updated: 2024/06/04 22:02:07 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**ft_split(const char *str, char c)
 	return (ft_spliting(str, c, strs));
 }
 
-static size_t	count_words(char *str, char set)
+/*static size_t	count_words(char *str, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -104,11 +104,11 @@ static size_t	count_words(char *str, char set)
 	count = 0;
 	while (str[i])
 	{
-		while (str[i] && str[i] == set)
+		while (str[i] && str[i] == c)
 			i ++;
-		if (str[i] && str[i] != set)
+		if (str[i] && str[i] != c)
 			count ++;
-		while (str[i] && str[i] != set)
+		while (str[i] && str[i] != c)
 			i ++;
 	}
 	return (count);
@@ -125,4 +125,4 @@ static void	ft_free(char **array)
 		i ++;
 	}
 	free(array);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:30 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/28 16:02:46 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/06/04 18:57:04 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,15 @@
 
 int	ft_lstsize(t_list *lst)
 {
+	size_t	i;
+	t_list	*ptr;
+
+	i = 0;
+	ptr = lst;
+	while (ptr)
+	{
+		i ++;
+		ptr = ptr->next;
+	}
+	return (i);
 }
