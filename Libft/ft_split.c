@@ -6,96 +6,27 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:20 by gbazin            #+#    #+#             */
-/*   Updated: 2024/06/04 22:02:07 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/06/04 22:36:00 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**free_array(char **strs, int size)
+static char	**ft_free(char **array)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (i < size)
+	while (array[i])
 	{
-		free(strs[i]);
-		i++;
+		free(array[i]);
+		i ++;
 	}
-	free(strs);
+	free(array);
 	return (NULL);
 }
 
-static int	count_words(const char *str, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == c)
-			i++;
-		if (str[i] && str[i] != c)
-			count++;
-		while (str[i] && str[i] != c)
-			i++;
-	}
-	return (count);
-}
-
-static char	*ft_strndup(const char *src, int s, int e)
-{
-	char	*dest;
-
-	dest = malloc(sizeof(char) * (e - s + 1));
-	if (!dest)
-		return (NULL);
-	ft_memcpy(dest, &src[s], e - s + 1);
-	dest[e - s] = '\0';
-	return (dest);
-}
-
-static char	**ft_spliting(const char *str, char c, char **strs)
-{
-	int	i;
-	int	j;
-	int	word;
-
-	i = 0;
-	word = 0;
-	while (str[i])
-	{
-		while (str[i] && str[i] == c)
-			i++;
-		j = i;
-		while (str[j] && str[j] != c)
-			j++;
-		if (j != i)
-		{
-			strs[word] = ft_strndup(str, i, j);
-			if (!strs[word])
-				return (free_array(strs, word));
-			word++;
-		}
-		i = j;
-	}
-	strs[word] = NULL;
-	return (strs);
-}
-
-char	**ft_split(const char *str, char c)
-{
-	char	**strs;
-
-	strs = malloc(sizeof(char *) * (count_words(str, c) + 1));
-	if (!strs)
-		return (NULL);
-	return (ft_spliting(str, c, strs));
-}
-
-/*static size_t	count_words(char *str, char c)
+static size_t	ft_count_words(const char *str, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -114,15 +45,52 @@ char	**ft_split(const char *str, char c)
 	return (count);
 }
 
-static void	ft_free(char **array)
+static char	*ft_ncopy(const char *str, size_t i, size_t j)
+{
+	char	*dest;
+
+	dest = malloc((j - i + 1) * sizeof(char));
+	if (!dest)
+		return (NULL);
+	ft_memcpy(dest, &str[i], (j - i + 1));
+	dest[j - i] = '\0';
+	return (dest);
+}
+
+static char	**ft_splitter(char **array, const char *str, char c)
 {
 	size_t	i;
+	size_t	j;
+	size_t	n;
 
 	i = 0;
-	while (array[i])
+	n = 0;
+	while (str[i])
 	{
-		free(array[i]);
-		i ++;
+		while (str[i] && str[i] == c)
+			i ++;
+		j = i;
+		while (str[j] && str[j] != c)
+			j ++;
+		if (i != j)
+		{
+			array[n] = ft_ncopy(str, i, j);
+			if (!array[n])
+				return (ft_free(array));
+			n ++;
+		}
+		i = j;
 	}
-	free(array);
-}*/
+	array[n] = NULL;
+	return (array);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**array;
+
+	array = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	if (!array)
+		return (NULL);
+	return (ft_splitter(array, s, c));
+}
