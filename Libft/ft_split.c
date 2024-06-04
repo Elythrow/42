@@ -6,7 +6,7 @@
 /*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:20 by gbazin            #+#    #+#             */
-/*   Updated: 2024/06/02 23:07:46 by hello            ###   ########.fr       */
+/*   Updated: 2024/06/04 08:04:13 by hello            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,36 @@ char	**ft_split(const char *str, char c)
 	if (!strs)
 		return (NULL);
 	return (ft_spliting(str, c, strs));
+}
+
+static size_t	count_words(char *str, char set)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		while (str[i] && str[i] == set)
+			i ++;
+		if (str[i] && str[i] != set)
+			count ++;
+		while (str[i] && str[i] != set)
+			i ++;
+	}
+	return (count);
+}
+
+static void	ft_free(char **array)
+{
+	size_t	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i ++;
+	}
+	free(array);
 }
