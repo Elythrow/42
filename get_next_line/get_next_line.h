@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 18:02:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/06/06 18:07:46 by gbazin           ###   ########.fr       */
+/*   Created: 2024/06/06 18:05:47 by gbazin            #+#    #+#             */
+/*   Updated: 2024/06/06 18:07:21 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-char *get_next_line(int fd)
-{
-	
-}
+char	*get_next_line(int fd);
+
+#endif
