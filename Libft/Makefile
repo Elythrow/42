@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 16:35:40 by gbazin            #+#    #+#              #
-#    Updated: 2024/06/04 19:58:34 by gbazin           ###   ########.fr        #
+#    Updated: 2024/06/06 14:11:28 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ OBJSALL = ${SRCSALL:.c=.o}
 
 NAME = libft.a
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -I ./
 
