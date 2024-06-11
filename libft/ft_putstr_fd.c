@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:00:41 by gbazin            #+#    #+#             */
-/*   Updated: 2024/05/21 12:14:37 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/06/11 13:35:10 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 void	ft_putstr_fd(char *str, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_putchar_fd(str[i], fd);
-		i ++;
-	}
+	write(fd, str, ft_strlen(str));
 }
