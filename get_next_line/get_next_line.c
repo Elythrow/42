@@ -16,3 +16,9 @@ char *get_next_line(int fd)
 {
 	
 }
+
+int	main(void)
+{
+	printf("%d \n", BUFFER_SIZE);
+	return (0);
+}
