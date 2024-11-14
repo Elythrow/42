@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 13:44:14 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/14 13:44:18 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/14 15:58:03 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
 	while (str[i])
@@ -28,10 +28,10 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup(char *str)
 {
-	unsigned int	i;
-	char			*dup;
+	size_t	i;
+	char	*dup;
 
 	i = 0;
 	i = ft_strlen(str);
@@ -48,7 +48,7 @@ char	*ft_strdup(const char *str)
 	return (dup);
 }
 
-int	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	int	i;
 
@@ -58,10 +58,10 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_substr(char const *s, unsigned int start, int len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	if (start > ft_strlen(s))
@@ -87,23 +87,27 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 	return (sub);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*join;
-	int		i;
+	size_t			len_s1;
+	size_t			len_s2;
+	char			*join;
+	unsigned int	i;
 
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
 	i = 0;
-	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	join = malloc((len_s1 + len_s2 + 1) * sizeof(char));
 	if (join == NULL)
 		return (NULL);
-	while (i < ft_strlen(s1))
+	while (i < len_s1)
 	{
 		join[i] = s1[i];
 		i ++;
 	}
-	while (i < (ft_strlen(s1) + ft_strlen(s2)))
+	while (i < (len_s1 + len_s2))
 	{
-		join[i] = s2[i - ft_strlen(s1)];
+		join[i] = s2[i - len_s1];
 		i ++;
 	}
 	join[i] = '\0';
