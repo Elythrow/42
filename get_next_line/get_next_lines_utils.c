@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_lines_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hello <hello@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/06/06 18:07:48 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/07 13:50:18 by hello            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strdup(const char *str)
 	return (dup);
 }
 
-int		ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
