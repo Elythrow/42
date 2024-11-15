@@ -6,13 +6,13 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:09:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 12:19:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/15 13:59:33 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*fill_line_buffer(int fd, char *left_c, char *buffer)
+char	*fill_line_buffer(int fd, char *rest, char *buffer)
 {
 	ssize_t	b_read;
 	char	*tmp;
@@ -23,27 +23,27 @@ char	*fill_line_buffer(int fd, char *left_c, char *buffer)
 		b_read = read(fd, buffer, BUFFER_SIZE);
 		if (b_read == -1)
 		{
-			free(left_c);
+			free(rest);
 			return (0);
 		}
 		else if (b_read == 0)
 			break ;
 		buffer[b_read] = 0;
-		if (!left_c)
-			left_c = ft_strdup("");
-		tmp = left_c;
-		left_c = ft_strjoin(tmp, buffer);
+		if (!rest)
+			rest = ft_strdup("");
+		tmp = rest;
+		rest = ft_strjoin(tmp, buffer);
 		free(tmp);
 		tmp = NULL;
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
-	return (left_c);
+	return (rest);
 }
 
 char	*set_line(char *line_buffer)
 {
-	char	*left_c;
+	char	*lstring;
 	ssize_t	i;
 
 	i = 0;
@@ -51,38 +51,101 @@ char	*set_line(char *line_buffer)
 		i++;
 	if (line_buffer[i] == 0)
 		return (0);
-	left_c = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
-	if (*left_c == 0)
+	lstring = ft_substr(line_buffer, i + 1, ft_strlen(line_buffer) - i);
+	if (*lstring == 0)
 	{
-		free(left_c);
-		left_c = NULL;
+		free(lstring);
+		lstring = NULL;
 	}
 	line_buffer[i + 1] = 0;
-	return (left_c);
+	return (lstring);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*left_c[1024];
+	static char	*rest[1024] = {0};
 	char		*line;
 	char		*buffer;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
-		free(left_c[fd]);
+		free(rest[fd]);
 		buffer = NULL;
-		left_c[fd] = NULL;
-		return (0);
+		rest[fd] = NULL;
+		return (NULL);
 	}
 	if (buffer == NULL)
 		return (NULL);
-	line = fill_line_buffer(fd, left_c[fd], buffer);
+	line = fill_line_buffer(fd, rest[fd], buffer);
 	free(buffer);
 	buffer = NULL;
 	if (line == NULL)
 		return (NULL);
-	left_c[fd] = set_line(line);
+	rest[fd] = set_line(line);
 	return (line);
+}
+
+int main(void)
+{
+    int		fd1;
+	int		fd2;
+	int		fd3;
+    char 	*line1;
+	char	*line2;
+	char	*line3;
+    int 	tour;
+
+	tour = 1;
+    fd1 = open("test1.txt", O_RDONLY);
+    fd2 = open("test2.txt", O_RDONLY);
+    fd3 = open("test3.txt", O_RDONLY);
+    if (fd1 < 0 || fd2 < 0 || fd3 < 0)
+    {
+        printf("Erreur lors de l'ouverture des fichiers\n");
+        return 1;
+    }
+    line1 = get_next_line(fd1);
+    line2 = get_next_line(fd2);
+    line3 = get_next_line(fd3);
+
+    while (line1 || line2 || line3)
+    {
+        printf("--- Tour %d ---\n", tour);
+
+        if (line1)
+        {
+            printf("Fichier 1: %s", line1);
+            free(line1);
+            line1 = get_next_line(fd1);
+        }
+        else
+            printf("Fichier 1: fin de fichier\n");
+
+        if (line2)
+        {
+            printf("Fichier 2: %s", line2);
+            free(line2);
+            line2 = get_next_line(fd2);
+        }
+        else
+            printf("Fichier 2: fin de fichier\n");
+
+        if (line3)
+        {
+            printf("Fichier 3: %s", line3);
+            free(line3);
+            line3 = get_next_line(fd3);
+        }
+        else
+            printf("Fichier 3: fin de fichier\n");
+
+        printf("\n");
+        tour++;
+    }
+    close(fd1);
+    close(fd2);
+    close(fd3);
+    return 0;
 }

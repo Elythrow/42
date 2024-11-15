@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:13:07 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 12:24:28 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/15 13:56:57 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # elif BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 0
+# elif BUFFER_SIZE > 999999
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 999999
 # endif
 
 char	*get_next_line(int fd);
