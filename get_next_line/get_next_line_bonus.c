@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 18:02:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 12:01:50 by gbazin           ###   ########.fr       */
+/*   Created: 2024/11/15 12:09:43 by gbazin            #+#    #+#             */
+/*   Updated: 2024/11/15 12:19:19 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*set_line(char *line_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*left_c;
+	static char	*left_c[1024];
 	char		*line;
 	char		*buffer;
 
@@ -71,18 +71,18 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
-		free(left_c);
+		free(left_c[fd]);
 		buffer = NULL;
-		left_c = NULL;
+		left_c[fd] = NULL;
 		return (0);
 	}
 	if (buffer == NULL)
 		return (NULL);
-	line = fill_line_buffer(fd, left_c, buffer);
+	line = fill_line_buffer(fd, left_c[fd], buffer);
 	free(buffer);
 	buffer = NULL;
 	if (line == NULL)
 		return (NULL);
-	left_c = set_line(line);
+	left_c[fd] = set_line(line);
 	return (line);
 }
