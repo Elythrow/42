@@ -6,16 +6,16 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/19 17:14:03 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 10:45:14 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_put_ptr(uintptr_t nbr)
+size_t	ft_put_ptr(uintptr_t nbr)
 {
 	char	*chars;
-	int		count;
+	size_t	count;
 
 	chars = "0123456789abcdef";
 	count = 0;

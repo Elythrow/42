@@ -6,15 +6,15 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:53:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/19 17:14:11 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 11:15:16 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	_check_format(const char *str, va_list par, int i)
+int	check_format(const char *str, va_list par, int i)
 {
-	int	count;
+	size_t	count;
 
 	count = 0;
 	if (str[i] == 'c')
@@ -34,29 +34,27 @@ int	_check_format(const char *str, va_list par, int i)
 	return (count);
 }
 
-int	ft_printf(const char *input_str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	params;
 	int		i;
 	int		count;
 
-	va_start(params, input_str);
+	va_start(params, str);
 	i = 0;
 	count = 0;
-	while (input_str[i])
+	if (str == NULL)
+		return (-1);
+	while (str[i])
 	{
-		if (input_str[i] == '%')
+		if (str[i] == '%')
 		{
-			count += _check_format(input_str, params, ++i);
+			count += check_format(str, params, ++i);
 			if (count < 0)
 				return (-1);
 		}
 		else
-		{
-			count += ft_print_c(input_str[i]);
-			if (count < 0)
-				return (-1);
-		}
+			count += ft_print_c(str[i]);
 		i++;
 	}
 	va_end(params);

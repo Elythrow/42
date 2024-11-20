@@ -6,19 +6,19 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:58:00 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/19 17:07:04 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 11:08:11 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_s(char *s)
+int	ft_print_s(char *str)
 {
-	int		i;
+	size_t	i;
 	char	*tmp;
 
 	i = 0;
-	if (!s)
+	if (!str)
 	{
 		tmp = "(null)";
 		while (tmp[i])
@@ -30,9 +30,9 @@ int	ft_print_s(char *s)
 	}
 	else
 	{
-		while (s[i])
+		while (str[i])
 		{
-			if (ft_print_c(s[i]) == -1)
+			if (ft_print_c(str[i]) == -1)
 				return (-1);
 			i++;
 		}

@@ -6,12 +6,12 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 17:09:51 by gbazin            #+#    #+#              #
-#    Updated: 2024/11/19 17:11:34 by gbazin           ###   ########.fr        #
+#    Updated: 2024/11/20 11:16:47 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = ft_printf.c
-SRC_UTILS = $(addprefix utils/, ft_putchar.c ft_putnbr.c ft_putunbr.c ft_put_ptr.c ft_put_hex.c)
+SRC_UTILS = $(addprefix utils/, ft_putnbr.c ft_putunbr.c ft_put_ptr.c ft_put_hex.c)
 SRC_PRINTERS = $(addprefix printers/, ft_print_c.c ft_print_s.c ft_print_d.c ft_print_u.c ft_print_p.c ft_print_x.c)
 
 OBJS := $(SRC:%.c=%.o)

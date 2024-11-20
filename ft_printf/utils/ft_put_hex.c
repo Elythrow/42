@@ -6,15 +6,15 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:05:42 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/19 17:06:46 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 10:45:39 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_put_hex(unsigned int nbr, char *chars)
+size_t	ft_put_hex(unsigned int nbr, char *chars)
 {
-	int		count;
+	size_t	count;
 
 	count = 0;
 	if (nbr >= 16)

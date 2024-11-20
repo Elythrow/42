@@ -6,15 +6,15 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:57:47 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/19 17:03:52 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 10:45:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr(int nb)
+size_t	ft_putnbr(int nb)
 {
-	int	count;
+	size_t	count;
 
 	count = 0;
 	if (nb == -2147483648)
