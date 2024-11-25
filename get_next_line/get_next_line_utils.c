@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 13:44:14 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/14 15:58:03 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/25 19:50:12 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(char *str)
+char	*ft_strdup(const char *str)
 {
 	size_t	i;
 	char	*dup;
@@ -48,7 +48,7 @@ char	*ft_strdup(char *str)
 	return (dup);
 }
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -58,22 +58,20 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, size_t start, size_t len)
 {
 	char	*sub;
 	size_t	i;
+	size_t	len_s;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
-	if (start > ft_strlen(s))
-	{
-		sub = malloc(sizeof(char));
-		if (sub == NULL)
-			return (NULL);
-		*sub = '\0';
-		return (sub);
-	}
-	if (ft_strlen(s + start) < len)
-		len = ft_strlen(s + start);
+	len_s = ft_strlen(s);
+	if (start >= len_s)
+		return (ft_calloc(1, 1));
+	if (len_s - start < len)
+		len = len_s - start;
 	sub = malloc((len + 1) * sizeof(char));
 	if (sub == NULL)
 		return (NULL);
@@ -87,7 +85,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t			len_s1;
 	size_t			len_s2;

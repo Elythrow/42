@@ -6,13 +6,46 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:09:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 13:59:33 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/25 19:54:04 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*fill_line_buffer(int fd, char *rest, char *buffer)
+void	ft_bzero(void *ptr, size_t n)
+{
+	unsigned char	*str;
+
+	str = ptr;
+	while (n)
+	{
+		*str = '\0';
+		str ++;
+		n --;
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+
+	if (nmemb == 0 || size == 0)
+	{
+		ptr = malloc(0);
+		if (!ptr)
+			return (NULL);
+		return (ptr);
+	}
+	else if (size != 0 && SIZE_MAX / size <= nmemb)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
+}
+
+static char	*fill_buffer(int fd, char *rest, char *buffer)
 {
 	ssize_t	b_read;
 	char	*tmp;
@@ -41,7 +74,7 @@ char	*fill_line_buffer(int fd, char *rest, char *buffer)
 	return (rest);
 }
 
-char	*set_line(char *line_buffer)
+static char	*store_rest(char *line_buffer)
 {
 	char	*lstring;
 	ssize_t	i;
@@ -67,26 +100,26 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (fd < 0 || read(fd, 0, 0) < 0)
 	{
-		free(buffer);
 		free(rest[fd]);
 		buffer = NULL;
 		rest[fd] = NULL;
+		line = NULL;
 		return (NULL);
 	}
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buffer == NULL)
 		return (NULL);
-	line = fill_line_buffer(fd, rest[fd], buffer);
+	line = fill_buffer(fd, rest[fd], buffer);
 	free(buffer);
 	buffer = NULL;
 	if (line == NULL)
 		return (NULL);
-	rest[fd] = set_line(line);
+	rest[fd] = store_rest(line);
 	return (line);
 }
-
+/*
 int main(void)
 {
     int		fd1;
@@ -149,3 +182,4 @@ int main(void)
     close(fd3);
     return 0;
 }
+*/

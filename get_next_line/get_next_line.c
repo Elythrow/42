@@ -5,14 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 18:02:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 13:57:24 by gbazin           ###   ########.fr       */
+/*   Created: 2024/11/25 18:31:59 by gbazin            #+#    #+#             */
+/*   Updated: 2024/11/25 19:54:09 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*fill_line_buffer(int fd, char *rest, char *buffer)
+void	ft_bzero(void *ptr, size_t n)
+{
+	unsigned char	*str;
+
+	str = ptr;
+	while (n)
+	{
+		*str = '\0';
+		str ++;
+		n --;
+	}
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+
+	if (nmemb == 0 || size == 0)
+	{
+		ptr = malloc(0);
+		if (!ptr)
+			return (NULL);
+		return (ptr);
+	}
+	else if (size != 0 && SIZE_MAX / size <= nmemb)
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
+}
+
+static char	*fill_line_buffer(int fd, char *rest, char *buffer)
 {
 	ssize_t	b_read;
 	char	*tmp;
@@ -41,7 +74,7 @@ char	*fill_line_buffer(int fd, char *rest, char *buffer)
 	return (rest);
 }
 
-char	*set_line(char *line_buffer)
+static char	*set_line(char *line_buffer)
 {
 	char	*lstring;
 	ssize_t	i;
@@ -67,15 +100,15 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (fd < 0 || read(fd, 0, 0) < 0)
 	{
-		free(buffer);
 		free(rest);
 		buffer = NULL;
 		rest = NULL;
+		line = NULL;
 		return (NULL);
 	}
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buffer == NULL)
 		return (NULL);
 	line = fill_line_buffer(fd, rest, buffer);
@@ -86,20 +119,3 @@ char	*get_next_line(int fd)
 	rest = set_line(line);
 	return (line);
 }
-/*
-int	main(int a, char **b)
-{
-	int		fd;
-	char	*line;
-
-	(void)a;
-	fd = open(b[1], O_RDONLY);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	return (0);
-}
-*/
