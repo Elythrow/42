@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:17:05 by gbazin            #+#    #+#             */
+/*   Updated: 2024/11/25 18:06:06 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	char	*chars;
-	size_t	count;
+	char	*join;
+	size_t	i;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	i = 0;
+	join = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (join == NULL)
+		return (NULL);
+	while (i < ft_strlen(s1))
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		join[i] = s1[i];
+		i ++;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	while (i < (ft_strlen(s1) + ft_strlen(s2)))
+	{
+		join[i] = s2[i - ft_strlen(s1)];
+		i ++;
+	}
+	join[i] = '\0';
+	return (join);
 }

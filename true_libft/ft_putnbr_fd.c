@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/21 11:23:40 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/21 17:33:29 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+void	ft_putnbr_fd(int nb, int fd)
 {
-	char	*chars;
-	size_t	count;
+	long	n;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	n = nb;
+	if (n < 0)
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		ft_putchar_fd('-', fd);
+		n = n * -1;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
 }

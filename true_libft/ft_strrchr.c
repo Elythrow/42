@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:16:44 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/28 19:57:08 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+char	*ft_strrchr(const char *str, int c)
 {
-	char	*chars;
-	size_t	count;
+	int		size;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	size = ft_strlen(str) - 1;
+	while (size >= 0)
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		if (str[size] == (char)c)
+			return ((char *)&str[size]);
+		size --;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	if (str[ft_strlen(str)] == (char)c)
+		return ((char *)&str[ft_strlen(str)]);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:17:18 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 10:53:58 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 14:31:51 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,17 @@ int	main(void)
 	if (i[22] == i[23])
 		printf(Green "Ok ✓");
 	else
-		printf(Red "KO ✗ OG=%d, FT:%d", i[22], i[23]), good_token = 1;
+		printf(Red "KO ✗ OG=%d, FT:%d", i[23], i[23]), good_token = 1;
+	printf(White "\n");
+	// test 14
+	printf(Purple "printf(printf((NULL))\n");
+	printf(White);
+	i[24] = printf(printf(NULL));
+	i[25] = ft_printf(ft_printf(NULL));
+	if (i[24] == i[25])
+		printf(Green "Ok ✓");
+	else
+		printf(Red "KO ✗ OG=%d, FT:%d", i[24], i[25]), good_token = 1;
 	printf(White "\n");
 	if (good_token == 1)
 	{

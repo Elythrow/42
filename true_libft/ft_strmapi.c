@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:16:53 by gbazin            #+#    #+#             */
+/*   Updated: 2024/11/25 18:07:18 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+char	*ft_strmapi(const char *str, char (*f)(size_t, char))
 {
-	char	*chars;
-	size_t	count;
+	char	*mapi;
+	size_t	i;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	i = 0;
+	mapi = malloc(ft_strlen(str) + 1);
+	if (mapi == NULL)
+		return (NULL);
+	while (i < ft_strlen(str))
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		mapi[i] = f(i, str[i]);
+		i ++;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	mapi[i] = '\0';
+	return (mapi);
 }

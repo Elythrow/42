@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:17:51 by gbazin            #+#    #+#             */
+/*   Updated: 2024/06/04 19:16:53 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	char	*chars;
-	size_t	count;
-
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
-	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
-	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

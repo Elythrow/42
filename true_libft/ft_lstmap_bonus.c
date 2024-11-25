@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 15:18:41 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/25 17:44:36 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:17:37 by gbazin            #+#    #+#             */
+/*   Updated: 2024/06/06 14:24:09 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int				sign;
-	unsigned long	str_int;
+	t_list	*new_lst;
+	t_list	*new_node;
+	void	*content;
 
-	sign = 1;
-	str_int = 0;
-	while (*str == ' ' || (*str > 8 && *str < 14))
+	if (!lst || !f || !del)
+		return (NULL);
+	new_lst = NULL;
+	while (lst)
 	{
-		str ++;
+		content = f(lst->content);
+		new_node = ft_lstnew(content);
+		if (!new_node)
+		{
+			del(content);
+			ft_lstclear(&new_lst, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_lst, new_node);
+		lst = lst->next;
 	}
-	if (*str == '-')
-		sign *= (-1);
-	if (*str == '+' || *str == '-')
-		str ++;
-	while (ft_isdigit(*str) != 0)
-	{
-		str_int = str_int * 10 + *str - '0';
-		str ++;
-	}
-	return (str_int * sign);
+	return (new_lst);
 }

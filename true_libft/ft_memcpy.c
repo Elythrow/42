@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/21 14:44:17 by gbazin            #+#    #+#             */
+/*   Updated: 2024/05/28 16:52:55 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*chars;
-	size_t	count;
+	unsigned char	*str_dest;
+	unsigned char	*str_src;
+	size_t			i;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	i = 0;
+	str_src = (unsigned char *)src;
+	str_dest = (unsigned char *)dest;
+	while (i < n)
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		str_dest[i] = str_src[i];
+		i ++;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	return (dest);
 }

@@ -1,8 +1,0 @@
-GNL
-
--> lire depuis un .txt
--> copier le buffer dans une stash
--> verifier presence saut de ligne dans la stash
-
-
--> read = nbites lus, 0 si fin et -1 si erreur

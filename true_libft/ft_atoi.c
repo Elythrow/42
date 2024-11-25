@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Created: 2024/05/28 15:18:41 by gbazin            #+#    #+#             */
+/*   Updated: 2024/11/25 17:56:21 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_put_ptr(unsigned long nbr)
+int	ft_atoi(char const *str)
 {
-	char	*chars;
-	size_t	count;
+	int				sign;
+	unsigned long	str_int;
 
-	chars = "0123456789abcdef";
-	count = 0;
-	if (nbr >= 16)
+	sign = 1;
+	str_int = 0;
+	while (*str == ' ' || (*str > 8 && *str < 14))
 	{
-		count += ft_put_ptr(nbr / 16);
-		count += ft_put_ptr(nbr % 16);
+		str ++;
 	}
-	else
-		count += ft_print_c(chars[nbr]);
-	if (count < 0)
-		return (-1);
-	return (count);
+	if (*str == '-')
+		sign *= (-1);
+	if (*str == '+' || *str == '-')
+		str ++;
+	while (ft_isdigit(*str) != 0)
+	{
+		str_int = str_int * 10 + *str - '0';
+		str ++;
+	}
+	return (str_int * sign);
 }

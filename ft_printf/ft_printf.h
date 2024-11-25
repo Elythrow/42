@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:54:42 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 11:16:18 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/11/20 14:20:54 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 
 int		ft_printf(const char *input_str, ...);
 int		check_format(const char *str, va_list par, int i);
-size_t	ft_putnbr(int nbr);
+int		ft_putnbr(int nbr);
 size_t	ft_putunbr(unsigned int nb);
-size_t	ft_put_ptr(uintptr_t nbr);
+int		ft_put_ptr(unsigned long nbr);
 size_t	ft_put_hex(unsigned int nbr, char *chars);
 int		ft_print_c(char c);
 int		ft_print_s(char *str);
 int		ft_print_d(int nbr);
 int		ft_print_u(unsigned int nbr);
-int		ft_print_p(uintptr_t ptr);
+int		ft_print_p(unsigned long ptr);
 int		ft_print_x(unsigned int nbr, int format);
 
 #endif
