@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:53:43 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 11:15:16 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/12/04 17:12:16 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_format(const char *str, va_list par, int i)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
 	if (str[i] == 'c')
@@ -28,7 +28,7 @@ int	check_format(const char *str, va_list par, int i)
 	else if (str[i] == 'x' || str[i] == 'X')
 		count += ft_print_x((unsigned int) va_arg(par, unsigned int), str[i]);
 	else if (str[i] == 'p')
-		count += ft_print_p((uintptr_t) va_arg(par, uintptr_t));
+		count += ft_print_p((unsigned long) va_arg(par, unsigned long));
 	else if (str[i] == '%')
 		count += ft_print_c('%');
 	return (count);

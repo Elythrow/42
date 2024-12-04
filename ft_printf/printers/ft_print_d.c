@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:58:06 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 11:08:37 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/12/04 17:12:11 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_print_d(int nbr)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
 	count += ft_putnbr(nbr);

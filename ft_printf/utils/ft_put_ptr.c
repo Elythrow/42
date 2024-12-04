@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:05:19 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/20 14:19:22 by gbazin           ###   ########.fr       */
+/*   Updated: 2024/12/04 17:12:02 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_put_ptr(unsigned long nbr)
 {
 	char	*chars;
-	size_t	count;
+	int		count;
 
 	chars = "0123456789abcdef";
 	count = 0;

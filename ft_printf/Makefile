@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 17:09:51 by gbazin            #+#    #+#              #
-#    Updated: 2024/11/20 11:16:47 by gbazin           ###   ########.fr        #
+#    Updated: 2024/12/04 17:11:57 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,4 +43,4 @@ clear: fclean
 	clear
 
 test: all
-	gcc $(CCFLAGS) -I. -L. -lftprintf test.c
+	cc $(CCFLAGS) -I. -L. -lftprintf test.c
