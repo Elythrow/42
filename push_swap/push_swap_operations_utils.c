@@ -1,84 +1,70 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   push_swap_operations_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 16:25:01 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 19:51:54 by gbazin           ###   ########.fr       */
+/*   Created: 2025/01/19 18:02:17 by gbazin            #+#    #+#             */
+/*   Updated: 2025/01/19 20:12:23 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*create_stack(void)
+void	swap(t_stack *stack)
 {
-	t_stack	*stack;
+	int	temp;
 
-	stack = (t_stack *)malloc(sizeof(t_stack));
-	if (!stack)
-		return (NULL);
-	stack->top = NULL;
-	stack->size = 0;
-	return (stack);
-}
-
-t_node	*create_node(int value)
-{
-	t_node	*new_node;
-
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
-		return (NULL);
-	new_node->value = value;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	free_stack(t_stack *stack)
-{
-	t_node	*current;
-	t_node	*next;
-
-	if (!stack)
+	if (!stack || !stack->top || !stack->top->next)
 		return ;
-	current = stack->top;
-	while (current)
+	temp = stack->top->value;
+	stack->top->value = stack->top->next->value;
+	stack->top->next->value = temp;
+}
+
+void	push_to_stack(t_stack *src, t_stack *dst)
+{
+	int	value;
+
+	if (!src || !src->top)
+		return ;
+	value = src->top->value;
+	pop(src);
+	push(dst, value);
+}
+
+void	rotate(t_stack *stack)
+{
+	t_node	*last;
+	t_node	*first;
+
+	if (!stack || !stack->top || !stack->top->next)
+		return ;
+	last = stack->top;
+	while (last->next)
+		last = last->next;
+	first = stack->top;
+	stack->top = first->next;
+	first->next = NULL;
+	last->next = first;
+}
+
+void	reverse_rotate(t_stack *stack)
+{
+	t_node	*last;
+	t_node	*second_last;
+
+	if (!stack || !stack->top || !stack->top->next)
+		return ;
+	last = stack->top;
+	second_last = NULL;
+	while (last->next)
 	{
-		next = current->next;
-		free(current);
-		current = next;
+		second_last = last;
+		last = last->next;
 	}
-	free(stack);
-}
-
-int	push(t_stack *stack, int value)
-{
-	t_node	*new_node;
-
-	if (!stack)
-		return (0);
-	new_node = create_node(value);
-	if (!new_node)
-		return (0);
-	new_node->next = stack->top;
-	stack->top = new_node;
-	stack->size++;
-	return (1);
-}
-
-int	pop(t_stack *stack)
-{
-	t_node	*temp;
-	int		value;
-
-	if (!stack || !stack->top)
-		return (0);
-	temp = stack->top;
-	value = temp->value;
-	stack->top = stack->top->next;
-	free(temp);
-	stack->size--;
-	return (value);
+	second_last->next = NULL;
+	last->next = stack->top;
+	stack->top = last;
 }
