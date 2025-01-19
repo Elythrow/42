@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:10:17 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/19 20:57:49 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ int		find_max(t_stack *stack);
 int		find_position(t_stack *stack, int value);
 void	sort_three(t_stack *stack_a);
 void	sort_small(t_stack *stack_a, t_stack *stack_b);
+void	sort_big(t_stack *a, t_stack *b);
+void	push_back_sorted(t_stack *a, t_stack *b);
+void	push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end);
+
 
 #endif

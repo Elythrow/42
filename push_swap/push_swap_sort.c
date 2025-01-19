@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_sort_1.c                                 :+:      :+:    :+:   */
+/*   push_swap_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:09:03 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/19 20:57:47 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,27 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 	sort_three(stack_a);
 	while (stack_b->size > 0)
 		pa(stack_a, stack_b);
+}
+
+void	sort_big(t_stack *a, t_stack *b)
+{
+	int	c_s;
+	int	min;
+	int	max;
+	int	i;
+	int	dif;
+
+	c_s = a->size / 4;
+	min = find_min(a);
+	max = find_max(a);
+	dif = max - min;
+	i = 0;
+	while (i < c_s)
+	{
+		push_chunks(a, b, min + (dif * i / c_s), min + (dif * (i + 1) / c_s));
+		i++;
+	}
+	while (a->size > 0)
+		pb(a, b);
+	push_back_sorted(a, b);
 }
