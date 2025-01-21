@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:49 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/21 08:48:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 
 typedef struct s_node
 {
@@ -26,6 +27,8 @@ typedef struct s_stack
 	t_node	*top;
 	int		size;
 }	t_stack;
+
+
 
 void	sort_stack(t_stack *stack_a, t_stack *stack_b);
 t_stack	*create_stack(void);

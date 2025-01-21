@@ -6,107 +6,105 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:50:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:41 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/21 12:20:07 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_valid_number(char *str)
-{
-	int	i;
+#include "push_swap.h"
 
-	i = 0;
-	// Handle negative numbers
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	// String must contain at least one digit
-	if (!str[i])
-	return (0);
-	// Check all characters are digits
-	while (str[i])
+int	has_duplicates(t_stack *stack, int num)
+{
+	t_node	*current;
+
+	current = stack->top;
+	while (current)
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		i++;
+		if (current->value == num)
+			return (1);
+		current = current->next;
 	}
+	return (0);
+}
+
+int	parse_and_add(t_stack *stack, char *str)
+{
+	long	num;
+	t_node	*new_node;
+
+	if (!is_number(str))
+		return (0);
+	num = ft_atol(str);
+	if (num > INT_MAX || num < INT_MIN)
+		return (0);
+	if (has_duplicates(stack, (int)num))
+		return (0);
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		return (0);
+	new_node->value = (int)num;
+	new_node->next = stack->top;
+	stack->top = new_node;
+	stack->size++;
 	return (1);
 }
 
-int	str_to_num(char *str, long *num)
+int	parse_string_input(t_stack *stack, char *str)
 {
-	long	result;
-	int		sign;
-	int		i;
-
-	result = 0;
-	sign = 1;
-	i = 0;
-
-	if (str[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		result = result * 10 + (str[i] - '0');
-		if ((sign == 1 && result > INT_MAX) || 
-            (sign == -1 && result * sign < INT_MIN))
-			return (0);
-		i++;
-	}
-	*num = result * sign;
-	return (1);
-}  //ATOL
-
-int	parse_args(t_stack *stack_a, int argc, char **argv)
-{
-	int		i;
-	long	num;
 	char	**split;
-	int		j;
+	int		i;
+	int		success;
+
+	split = ft_split(str, ' ');
+	if (!split)
+		return (0);
+	i = 0;
+	success = 1;
+	while (split[i] && success)
+	{
+		success = parse_and_add(stack, split[i]);
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	return (success);
+}
+
+void	reverse_stack(t_stack *stack)
+{
+	t_node	*prev;
+	t_node	*current;
+	t_node	*next;
+
+	prev = NULL;
+	current = stack->top;
+	while (current)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	stack->top = prev;
+}
+
+int	parse_args(t_stack *stack, int ac, char **av)
+{
+	int	i;
+	int	success;
 
 	i = 1;
-	while (i < argc)
+	success = 1;
+	if (ac == 2)
+		success = parse_string_input(stack, av[1]);
+	else
 	{
-		if (strchr(argv[i], ' '))
+		while (i < ac && success)
 		{
-			split = ft_split(argv[i], ' ');
-			if (!split)
-				return (0);
-            j = 0;
-            while (split[j])
-            {
-                if (!is_valid_number(split[j]) || !str_to_num(split[j], &num))
-                {
-                    free_split(split);
-                    return (0);
-                }
-                if (has_duplicate(stack_a, (int)num))
-                {
-                    free_split(split);
-                    return (0);
-                }
-                if (!push(stack_a, (int)num))
-                {
-                    free_split(split);
-                    return (0);
-                }
-                j++;
-            }
-            free_split(split);
-        }
-        else
-        {
-            if (!is_valid_number(argv[i]) || !str_to_num(argv[i], &num))
-                return (0);
-            if (has_duplicate(stack_a, (int)num))
-                return (0);
-            if (!push(stack_a, (int)num))
-                return (0);
-        }
-        i++;
-    }
-    return (1);
+			success = parse_and_add(stack, av[i]);
+			i++;
+		}
+	}
+	if (success)
+		reverse_stack(stack);
+	return (success);
 }
