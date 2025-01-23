@@ -115,7 +115,7 @@ $(OBJS): %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADERS_DIR)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_BONUS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
