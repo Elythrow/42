@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:50:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/21 12:20:07 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:04:38 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	parse_and_add(t_stack *stack, char *str)
 	long	num;
 	t_node	*new_node;
 
-	if (!is_number(str))
+	if (!ft_is_number(str))
 		return (0);
 	num = ft_atol(str);
 	if (num > INT_MAX || num < INT_MIN)
@@ -62,14 +62,14 @@ int	parse_string_input(t_stack *stack, char *str)
 	while (split[i] && success)
 	{
 		success = parse_and_add(stack, split[i]);
-		free(split[i]);
+		ft_free(split[i]);
 		i++;
 	}
-	free(split);
+	ft_free_tab(split);
 	return (success);
 }
 
-void	reverse_stack(t_stack *stack)
+void	reverse_stargck(t_stack *stack)
 {
 	t_node	*prev;
 	t_node	*current;
@@ -87,24 +87,24 @@ void	reverse_stack(t_stack *stack)
 	stack->top = prev;
 }
 
-int	parse_args(t_stack *stack, int ac, char **av)
+int	parse_args(t_stack *stack, int argc, char **argv)
 {
 	int	i;
 	int	success;
 
 	i = 1;
 	success = 1;
-	if (ac == 2)
-		success = parse_string_input(stack, av[1]);
+	if (argc == 2)
+		success = parse_string_input(stack, argv[1]);
 	else
 	{
-		while (i < ac && success)
+		while (i < argc && success)
 		{
-			success = parse_and_add(stack, av[i]);
+			success = parse_and_add(stack, argv[i]);
 			i++;
 		}
 	}
 	if (success)
-		reverse_stack(stack);
+		reverse_stargck(stack);
 	return (success);
 }

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:32:08 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:49 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 17:58:48 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	stack_a = init_stack();
-	stack_b = init_stack();
-	if (!stack_a || !stack_b)
+	if (argc < 2)
 		return (1);
-
+	stack_a = create_stack();
+	stack_b = create_stack();
+	if (!parse_args(stack_a, argc, argv))
+	{
+		write(2, "Error\n", 6);
+		free_stack(stack_a);
+		return (1);
+	}
 	sort_stack(stack_a, stack_b);
 	free_stack(stack_a);
 	free_stack(stack_b);

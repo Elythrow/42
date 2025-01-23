@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:47 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:00:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 		pa(stack_a, stack_b);
 }
 
-void	sort_big(t_stack *a, t_stack *b)
+void	sort_large(t_stack *a, t_stack *b)
 {
 	int	c_s;
 	int	min;
