@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/21 08:48:46 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/22 13:46:59 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct s_stack
 	t_node	*top;
 	int		size;
 }	t_stack;
-
-
 
 void	sort_stack(t_stack *stack_a, t_stack *stack_b);
 t_stack	*create_stack(void);
@@ -59,6 +57,10 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b);
 void	sort_big(t_stack *a, t_stack *b);
 void	push_back_sorted(t_stack *a, t_stack *b);
 void	push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end);
-
+int		has_duplicates(t_stack *stack, int num);
+int		parse_and_add(t_stack *stack, char *str);
+int		parse_string_input(t_stack *stack, char *str);
+void	reverse_stack(t_stack *stack);
+int		parse_args(t_stack *stack, int ac, char **av);
 
 #endif
