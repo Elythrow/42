@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 18:04:25 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 19:32:48 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,5 @@ int		parse_string_input(t_stack *stack, char *str);
 void	reverse_stack(t_stack *stack);
 int		parse_args(t_stack *stack, int ac, char **av);
 int		ft_is_number(char *str);
-void	ft_free(char *str);
 
 #endif

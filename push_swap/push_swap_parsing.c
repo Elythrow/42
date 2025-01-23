@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:50:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 18:04:38 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 19:32:58 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	parse_string_input(t_stack *stack, char *str)
 	while (split[i] && success)
 	{
 		success = parse_and_add(stack, split[i]);
-		ft_free(split[i]);
 		i++;
 	}
 	ft_free_tab(split);

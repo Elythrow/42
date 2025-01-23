@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/23 15:44:23 by gbazin            #+#    #+#              #
-#    Updated: 2025/01/23 17:49:28 by gbazin           ###   ########.fr        #
+#    Created: 2025/01/22 13:47:27 by gbazin            #+#    #+#              #
+#    Updated: 2025/01/23 19:18:39 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ HEADERS += push_swap.h
 # LIBFT #
 
 LIBFT_PATH = ./libft
+LIBFT = $(LIBFT_PATH)/libft.a
 
 # OBJECTS #
 
@@ -55,13 +56,13 @@ OBJS := $(patsubst %.c, %.o, $(SRCS))
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBFT_PATH) -lft
 
 $(LIBFT):
 	make -C $(LIBFT_PATH)
 
 $(OBJS): %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(LIBFT_PATH)/includes
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(LIBFT_PATH)/includes -I.
 
 clean:
 	$(RM) $(OBJS)

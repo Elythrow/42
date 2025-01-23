@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:39:30 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 18:04:14 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 19:32:35 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,4 @@ int	ft_is_number(char *str)
 		i ++;
 	}
 	return (1);
-}
-
-void	ft_free(char *str)
-{
-	free(str);
 }

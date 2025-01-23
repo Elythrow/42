@@ -6,13 +6,13 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:13:03 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 15:51:55 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 19:23:49 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free(char **array)
+void	ft_free_tab(char **array)
 {
 	size_t	i;
 
