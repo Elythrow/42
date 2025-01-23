@@ -6,79 +6,120 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 16:35:40 by gbazin            #+#    #+#              #
-#    Updated: 2024/11/25 17:54:08 by gbazin           ###   ########.fr        #
+#    Updated: 2025/01/23 16:30:38 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBC = 	ft_atoi.c
-LIBC +=	ft_atol.c
-LIBC +=	ft_bzero.c
-LIBC +=	ft_calloc.c
-LIBC +=	ft_isalnum.c
-LIBC +=	ft_isalpha.c
-LIBC +=	ft_isascii.c
-LIBC +=	ft_isdigit.c
-LIBC +=	ft_isprint.c
-LIBC +=	ft_memchr.c
-LIBC +=	ft_memcmp.c
-LIBC +=	ft_memcpy.c
-LIBC +=	ft_memmove.c
-LIBC +=	ft_memset.c
-LIBC +=	ft_strchr.c
-LIBC +=	ft_strdup.c
-LIBC +=	ft_strlcat.c
-LIBC +=	ft_strlcpy.c
-LIBC +=	ft_strlen.c
-LIBC +=	ft_strncmp.c
-LIBC +=	ft_strnstr.c
-LIBC +=	ft_strrchr.c
-LIBC +=	ft_tolower.c
-LIBC +=	ft_toupper.c
-LIBC += ft_itoa.c 
-LIBC +=	ft_putchar_fd.c 
-LIBC +=	ft_putendl_fd.c
-LIBC +=	ft_putnbr_fd.c
-LIBC +=	ft_putstr_fd.c
-LIBC +=	ft_split.c
-LIBC +=	ft_strjoin.c
-LIBC +=	ft_strmapi.c
-LIBC +=	ft_strtrim.c
-LIBC +=	ft_substr.c
-LIBC +=	ft_striteri.c
-LIBC +=	ft_lstnew_bonus.c
-LIBC +=	ft_lstadd_front_bonus.c
-LIBC +=	ft_lstsize_bonus.c
-LIBC +=	ft_lstlast_bonus.c
-LIBC +=	ft_lstadd_back_bonus.c
-LIBC +=	ft_lstdelone_bonus.c
-LIBC +=	ft_lstclear_bonus.c
-LIBC +=	ft_lstiter_bonus.c
-LIBC +=	ft_lstmap_bonus.c
+## VARIABLES ##
 
-SRCS = ${LIBC}
+# TARGET #
 
-OBJS = ${SRCS:.c=.o}
+NAME := libft.a
 
-NAME = libft.a
+# COMPILATION #
 
-CC = cc
+CC := cc
 
-CFLAGS = -Wall -Werror -Wextra -I ./
+CFLAGS += -Wall 
+CFLAGS += -Werror 
+CFLAGS += -Wextra
 
-.c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+AR := ar
 
-${NAME}:    ${OBJS}
-		ar -rsc ${NAME} ${OBJS}
+ARFLAGS := rsc
 
-all:     ${NAME}
+# SOURCES #
+
+SRCS_DIR := sources
+PRINTF_DIR := ft_printf
+
+SRCS += ${SRCS_DIR}/ft_atoi.c
+SRCS +=	${SRCS_DIR}/ft_atol.c
+SRCS +=	${SRCS_DIR}/ft_atoll.c
+SRCS +=	${SRCS_DIR}/ft_free_tab.c
+SRCS += ${SRCS_DIR}/ft_get_next_line.c
+SRCS +=	${SRCS_DIR}/ft_bzero.c
+SRCS +=	${SRCS_DIR}/ft_calloc.c
+SRCS +=	${SRCS_DIR}/ft_isalnum.c
+SRCS +=	${SRCS_DIR}/ft_isalpha.c
+SRCS +=	${SRCS_DIR}/ft_isascii.c
+SRCS +=	${SRCS_DIR}/ft_isdigit.c
+SRCS +=	${SRCS_DIR}/ft_isprint.c
+SRCS +=	${SRCS_DIR}/ft_memchr.c
+SRCS +=	${SRCS_DIR}/ft_memcmp.c
+SRCS +=	${SRCS_DIR}/ft_memcpy.c
+SRCS +=	${SRCS_DIR}/ft_memmove.c
+SRCS +=	${SRCS_DIR}/ft_memset.c
+SRCS +=	${SRCS_DIR}/ft_strchr.c
+SRCS +=	${SRCS_DIR}/ft_strdup.c
+SRCS +=	${SRCS_DIR}/ft_strlcat.c
+SRCS +=	${SRCS_DIR}/ft_strlcpy.c
+SRCS +=	${SRCS_DIR}/ft_strlen.c
+SRCS +=	${SRCS_DIR}/ft_strncmp.c
+SRCS +=	${SRCS_DIR}/ft_strnstr.c
+SRCS +=	${SRCS_DIR}/ft_strrchr.c
+SRCS +=	${SRCS_DIR}/ft_tolower.c
+SRCS +=	${SRCS_DIR}/ft_toupper.c
+SRCS += ${SRCS_DIR}/ft_itoa.c 
+SRCS +=	${SRCS_DIR}/ft_putchar_fd.c 
+SRCS +=	${SRCS_DIR}/ft_putendl_fd.c
+SRCS +=	${SRCS_DIR}/ft_putnbr_fd.c
+SRCS +=	${SRCS_DIR}/ft_putstr_fd.c
+SRCS +=	${SRCS_DIR}/ft_split.c
+SRCS +=	${SRCS_DIR}/ft_strjoin.c
+SRCS +=	${SRCS_DIR}/ft_strmapi.c
+SRCS +=	${SRCS_DIR}/ft_strtrim.c
+SRCS +=	${SRCS_DIR}/ft_substr.c
+SRCS +=	${SRCS_DIR}/ft_striteri.c
+SRCS +=	${SRCS_DIR}/ft_lstnew_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstadd_front_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstsize_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstlast_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstadd_back_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstdelone_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstclear_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstiter_bonus.c
+SRCS +=	${SRCS_DIR}/ft_lstmap_bonus.c
+
+SRCS += ${PRINTF_DIR}/ft_printf.c
+SRCS += ${PRINTF_DIR}/ft_print_c.c
+SRCS += ${PRINTF_DIR}/ft_print_d.c
+SRCS += ${PRINTF_DIR}/ft_print_p.c
+SRCS += ${PRINTF_DIR}/ft_print_s.c
+SRCS += ${PRINTF_DIR}/ft_print_u.c
+SRCS += ${PRINTF_DIR}/ft_print_x.c
+SRCS += ${PRINTF_DIR}/ft_put_hex.c
+SRCS += ${PRINTF_DIR}/ft_putnbr.c
+SRCS += ${PRINTF_DIR}/ft_put_ptr.c
+SRCS += ${PRINTF_DIR}/ft_putunbr.c
+
+# HEADERS #
+
+HEADERS_DIR := includes
+
+HEADERS += ${HEADERS_DIR}/libft.h
+HEADERS += ${HEADERS_DIR}/ft_printf.h
+
+# OBJECTS #
+
+OBJS := $(patsubst %.c, %.o, $(SRCS))
+
+## RULES ##
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(AR) $(ARFLAGS) $@ $^
+
+$(OBJS): %.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADERS_DIR)
 
 clean:
-		rm -f ${OBJS}
+	$(RM) $(OBJS) $(OBJS_BONUS)
 
-fclean:    clean;
-		rm -f ${NAME}
+fclean: clean
+	$(RM) $(NAME)
 
-re:    fclean all
+re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

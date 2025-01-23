@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_print_s.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 15:26:31 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 15:27:45 by gbazin           ###   ########.fr       */
+/*   Created: 2024/11/19 16:58:00 by gbazin            #+#    #+#             */
+/*   Updated: 2024/12/04 17:12:09 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "ft_printf.h"
 
-long long	ft_atoll(const char *str)
+int	ft_print_s(char *str)
 {
-	long long	sum;
-	long long	sign;
-	int			i;
+	int		i;
+	char	*tmp;
 
-	sign = 1;
-	sum = 0;
 	i = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == ' ')
-		i++;
-	if (str[i] == '-')
+	if (!str)
 	{
-		sign = -sign;
-		i++;
+		tmp = "(null)";
+		while (tmp[i])
+		{
+			if (ft_print_c(tmp[i]) == -1)
+				return (-1);
+			i++;
+		}
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
+	else
 	{
-		sum = sum * 10 + (str[i] - 48);
-		i++;
+		while (str[i])
+		{
+			if (ft_print_c(str[i]) == -1)
+				return (-1);
+			i++;
+		}
 	}
-	return (sum * sign);
+	return (i);
 }

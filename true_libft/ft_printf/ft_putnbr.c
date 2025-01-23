@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 15:17:10 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/25 18:07:56 by gbazin           ###   ########.fr       */
+/*   Created: 2024/11/19 16:57:47 by gbazin            #+#    #+#             */
+/*   Updated: 2024/12/04 17:12:01 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_striteri(char *str, void (*f)(size_t, char*))
+int	ft_putnbr(int nb)
 {
-	size_t	i;
+	int	count;
 
-	i = 0;
-	while (str[i])
+	count = 0;
+	if (nb == -2147483648)
+		count += ft_print_s("-2147483648");
+	else if (nb < 0)
 	{
-		f(i, &str[i]);
-		i ++;
+		count += ft_print_c('-');
+		nb = -nb;
+		count += ft_putnbr(nb);
 	}
+	else
+	{
+		if (nb >= 10)
+		{
+			count += ft_putnbr(nb / 10);
+			count += ft_putnbr(nb % 10);
+		}
+		else
+			count += ft_print_c(nb + 48);
+	}
+	if (count < 0)
+		return (-1);
+	return (count);
 }
