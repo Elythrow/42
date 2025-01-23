@@ -11,6 +11,7 @@
 # **************************************************************************** #
 
 LIBC = 	ft_atoi.c
+LIBC +=	ft_atol.c
 LIBC +=	ft_bzero.c
 LIBC +=	ft_calloc.c
 LIBC +=	ft_isalnum.c

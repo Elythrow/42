@@ -6,13 +6,13 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:17:20 by gbazin            #+#    #+#             */
-/*   Updated: 2024/11/15 12:48:30 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:25:37 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**ft_free(char **array)
+static void	ft_free(char **array)
 {
 	size_t	i;
 
@@ -23,7 +23,6 @@ static char	**ft_free(char **array)
 		i ++;
 	}
 	free(array);
-	return (NULL);
 }
 
 static size_t	ft_count_words(const char *str, char c)
@@ -76,7 +75,7 @@ static char	**ft_splitter(char **array, const char *str, char c)
 		{
 			array[n] = ft_ncopy(str, i, j);
 			if (!array[n])
-				return (ft_free(array));
+				return (ft_free(array), NULL);
 			n ++;
 		}
 		i = j;
