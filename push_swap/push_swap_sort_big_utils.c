@@ -6,52 +6,49 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:43:58 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:46 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/28 12:15:25 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_back_sorted(t_stack *a, t_stack *b)
+void push_back_sorted(t_stack *a, t_stack *b)
 {
-	int	max;
-	int	pos;
-
 	while (b->size > 0)
 	{
-		max = find_max(b);
-		pos = find_position(b, max);
-		while (b->top->value != max)
+		int max = find_max(b);
+		int pos = find_position(b, max);
+
+		if (pos <= b->size / 2)
 		{
-			if (pos <= b->size / 2)
+			while (b->top->value != max)
 				rb(b);
-			else
+		}
+		else
+		{
+			while (b->top->value != max)
 				rrb(b);
 		}
 		pa(a, b);
 	}
 }
 
-void	push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end)
+void push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end)
 {
-	int	found;
-	int	rotates;
+	int rotates = 0;
+	//int found = 0;
 
-	rotates = 0;
-	while (1)
+	while (rotates < a->size)
 	{
-		found = 0;
 		if (a->top->value >= chunk_start && a->top->value <= chunk_end)
 		{
 			pb(a, b);
-			found = 1;
+			//found = 1;
 		}
 		else
 		{
 			ra(a);
 			rotates++;
 		}
-		if (!found && rotates >= a->size)
-			break ;
 	}
 }

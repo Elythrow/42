@@ -6,13 +6,13 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 18:00:15 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/30 14:40:43 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three(t_stack *stack_a)
+/*void	sort_three(t_stack *stack_a)
 {
 	int	first;
 	int	second;
@@ -38,6 +38,33 @@ void	sort_three(t_stack *stack_a)
 		ra(stack_a);
 	}
 	else if (first < second && second > third && first > third)
+		rra(stack_a);
+}*/
+
+void	sort_three(t_stack *stack_a)
+{
+	int	top;
+	int	mid;
+	int	bottom;
+
+	top = stack_a->top->value;
+	mid = stack_a->top->next->value;
+	bottom = stack_a->top->next->next->value;
+	if (top > mid && mid < bottom && top < bottom)
+		sa(stack_a);
+	else if (top > mid && mid > bottom)
+	{
+		sa(stack_a);
+		rra(stack_a);
+	}
+	else if (top > mid && mid < bottom && top > bottom)
+		ra(stack_a);
+	else if (top < mid && mid > bottom && top < bottom)
+	{
+		sa(stack_a);
+		ra(stack_a);
+	}
+	else if (top < mid && mid > bottom && top > bottom)
 		rra(stack_a);
 }
 
@@ -66,20 +93,22 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
-	int	c_s;
+	int chunk_size;
 	int	min;
 	int	max;
 	int	i;
-	int	dif;
+	int	d;
 
-	c_s = a->size / 4;
+	//if (is_sorted(a))
+	//	return; // Already sorted
+	chunk_size = a->size / 4;
 	min = find_min(a);
 	max = find_max(a);
-	dif = max - min;
+	d = max - min;
 	i = 0;
-	while (i < c_s)
+	while (i < chunk_size)
 	{
-		push_chunks(a, b, min + (dif * i / c_s), min + (dif * (i + 1) / c_s));
+		push_chunks(a, b, min + d * i / 4, min + d * (i + 1) / 4);
 		i++;
 	}
 	while (a->size > 0)
