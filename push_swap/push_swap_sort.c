@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/30 14:40:43 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 00:21:21 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,29 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
+	int	size;
+	int	min;
+	int	max;
+	int	chunk;
+	int	i;
+
+	size = a->size;
+	min = find_min(a);
+	max = find_max(a);
+	chunk = (max - min) / 4;
+	i = 0;
+	while (i < 4)
+	{
+		push_chunks(a, b, min, min + chunk * (i + 1));
+		i++;
+	}
+	while (a->size > 0)
+		pb(a, b);
+	push_back_sorted(a, b);
+}
+
+/*void	sort_large(t_stack *a, t_stack *b)
+{
 	int chunk_size;
 	int	min;
 	int	max;
@@ -114,4 +137,4 @@ void	sort_large(t_stack *a, t_stack *b)
 	while (a->size > 0)
 		pb(a, b);
 	push_back_sorted(a, b);
-}
+}*/
