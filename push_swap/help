@@ -1,0 +1,62 @@
+void	sort_chunk(t_stack *a, t_stack *b, int chunk_size, t_counter *c)
+{
+	int	i;
+	int	pushed;
+	int	min;
+	int	max;
+
+	i = 0;
+	pushed = 0;
+	min = find_min(a);
+	max = min + chunk_size;
+	while (i < a->size && pushed < chunk_size)
+	{
+		if (a->top->value >= min && a->top->value < max)
+		{
+			pb(a, b);
+			count_operation(c, "pb");
+			pushed++;
+		}
+		else
+		{
+			ra(a);
+			count_operation(c, "ra");
+		}
+		i++;
+	}
+}
+
+void	sort_large(t_stack *a, t_stack *b, t_counter *counter)
+{
+	int	chunk_size;
+	int	min;
+	int	max;
+	int	i;
+
+	chunk_size = a->size <= 100 ? 20 : 50;
+	min = find_min(a);
+	max = find_max(a);
+	i = 0;
+	while (a->size > 3)
+		sort_chunk(a, b, chunk_size, counter);
+	sort_three(a);
+	while (b->size > 0)
+	{
+		max = find_max(b);
+		while (b->top->value != max)
+		{
+			if (find_position(b, max) <= b->size / 2)
+			{
+				rb(b);
+				count_operation(counter, "rb");
+			}
+			else
+			{
+				rrb(b);
+				count_operation(counter, "rrb");
+			}
+		}
+		pa(a, b);
+		count_operation(counter, "pa");
+	}
+}

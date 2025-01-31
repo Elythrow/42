@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:32:08 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 17:58:48 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 10:09:19 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,12 @@ void	sort_stack(t_stack *stack_a, t_stack *stack_b)
 		sort_large(stack_a, stack_b);
 }
 
-int	handle_input(t_stack *stack_a, int argc, char **argv)
-{
-	if (argc < 2)
-		return (0);
-	if (!parse_args(stack_a, argc, argv))
-	{
-		write(2, "Error\n", 6);
-		free_stack(stack_a);
-		return (0);
-	}
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	ft_printf("Hello \n");
 	if (argc < 2)
 		return (1);
 	stack_a = create_stack();

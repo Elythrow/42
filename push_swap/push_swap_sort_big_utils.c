@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:43:58 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 00:18:51 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 01:18:41 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end)
 	}
 }*/
 
-void	push_chunks(t_stack *a, t_stack *b, int min, int pivot)
+void	push_chunks(t_stack *a, t_stack *b, int pivot)
 {
 	int	pushed;
 	int	rotated;

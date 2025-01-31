@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 19:32:48 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 01:20:40 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	sort_three(t_stack *stack_a);
 void	sort_small(t_stack *stack_a, t_stack *stack_b);
 void	sort_large(t_stack *a, t_stack *b);
 void	push_back_sorted(t_stack *a, t_stack *b);
-void	push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end);
+void	push_chunks(t_stack *a, t_stack *b, int pivot);
+void	optimize_rotation(t_stack *s, int target, void (*rot)(t_stack *));
 int		has_duplicates(t_stack *stack, int num);
 int		parse_and_add(t_stack *stack, char *str);
 int		parse_string_input(t_stack *stack, char *str);
