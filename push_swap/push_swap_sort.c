@@ -6,40 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 01:18:38 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 20:27:43 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*void	sort_three(t_stack *stack_a)
-{
-	int	first;
-	int	second;
-	int	third;
-
-	if (stack_a->size != 3)
-		return ;
-	first = stack_a->top->value;
-	second = stack_a->top->next->value;
-	third = stack_a->top->next->next->value;
-	if (first > second && second < third && first < third)
-		sa(stack_a);
-	else if (first > second && second > third)
-	{
-		sa(stack_a);
-		rra(stack_a);
-	}
-	else if (first > second && second < third && first > third)
-		ra(stack_a);
-	else if (first < second && second > third && first < third)
-	{
-		sa(stack_a);
-		ra(stack_a);
-	}
-	else if (first < second && second > third && first > third)
-		rra(stack_a);
-}*/
 
 void	sort_three(t_stack *stack_a)
 {
@@ -93,6 +64,63 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
+	int	chunk_size;
+	int	median;
+	int	min;
+	int	max;
+
+	chunk_size = a->size / 5;
+	min = find_min(a);
+	max = min + chunk_size;
+	median = find_median(a);
+	while (a->size > 3)
+	{
+		if (a->top->value <= median)
+			pb(a, b);
+		else
+			ra(a);
+		ft_printf("Stack A size: %d, Stack B size: %d\n", a->size, b->size);
+	}
+	sort_three(a);
+	while (b->size > 0)
+	{
+		max = find_max(b);
+		move_to_top(b, max);
+		pa(a, b);
+		ft_printf("Stack A size: %d, Stack B size: %d\n", a->size, b->size);
+	}
+}
+
+/*void	sort_large(t_stack *a, t_stack *b)
+{
+	int	chunk_size;
+	int	min;
+	int	max;
+
+	chunk_size = 20;
+	if (a->size > 100)
+		chunk_size = 50;
+	min = find_min(a);
+	max = find_max(a);
+	while (a->size > 3)
+		sort_chunk(a, b, chunk_size);
+	sort_three(a);
+	while (b->size > 0)
+	{
+		max = find_max(b);
+		while (b->top->value != max)
+		{
+			if (find_position(b, max) <= b->size / 2)
+				rb(b);
+			else
+				rrb(b);
+		}
+		pa(a, b);
+	}
+}
+
+void	sort_large(t_stack *a, t_stack *b)
+{
 	int	min;
 	int	max;
 	int	chunk;
@@ -111,8 +139,7 @@ void	sort_large(t_stack *a, t_stack *b)
 		pb(a, b);
 	push_back_sorted(a, b);
 }
-
-/*void	sort_large(t_stack *a, t_stack *b)
+void	sort_large(t_stack *a, t_stack *b)
 {
 	int chunk_size;
 	int	min;
@@ -120,8 +147,6 @@ void	sort_large(t_stack *a, t_stack *b)
 	int	i;
 	int	d;
 
-	//if (is_sorted(a))
-	//	return; // Already sorted
 	chunk_size = a->size / 4;
 	min = find_min(a);
 	max = find_max(a);

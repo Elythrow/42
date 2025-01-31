@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:43:58 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 01:18:41 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/01/31 20:27:35 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,20 @@ void push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end)
 	}
 }*/
 
-void	push_chunks(t_stack *a, t_stack *b, int pivot)
+/*void	sort_chunk(t_stack *a, t_stack *b, int chunk_size)
 {
+	int	i;
 	int	pushed;
-	int	rotated;
+	int	min;
+	int	max;
 
+	i = 0;
 	pushed = 0;
-	rotated = 0;
-	while (pushed + rotated < a->size)
+	min = find_min(a);
+	max = min + chunk_size;
+	while (i < a->size && pushed < chunk_size)
 	{
-		if (a->top->value <= pivot)
+		if (a->top->value >= min && a->top->value < max)
 		{
 			pb(a, b);
 			pushed++;
@@ -70,11 +74,9 @@ void	push_chunks(t_stack *a, t_stack *b, int pivot)
 		else
 		{
 			ra(a);
-			rotated++;
 		}
+		i++;
 	}
-	while (rotated--)
-		rra(a);
 }
 
 void	optimize_rotation(t_stack *s, int target, void (*rot)(t_stack *))
@@ -104,4 +106,73 @@ void	push_back_sorted(t_stack *a, t_stack *b)
 			optimize_rotation(b, max, &rrb);
 		pa(a, b);
 	}
+}*/
+
+void	move_to_top(t_stack *stack, int target)
+{
+	int	pos;
+
+	while (stack->top->value != target)
+	{
+		pos = find_position(stack, target);
+		if (pos <= stack->size / 2)
+			rb(stack);
+		else
+			rrb(stack);
+		ft_printf("Moved to target %d, Stack size: %d\n", target, stack->size);
+	}
+}
+
+void	swap_int(int *a, int *b)
+{
+	int	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void	sort_array(int *arr, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (arr[j] > arr[j + 1])
+				swap_int(&arr[j], &arr[j + 1]);
+			j++;
+		}
+		i++;
+	}
+}
+
+int	find_median(t_stack *stack)
+{
+	int		*sorted_array;
+	int		size;
+	int		median;
+	t_node	*current;
+	int		i;
+
+	size = stack->size;
+	sorted_array = malloc(size * sizeof(int));
+	if (!sorted_array)
+		return (0);
+	current = stack->top;
+	i = 0;
+	while (i < size)
+	{
+		sorted_array[i] = current->value;
+		current = current->next;
+		i++;
+	}
+	sort_array(sorted_array, size);
+	median = sorted_array[size / 2];
+	free(sorted_array);
+	return (median);
 }
