@@ -1,62 +1,221 @@
-void	sort_chunk(t_stack *a, t_stack *b, int chunk_size, t_counter *c)
+#include "push_swap.h"
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include "libft.h"
+# include <stdlib.h>
+# include <limits.h>
+
+typedef struct s_node
+{
+	int				value;
+	struct s_node	*next;
+}	t_node;
+
+typedef struct s_stack
+{
+	t_node	*top;
+	int		size;
+}	t_stack;
+
+// Stack operations
+void	pa(t_stack *a, t_stack *b);
+void	pb(t_stack *a, t_stack *b);
+void	ra(t_stack *a);
+void	rb(t_stack *b);
+void	rr(t_stack *a, t_stack *b);
+void	rra(t_stack *a);
+void	rrb(t_stack *b);
+void	rrr(t_stack *a, t_stack *b);
+
+// Sorting functions
+void	sort_three(t_stack *a);
+void	sort_small(t_stack *a, t_stack *b);
+void	sort_large(t_stack *a, t_stack *b);
+
+// Helper functions
+int		find_min(t_stack *s);
+int		find_max(t_stack *s);
+int		find_position(t_stack *s, int val);
+void	smart_rotate_a(t_stack *a);
+void	rotate_to_min(t_stack *a);
+int		calculate_pivot(t_stack *s);
+int		calculate_pivot_high(t_stack *s);
+
+// Optimization functions
+void	push_optimized(t_stack *a, t_stack *b);
+void	dual_pivot_split(t_stack *a, t_stack *b);
+void	optimize_b_rotation(t_stack *a, t_stack *b);
+
+#endif
+
+void	sort_large(t_stack *a, t_stack *b)
+{
+	while (a->size > 100)
+		dual_pivot_split(a, b);
+	while (a->size > 3)
+		push_optimized(a, b);
+	sort_three(a);
+	optimize_b_rotation(a, b);
+}
+static void	bubble_sort(int *arr, int size)
 {
 	int	i;
-	int	pushed;
-	int	min;
-	int	max;
+	int	j;
+	int	temp;
 
-	i = 0;
-	pushed = 0;
-	min = find_min(a);
-	max = min + chunk_size;
-	while (i < a->size && pushed < chunk_size)
+	i = -1;
+	while (++i < size)
 	{
-		if (a->top->value >= min && a->top->value < max)
+		j = -1;
+		while (++j < size - i - 1)
 		{
-			pb(a, b);
-			count_operation(c, "pb");
-			pushed++;
+			if (arr[j] > arr[j + 1])
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
 		}
-		else
-		{
-			ra(a);
-			count_operation(c, "ra");
-		}
-		i++;
 	}
 }
 
-void	sort_large(t_stack *a, t_stack *b, t_counter *counter)
+int	calculate_pivot(t_stack *s)
 {
-	int	chunk_size;
-	int	min;
-	int	max;
-	int	i;
+	int		*arr;
+	t_node	*tmp;
+	int		i;
+	int		pivot;
 
-	chunk_size = a->size <= 100 ? 20 : 50;
-	min = find_min(a);
-	max = find_max(a);
-	i = 0;
-	while (a->size > 3)
-		sort_chunk(a, b, chunk_size, counter);
-	sort_three(a);
-	while (b->size > 0)
+	arr = malloc(s->size * sizeof(int));
+	if (!arr)
+		exit(1);
+	tmp = s->top;
+	i = -1;
+	while (++i < s->size)
 	{
-		max = find_max(b);
-		while (b->top->value != max)
+		arr[i] = tmp->value;
+		tmp = tmp->next;
+	}
+	bubble_sort(arr, s->size);
+	pivot = arr[s->size / 4];
+	free(arr);
+	return (pivot);
+}
+
+int	calculate_pivot_high(t_stack *s)
+{
+	int		*arr;
+	t_node	*tmp;
+	int		i;
+	int		pivot;
+
+	arr = malloc(s->size * sizeof(int));
+	if (!arr)
+		exit(1);
+	tmp = s->top;
+	i = -1;
+	while (++i < s->size)
+	{
+		arr[i] = tmp->value;
+		tmp = tmp->next;
+	}
+	bubble_sort(arr, s->size);
+	pivot = arr[s->size * 3 / 4];
+	free(arr);
+	return (pivot);
+}
+
+static void	exec_rotations(t_stack *s, int count, void (*f)(t_stack *))
+{
+	while (count-- > 0)
+		f(s);
+}
+
+void	rotate_to_min(t_stack *a)
+{
+	int	min_val;
+	int	pos;
+	int	rot;
+
+	min_val = find_min(a);
+	pos = find_position(a, min_val);
+	rot = pos;
+	if (pos > a->size / 2)
+		rot = pos - a->size;
+	if (rot > 0)
+		exec_rotations(a, rot, ra);
+	else
+		exec_rotations(a, -rot, rra);
+}
+
+void	smart_rotate_a(t_stack *a)
+{
+	int	rotations;
+	int	val;
+
+	rotations = 0;
+	val = a->top->value;
+	while (a->top->next && val > a->top->next->value)
+	{
+		ra(a);
+		rotations++;
+	}
+	if (rotations > a->size / 2)
+		exec_rotations(a, a->size - rotations, rra);
+}
+
+static void	balance_rotations(t_stack *a, int rotations)
+{
+	int	reverse;
+
+	reverse = a->size - rotations;
+	if (rotations <= reverse)
+		exec_rotations(a, rotations, rra);
+	else
+		exec_rotations(a, reverse, ra);
+}
+
+void	push_optimized(t_stack *a, t_stack *b)
+{
+	int	pivot;
+	int	rotations;
+	int	initial_size;
+
+	initial_size = a->size;
+	pivot = calculate_pivot(a);
+	rotations = 0;
+	while (a->size > 3 && (initial_size - a->size) < (initial_size / 2))
+	{
+		if (a->top->value < pivot)
 		{
-			if (find_position(b, max) <= b->size / 2)
-			{
+			pb(a, b);
+			if (b->size > 1 && b->top->value < b->top->next->value)
 				rb(b);
-				count_operation(counter, "rb");
-			}
-			else
-			{
-				rrb(b);
-				count_operation(counter, "rrb");
-			}
 		}
-		pa(a, b);
-		count_operation(counter, "pa");
+		else
+			(ra(a), rotations++);
+	}
+	balance_rotations(a, rotations);
+}
+
+void	dual_pivot_split(t_stack *a, t_stack *b)
+{
+	int	low_pivot;
+	int	high_pivot;
+	int	range;
+
+	low_pivot = calculate_pivot(a);
+	high_pivot = calculate_pivot_high(a);
+	range = a->size;
+	while (range-- > 0 && a->size > 100)
+	{
+		if (a->top->value < low_pivot)
+			(pb(a, b), rb(b));
+		else if (a->top->value < high_pivot)
+			pb(a, b);
+		else
+			ra(a);
 	}
 }
