@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:05:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/01 17:55:03 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 20:43:16 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,59 +34,91 @@ void	bubble_sort(int *arr, int size)
 	}
 }
 
-int	get_pivot(t_stack *s)
+int	calculate_pivot(t_stack *s)
 {
 	int		*arr;
 	t_node	*tmp;
 	int		i;
 	int		pivot;
 
-	arr = (int *)malloc(s->size * sizeof(int));
+	arr = malloc(s->size * sizeof(int));
 	if (!arr)
-		return (-1);
+		exit(1);
 	tmp = s->top;
 	i = -1;
-	while (i + 1 < s->size)
+	while (++i < s->size)
 	{
-		i++;
 		arr[i] = tmp->value;
 		tmp = tmp->next;
 	}
 	bubble_sort(arr, s->size);
-	pivot = arr[s->size / 2];
+	pivot = arr[s->size / 4];
 	free(arr);
 	return (pivot);
 }
 
-void	rotate_max_to_top(t_stack *b)
+int	calculate_pivot_high(t_stack *s)
 {
-	int	max_val;
-	int	pos;
-	int	mid;
+	int		*arr;
+	t_node	*tmp;
+	int		i;
+	int		pivot;
 
-	max_val = find_max(b);
-	pos = find_position(b, max_val);
-	mid = b->size / 2;
-	if (pos <= mid)
-		while (pos-- > 0)
-			rb(b);
-	else
-		while (b->size - pos++ > 0)
-			rrb(b);
+	arr = malloc(s->size * sizeof(int));
+	if (!arr)
+		exit(1);
+	tmp = s->top;
+	i = -1;
+	while (++i < s->size)
+	{
+		arr[i] = tmp->value;
+		tmp = tmp->next;
+	}
+	bubble_sort(arr, s->size);
+	pivot = arr[s->size * 3 / 4];
+	free(arr);
+	return (pivot);
 }
 
-void	push_chunk(t_stack *a, t_stack *b, int pivot)
+void	push_optimized(t_stack *a, t_stack *b)
 {
-	int	remaining;
+	int	pivot;
+	int	rotations;
+	int	initial_size;
 
-	remaining = a->size;
-	while (remaining-- > 0)
+	initial_size = a->size;
+	pivot = calculate_pivot(a);
+	rotations = 0;
+	while (a->size > 3 && (initial_size - a->size) < (initial_size / 2))
 	{
 		if (a->top->value < pivot)
+		{
+			pb(a, b);
+			if (b->size > 1 && b->top->value < b->top->next->value)
+				rb(b);
+		}
+		else
+			(ra(a), rotations++);
+	}
+	balance_rotations(a, rotations);
+}
+
+void	dual_pivot_split(t_stack *a, t_stack *b)
+{
+	int	low_pivot;
+	int	high_pivot;
+	int	range;
+
+	low_pivot = calculate_pivot(a);
+	high_pivot = calculate_pivot_high(a);
+	range = a->size;
+	while (range-- > 0 && a->size > 100)
+	{
+		if (a->top->value < low_pivot)
+			(pb(a, b), rb(b));
+		else if (a->top->value < high_pivot)
 			pb(a, b);
 		else
 			ra(a);
-		if (find_min(a) >= pivot)
-			break ;
 	}
 }

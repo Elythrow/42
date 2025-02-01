@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/01 17:55:39 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 20:53:54 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,11 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
-	int	pivot;
-
+	while (a->size > 100)
+		dual_pivot_split(a, b);
 	while (a->size > 3)
-	{
-		pivot = get_pivot(a);
-		push_chunk(a, b, pivot);
-	}
+		push_optimized(a, b);
 	sort_three(a);
-	while (b->size > 0)
-	{
-		rotate_max_to_top(b);
-		pa(a, b);
-		if (a->top->value != find_max(a))
-			smart_rotate_a(a);
-		else
-			rra(a);
-	}
-	rotate_to_min(a);
+	optimize_b_rotation(a, b);
+	align_stack_a(a);
 }
