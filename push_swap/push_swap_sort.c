@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 20:27:43 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 17:55:39 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,100 +64,22 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
-	int	chunk_size;
-	int	median;
-	int	min;
-	int	max;
+	int	pivot;
 
-	chunk_size = a->size / 5;
-	min = find_min(a);
-	max = min + chunk_size;
-	median = find_median(a);
 	while (a->size > 3)
 	{
-		if (a->top->value <= median)
-			pb(a, b);
+		pivot = get_pivot(a);
+		push_chunk(a, b, pivot);
+	}
+	sort_three(a);
+	while (b->size > 0)
+	{
+		rotate_max_to_top(b);
+		pa(a, b);
+		if (a->top->value != find_max(a))
+			smart_rotate_a(a);
 		else
-			ra(a);
-		ft_printf("Stack A size: %d, Stack B size: %d\n", a->size, b->size);
+			rra(a);
 	}
-	sort_three(a);
-	while (b->size > 0)
-	{
-		max = find_max(b);
-		move_to_top(b, max);
-		pa(a, b);
-		ft_printf("Stack A size: %d, Stack B size: %d\n", a->size, b->size);
-	}
+	rotate_to_min(a);
 }
-
-/*void	sort_large(t_stack *a, t_stack *b)
-{
-	int	chunk_size;
-	int	min;
-	int	max;
-
-	chunk_size = 20;
-	if (a->size > 100)
-		chunk_size = 50;
-	min = find_min(a);
-	max = find_max(a);
-	while (a->size > 3)
-		sort_chunk(a, b, chunk_size);
-	sort_three(a);
-	while (b->size > 0)
-	{
-		max = find_max(b);
-		while (b->top->value != max)
-		{
-			if (find_position(b, max) <= b->size / 2)
-				rb(b);
-			else
-				rrb(b);
-		}
-		pa(a, b);
-	}
-}
-
-void	sort_large(t_stack *a, t_stack *b)
-{
-	int	min;
-	int	max;
-	int	chunk;
-	int	i;
-
-	min = find_min(a);
-	max = find_max(a);
-	chunk = (max - min) / 4;
-	i = 0;
-	while (i < 4)
-	{
-		push_chunks(a, b, min + chunk * (i + 1));
-		i++;
-	}
-	while (a->size > 0)
-		pb(a, b);
-	push_back_sorted(a, b);
-}
-void	sort_large(t_stack *a, t_stack *b)
-{
-	int chunk_size;
-	int	min;
-	int	max;
-	int	i;
-	int	d;
-
-	chunk_size = a->size / 4;
-	min = find_min(a);
-	max = find_max(a);
-	d = max - min;
-	i = 0;
-	while (i < chunk_size)
-	{
-		push_chunks(a, b, min + d * i / 4, min + d * (i + 1) / 4);
-		i++;
-	}
-	while (a->size > 0)
-		pb(a, b);
-	push_back_sorted(a, b);
-}*/

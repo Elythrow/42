@@ -5,174 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/19 20:43:58 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 20:27:35 by gbazin           ###   ########.fr       */
+/*   Created: 2025/02/01 16:05:28 by gbazin            #+#    #+#             */
+/*   Updated: 2025/02/01 17:55:03 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*void push_back_sorted(t_stack *a, t_stack *b)
-{
-	while (b->size > 0)
-	{
-		int max = find_max(b);
-		int pos = find_position(b, max);
-
-		if (pos <= b->size / 2)
-		{
-			while (b->top->value != max)
-				rb(b);
-		}
-		else
-		{
-			while (b->top->value != max)
-				rrb(b);
-		}
-		pa(a, b);
-	}
-}
-
-void push_chunks(t_stack *a, t_stack *b, int chunk_start, int chunk_end)
-{
-	int rotates = 0;
-	//int found = 0;
-
-	while (rotates < a->size)
-	{
-		if (a->top->value >= chunk_start && a->top->value <= chunk_end)
-		{
-			pb(a, b);
-			//found = 1;
-		}
-		else
-		{
-			ra(a);
-			rotates++;
-		}
-	}
-}*/
-
-/*void	sort_chunk(t_stack *a, t_stack *b, int chunk_size)
-{
-	int	i;
-	int	pushed;
-	int	min;
-	int	max;
-
-	i = 0;
-	pushed = 0;
-	min = find_min(a);
-	max = min + chunk_size;
-	while (i < a->size && pushed < chunk_size)
-	{
-		if (a->top->value >= min && a->top->value < max)
-		{
-			pb(a, b);
-			pushed++;
-		}
-		else
-		{
-			ra(a);
-		}
-		i++;
-	}
-}
-
-void	optimize_rotation(t_stack *s, int target, void (*rot)(t_stack *))
-{
-	int	pos;
-	int	size;
-
-	pos = find_position(s, target);
-	size = s->size;
-	while (pos > 0 && pos <= size / 2 && s->top->value != target)
-	{
-		rot(s);
-		pos--;
-	}
-}
-
-void	push_back_sorted(t_stack *a, t_stack *b)
-{
-	int	max;
-
-	while (b->size > 0)
-	{
-		max = find_max(b);
-		if (find_position(b, max) <= b->size / 2)
-			optimize_rotation(b, max, &rb);
-		else
-			optimize_rotation(b, max, &rrb);
-		pa(a, b);
-	}
-}*/
-
-void	move_to_top(t_stack *stack, int target)
-{
-	int	pos;
-
-	while (stack->top->value != target)
-	{
-		pos = find_position(stack, target);
-		if (pos <= stack->size / 2)
-			rb(stack);
-		else
-			rrb(stack);
-		ft_printf("Moved to target %d, Stack size: %d\n", target, stack->size);
-	}
-}
-
-void	swap_int(int *a, int *b)
-{
-	int	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-void	sort_array(int *arr, int size)
+void	bubble_sort(int *arr, int size)
 {
 	int	i;
 	int	j;
+	int	temp;
 
-	i = 0;
-	while (i < size - 1)
+	i = -1;
+	while (++i < size)
 	{
-		j = 0;
-		while (j < size - i - 1)
+		j = -1;
+		while (++j < size - i - 1)
 		{
 			if (arr[j] > arr[j + 1])
-				swap_int(&arr[j], &arr[j + 1]);
-			j++;
+			{
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
 		}
-		i++;
 	}
 }
 
-int	find_median(t_stack *stack)
+int	get_pivot(t_stack *s)
 {
-	int		*sorted_array;
-	int		size;
-	int		median;
-	t_node	*current;
+	int		*arr;
+	t_node	*tmp;
 	int		i;
+	int		pivot;
 
-	size = stack->size;
-	sorted_array = malloc(size * sizeof(int));
-	if (!sorted_array)
-		return (0);
-	current = stack->top;
-	i = 0;
-	while (i < size)
+	arr = (int *)malloc(s->size * sizeof(int));
+	if (!arr)
+		return (-1);
+	tmp = s->top;
+	i = -1;
+	while (i + 1 < s->size)
 	{
-		sorted_array[i] = current->value;
-		current = current->next;
 		i++;
+		arr[i] = tmp->value;
+		tmp = tmp->next;
 	}
-	sort_array(sorted_array, size);
-	median = sorted_array[size / 2];
-	free(sorted_array);
-	return (median);
+	bubble_sort(arr, s->size);
+	pivot = arr[s->size / 2];
+	free(arr);
+	return (pivot);
+}
+
+void	rotate_max_to_top(t_stack *b)
+{
+	int	max_val;
+	int	pos;
+	int	mid;
+
+	max_val = find_max(b);
+	pos = find_position(b, max_val);
+	mid = b->size / 2;
+	if (pos <= mid)
+		while (pos-- > 0)
+			rb(b);
+	else
+		while (b->size - pos++ > 0)
+			rrb(b);
+}
+
+void	push_chunk(t_stack *a, t_stack *b, int pivot)
+{
+	int	remaining;
+
+	remaining = a->size;
+	while (remaining-- > 0)
+	{
+		if (a->top->value < pivot)
+			pb(a, b);
+		else
+			ra(a);
+		if (find_min(a) >= pivot)
+			break ;
+	}
 }

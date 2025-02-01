@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:50:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 01:13:43 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 12:58:59 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	parse_string_input(t_stack *stack, char *str)
 	return (success);
 }
 
-void	reverse_stargck(t_stack *stack)
+void	reverse_stack(t_stack *stack)
 {
 	t_node	*prev;
 	t_node	*current;
@@ -111,6 +111,6 @@ int	parse_args(t_stack *stack, int argc, char **argv)
 		}
 	}
 	if (success)
-		reverse_stargck(stack);
+		reverse_stack(stack);
 	return (success);
 }

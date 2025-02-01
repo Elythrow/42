@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/31 20:10:01 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 17:57:03 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,18 @@ int		find_max(t_stack *stack);
 int		find_position(t_stack *stack, int value);
 void	sort_three(t_stack *stack_a);
 void	sort_small(t_stack *stack_a, t_stack *stack_b);
-void	sort_large(t_stack *a, t_stack *b);
-void	sort_chunk(t_stack *a, t_stack *b, int chunk_size);
-void	push_back_sorted(t_stack *a, t_stack *b);
-void	push_chunks(t_stack *a, t_stack *b, int pivot);
-void	optimize_rotation(t_stack *s, int target, void (*rot)(t_stack *));
+void	sort_large(t_stack *stack_a, t_stack *stack_b);
 int		has_duplicates(t_stack *stack, int num);
 int		parse_and_add(t_stack *stack, char *str);
 int		parse_string_input(t_stack *stack, char *str);
 void	reverse_stack(t_stack *stack);
 int		parse_args(t_stack *stack, int ac, char **av);
 int		ft_is_number(char *str);
-void	swap_int(int *a, int *b);
-void	move_to_top(t_stack *stack, int target);
-void	sort_array(int *arr, int size);
-int		find_median(t_stack *stack);
+int		get_pivot(t_stack *s);
+void	bubble_sort(int *arr, int size);
+void	rotate_max_to_top(t_stack *b);
+void	push_chunk(t_stack *a, t_stack *b, int pivot);
+void	rotate_to_min(t_stack *a);
+void	smart_rotate_a(t_stack *a);
 
 #endif
