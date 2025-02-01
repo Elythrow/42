@@ -58,7 +58,9 @@ void	sort_large(t_stack *a, t_stack *b)
 		push_optimized(a, b);
 	sort_three(a);
 	optimize_b_rotation(a, b);
+	align_stack_a(a);
 }
+
 static void	bubble_sort(int *arr, int size)
 {
 	int	i;
@@ -217,5 +219,93 @@ void	dual_pivot_split(t_stack *a, t_stack *b)
 			pb(a, b);
 		else
 			ra(a);
+	}
+}
+
+void	align_stack_a(t_stack *a)
+{
+	int	min_pos;
+	int	rot;
+
+	min_pos = find_position(a, find_min(a));
+	if (min_pos <= a->size / 2)
+		rot = min_pos;
+	else
+		rot = min_pos - a->size;
+	while (rot > 0 && rot--)
+		ra(a);
+	while (rot < 0 && rot++)
+		rra(a);
+}
+
+#include "push_swap.h"
+
+static int	calc_b_rot(t_stack *b, int target)
+{
+	int	pos;
+	int	rot;
+
+	pos = find_position(b, target);
+	if (pos <= b->size / 2)
+		rot = pos;
+	else
+		rot = pos - b->size;
+	return (rot);
+}
+
+static int	calc_a_rot(t_stack *a, int value)
+{
+	int		best_pos;
+	t_node	*tmp;
+	int		i;
+
+	tmp = a->top;
+	best_pos = 0;
+	i = 0;
+	while (++i <= a->size)
+	{
+		if (value > tmp->value && (tmp->next == NULL 
+				|| value < tmp->next->value))
+			best_pos = i % a->size;
+		tmp = tmp->next;
+	}
+	if (best_pos <= a->size / 2)
+		return (best_pos);
+	return (best_pos - a->size);
+}
+
+static void	execute_rotations(t_stack *a, t_stack *b, int a_rot, int b_rot)
+{
+	while (a_rot > 0 && b_rot > 0 && a_rot-- && b_rot--)
+		rr(a, b);
+	while (a_rot < 0 && b_rot < 0 && a_rot++ && b_rot++)
+		rrr(a, b);
+	while (a_rot > 0 && a_rot--)
+		ra(a);
+	while (a_rot < 0 && a_rot++)
+		rra(a);
+	while (b_rot > 0 && b_rot--)
+		rb(b);
+	while (b_rot < 0 && b_rot++)
+		rrb(b);
+}
+
+void	optimize_b_rotation(t_stack *a, t_stack *b)
+{
+	int	target;
+	int	a_rot;
+	int	b_rot;
+
+	while (b->size > 0)
+	{
+		target = find_max(b);
+		b_rot = calc_b_rot(b, target);
+		a_rot = calc_a_rot(a, target);
+		execute_rotations(a, b, a_rot, b_rot);
+		pa(a, b);
+		if (a->top->value != find_max(a))
+			smart_rotate_a(a);
+		else
+			rra(a);
 	}
 }
