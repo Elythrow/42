@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/01 20:54:34 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 01:01:39 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,10 @@ int		parse_string_input(t_stack *stack, char *str);
 void	reverse_stack(t_stack *stack);
 int		parse_args(t_stack *stack, int ac, char **av);
 int		ft_is_number(char *str);
-void	bubble_sort(int *arr, int size);
-int		calculate_pivot(t_stack *s);
-int		calculate_pivot_high(t_stack *s);
-void	push_optimized(t_stack *a, t_stack *b);
-void	dual_pivot_split(t_stack *a, t_stack *b);
-void	exec_rotations(t_stack *s, int count, void (*f)(t_stack *));
-void	rotate_to_min(t_stack *a);
-void	smart_rotate_a(t_stack *a);
-void	balance_rotations(t_stack *a, int rotations);
-void	smart_rotate_a(t_stack *a);
-void	rotate_to_min(t_stack *a);
-void	align_stack_a(t_stack *a);
-void	optimize_b_rotation(t_stack *a, t_stack *b);
-void	execute_rotations(t_stack *a, t_stack *b, int a_rot, int b_rot);
-int		calc_a_rot(t_stack *a, int value);
-int		calc_b_rot(t_stack *b, int target);
+void	print_stack(t_stack *s, char *name);
+void	sort_b_to_a(t_stack *a, t_stack *b);
+void	final_sort(t_stack *a);
+void	sort_two(t_stack *a);
+void	sort_four(t_stack *a, t_stack *b);
 
 #endif

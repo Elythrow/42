@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:02:17 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/19 20:57:42 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/01 23:44:20 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ void	swap(t_stack *stack)
 
 void	push_to_stack(t_stack *src, t_stack *dst)
 {
-	int	value;
+	t_node	*temp;
 
 	if (!src || !src->top)
 		return ;
-	value = src->top->value;
-	pop(src);
-	push(dst, value);
+	temp = src->top;
+	src->top = src->top->next;
+	src->size--;
+	temp->next = dst->top;
+	dst->top = temp;
+	dst->size++;
 }
 
 void	rotate(t_stack *stack)
