@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:32:08 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/02 11:48:10 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 17:09:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 	{
 		write(2, "Error\n", 6);
 		free_stack(stack_a);
+		free_stack(stack_b);
 		return (1);
 	}
 	sort_stack(stack_a, stack_b);

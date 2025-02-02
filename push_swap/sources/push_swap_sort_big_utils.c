@@ -6,30 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:05:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/02 11:51:15 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 14:31:40 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	sort_four(t_stack *a, t_stack *b)
-{
-	int	min;
-	int	pos;
-
-	min = find_min(a);
-	while (a->top->value != min)
-	{
-		pos = find_position(a, min);
-		if (pos <= a->size / 2)
-			ra(a);
-		else
-			rra(a);
-	}
-	pb(a, b);
-	sort_three(a);
-	pa(a, b);
-}
 
 void	sort_two(t_stack *a)
 {
@@ -37,52 +18,36 @@ void	sort_two(t_stack *a)
 		sa(a);
 }
 
-void	sort_b_to_a(t_stack *a, t_stack *b)
+void	push_max_to_a(t_stack *a, t_stack *b)
 {
-	int	max_b;
-	int	pos;
+	int	max;
+	int	max_pos;
 
-	while (b->size > 0)
+	max = find_max(b);
+	max_pos = find_position(b, max);
+	if (max_pos <= b->size / 2)
 	{
-		max_b = find_max(b);
-		while (b->top->value != max_b)
-		{
-			pos = find_position(b, max_b);
-			if (pos <= b->size / 2)
-				rb(b);
-			else
-				rrb(b);
-		}
-		pa(a, b);
+		while (b->top->value != max)
+			rb(b);
 	}
+	else
+	{
+		while (b->top->value != max)
+			rrb(b);
+	}
+	pa(a, b);
 }
 
-void	final_sort(t_stack *a)
-{
-	int	min;
-	int	pos;
-
-	min = find_min(a);
-	while (a->top->value != min)
-	{
-		pos = find_position(a, min);
-		if (pos <= a->size / 2)
-			ra(a);
-		else
-			rra(a);
-	}
-}
-
-int	find_next_below(t_stack *stack, int max)
+int	has_numbers_in_range(t_stack *stack, int min_val, int max_val)
 {
 	t_node	*current;
 
 	current = stack->top;
 	while (current)
 	{
-		if (current->value <= max)
-			return (current->value);
+		if (current->value >= min_val && current->value < max_val)
+			return (1);
 		current = current->next;
 	}
-	return (-1);
+	return (0);
 }
