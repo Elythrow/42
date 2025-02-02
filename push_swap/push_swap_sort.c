@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:07:06 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/02 01:01:34 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:48:00 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,39 +64,30 @@ void	sort_small(t_stack *stack_a, t_stack *stack_b)
 
 void	sort_large(t_stack *a, t_stack *b)
 {
-	int	chunks;
-	int	min;
-	int	max;
-	int	range;
-	int	chunk_max;
+	int	chunk_size;
+	int	chunk;
+	int	max_chunks;
 
-	chunks = 5;
-	min = find_min(a);
-	max = find_max(a);
-	range = (max - min) / chunks;
-	chunk_max = min + range;
-	while (a->size > 3)
+	max_chunks = 5;
+	if (a->size > 100)
+		max_chunks = 9;
+	chunk_size = ((find_max(a) - find_min(a)) + max_chunks - 1) / max_chunks;
+	chunk = find_min(a);
+	while (a->size > 0)
 	{
-		if (a->top->value <= chunk_max)
+		if (a->top->value >= chunk && a->top->value < (chunk + chunk_size))
 		{
 			pb(a, b);
-			if (b->size > 1 && b->top->value > b->top->next->value)
+			if (b->size > 1 && b->top->value < (chunk + chunk_size / 2))
 				rb(b);
 		}
-		else if (find_min(a) > chunk_max)
-			chunk_max += range;
-		else
+		else if (has_numbers_in_range(a, chunk, chunk + chunk_size))
 			ra(a);
+		else
+			chunk += chunk_size;
 	}
-	if (a->size == 3)
-		sort_three(a);
-	else if (a->size == 4)
-		sort_four(a, b);
-	else if (a->size == 2)
-		sort_two(a);
-	sort_b_to_a(a, b);
-	final_sort(a);
-	print_stack(a, "a");
+	while (b->size > 0)
+		push_max_to_a(a, b);
 }
 
 void	print_stack(t_stack *s, char *name)

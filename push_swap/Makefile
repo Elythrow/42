@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 13:47:27 by gbazin            #+#    #+#              #
-#    Updated: 2025/02/01 23:45:47 by gbazin           ###   ########.fr        #
+#    Updated: 2025/02/02 10:29:15 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS += push_swap_utils.c
 SRCS += push_swap_sort.c
 SRCS += push_swap_sort_utils.c
 SRCS += push_swap_sort_big_utils.c
+SRCS += push_swap_sort_big_utils_2.c
 SRCS += push_swap_parsing.c
 SRCS += push_swap_parsing_utils.c
 SRCS += push_swap_operations_1.c

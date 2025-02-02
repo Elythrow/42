@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:05:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/02 01:01:32 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:51:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ void	final_sort(t_stack *a)
 		else
 			rra(a);
 	}
+}
+
+int	find_next_below(t_stack *stack, int max)
+{
+	t_node	*current;
+
+	current = stack->top;
+	while (current)
+	{
+		if (current->value <= max)
+			return (current->value);
+		current = current->next;
+	}
+	return (-1);
 }

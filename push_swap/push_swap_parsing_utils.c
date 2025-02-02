@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:39:30 by gbazin            #+#    #+#             */
-/*   Updated: 2025/01/23 19:32:35 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:50:22 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ int	ft_is_number(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
-		i ++;
+		i++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:07:14 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/02 01:01:39 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/02 11:28:57 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,10 @@ void	sort_b_to_a(t_stack *a, t_stack *b);
 void	final_sort(t_stack *a);
 void	sort_two(t_stack *a);
 void	sort_four(t_stack *a, t_stack *b);
+int		find_next_below(t_stack *stack, int max);
+int		find_next_value_in_range(t_stack *stack, int min_val, int max_val);
+void	push_max_to_a(t_stack *a, t_stack *b);
+int		has_numbers_in_range(t_stack *stack, int min_val, int max_val);
+int		is_sorted(t_stack *stack);
 
 #endif
