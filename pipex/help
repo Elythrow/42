@@ -1,0 +1,7 @@
+./pipex file1 cmd1 cmd2 file2
+
+File 1 can be nothing
+
+cmd1 est effectuee, puis on applique cmd2 sur le resultat de cmd1 (par exemple grep affiche dans le terminal, on peut compter le nombre de mots "ecrits" par grep dans le terminal avec wc -w)
+
+
