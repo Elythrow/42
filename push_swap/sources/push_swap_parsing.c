@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:50:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/01 12:58:59 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/20 17:47:37 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parse_and_add(t_stack *stack, char *str)
 	new_node->value = (int)num;
 	new_node->next = stack->top;
 	stack->top = new_node;
-	stack->size++;
+	stack->size ++;
 	return (1);
 }
 
@@ -69,7 +69,7 @@ int	parse_string_input(t_stack *stack, char *str)
 	while (split[i] && success)
 	{
 		success = parse_and_add(stack, split[i]);
-		i++;
+		i ++;
 	}
 	ft_free_tab(split);
 	return (success);
@@ -107,7 +107,7 @@ int	parse_args(t_stack *stack, int argc, char **argv)
 		while (i < argc && success)
 		{
 			success = parse_and_add(stack, argv[i]);
-			i++;
+			i ++;
 		}
 	}
 	if (success)

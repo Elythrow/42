@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:02:17 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/01 23:44:20 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/20 17:47:56 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	push_to_stack(t_stack *src, t_stack *dst)
 		return ;
 	temp = src->top;
 	src->top = src->top->next;
-	src->size--;
+	src->size --;
 	temp->next = dst->top;
 	dst->top = temp;
-	dst->size++;
+	dst->size ++;
 }
 
 void	rotate(t_stack *stack)
