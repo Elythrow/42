@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 19:59:08 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/21 20:13:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/21 20:52:25 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <sys/wait.h>
 # include "libft.h"
 
