@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 15:14:40 by gbazin            #+#    #+#              #
-#    Updated: 2025/02/03 15:15:08 by gbazin           ###   ########.fr        #
+#    Updated: 2025/02/22 21:50:51 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,10 @@ CFLAGS += -g3
 
 SRCS_DIR := sources
 
-SRCS += ${SRCS_DIR}/pipex.c
+SRCS += ${SRCS_DIR}/pipex_main.c
+SRCS += ${SRCS_DIR}/pipex_utils_1.c
+SRCS += ${SRCS_DIR}/pipex_utils_2.c
+SRCS += ${SRCS_DIR}/pipex_utils_3.c
 
 # HEADERS #
 
@@ -69,4 +72,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: all
+
+.PHONY: all clean fclean re bonus
