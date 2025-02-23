@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:17:01 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/22 21:50:11 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/23 17:28:39 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ char	*pipex_get_exec(char *cmd, char **paths)
 	return (NULL);
 }
 
-int	pipex_check_here_doc(char **av)
+void	pipex_paths_kill(char **paths)
 {
-	if (av[1] && ft_strncmp(av[1], "here_doc", 9) == 0)
-		return (1);
-	return (0);
+	if (paths)
+		ft_free_tab(paths);
+	exit(127);
 }

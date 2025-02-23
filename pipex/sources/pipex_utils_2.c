@@ -6,70 +6,63 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:19:45 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/22 21:50:10 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/23 17:46:57 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
-void	pipex_error(char *s)
+int	handle_first(t_data *data, char **argv, int *pipe_fd, char **envp)
 {
-	ft_putstr_fd(s, STDERR_FILENO);
-	exit(1);
-}
+	int	pid;
 
-void	pipex_close_fd(int fd1, int fd2)
-{
-	if (fd1 >= 0)
-		close(fd1);
-	if (fd2 >= 0)
-		close(fd2);
-}
-
-void	pipex_read_here_d(char *limiter, int fd_out)
-{
-	char	*line;
-	char	*tmp;
-
-	if (!limiter)
-		pipex_error("Heredoc: No delimiter specified\n");
-	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-	while (1)
+	data->infile = open(argv[1], O_RDONLY);
+	pid = fork();
+	if (pid < 0)
 	{
-		line = get_next_line(STDIN_FILENO);
-		if (!line)
-			break ;
-		tmp = ft_strtrim(line, "\n");
-		if (ft_strncmp(tmp, limiter, ft_strlen(limiter) + 1) == 0)
-		{
-			free(tmp);
-			free(line);
-			break ;
-		}
-		ft_putstr_fd(line, fd_out);
-		free(tmp);
-		free(line);
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		if (data->infile >= 0)
+			close(data->infile);
+		pipex_error("Fork error\n");
 	}
-	close(fd_out);
+	if (pid == 0)
+	{
+		if (data->infile < 0)
+		{
+			handle_infile_error(argv[1]);
+			close(pipe_fd[0]);
+			close(pipe_fd[1]);
+			exit(1);
+		}
+		exec_first_command(argv, pipe_fd, envp, data->infile);
+	}
+	if (data->infile >= 0)
+		close(data->infile);
+	return (pid);
 }
 
-void	pipex_paths_kill(char **paths)
+int	handle_second(t_data *data, char **argv, int *pipe_fd, char **envp)
 {
-	if (paths)
-		ft_free_tab(paths);
-	exit(127);
+	int	pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		close(data->outfile);
+		pipex_error("Fork error\n");
+	}
+	if (pid == 0)
+		exec_second_command(argv, pipe_fd, envp, data->outfile);
+	return (pid);
 }
 
-int	pipe_first_pars(int argc, char **argv)
+void	exec_first_command(char **argv, int *pipe_fd, char **envp, int fd_in)
 {
-	int	here_d;
+	close(pipe_fd[0]);
+	pipex_exec(argv[2], fd_in, pipe_fd[1], envp);
+}
 
-	here_d = pipex_check_here_doc(argv);
-	if (here_d && argc < 6)
-		pipex_error("Usage: ./pipex here_doc LIMITER cmd1 cmd2 file2\n");
-	if (argc < 5)
-		pipex_error("Usage: ./pipex file1 cmd1 cmd2 file2\n");
-	return (here_d);
+void	exec_second_command(char **argv, int *pipe_fd, char **envp, int fd_out)
+{
+	close(pipe_fd[1]);
+	pipex_exec(argv[3], pipe_fd[0], fd_out, envp);
 }

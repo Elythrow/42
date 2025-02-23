@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 15:14:40 by gbazin            #+#    #+#              #
-#    Updated: 2025/02/22 21:50:51 by gbazin           ###   ########.fr        #
+#    Updated: 2025/02/23 15:59:53 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS += ${SRCS_DIR}/pipex_main.c
 SRCS += ${SRCS_DIR}/pipex_utils_1.c
 SRCS += ${SRCS_DIR}/pipex_utils_2.c
 SRCS += ${SRCS_DIR}/pipex_utils_3.c
-
 # HEADERS #
 
 HEADERS_DIR := includes
@@ -71,7 +70,5 @@ fclean: clean
 	make -C $(LIBFT_PATH) fclean
 
 re: fclean all
-
-bonus: all
 
 .PHONY: all clean fclean re bonus

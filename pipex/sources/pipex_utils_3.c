@@ -6,26 +6,32 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:50:56 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/22 21:50:08 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/23 17:43:27 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	handle_s(t_data *data, char **argv, int *pipe_fd, char **envp)
+void	handle_infile_error(char *filename)
 {
-	int	pid;
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(filename, 2);
+	if (access(filename, F_OK) == 0)
+		ft_putstr_fd(": Permission denied\n", 2);
+	else
+		ft_putstr_fd(": No such file or directory\n", 2);
+}
 
-	pid = fork();
-	if (pid < 0)
-	{
-		close(data->outfile);
-		pipex_error("Fork error\n");
-	}
-	if (pid == 0)
-	{
-		close(pipe_fd[1]);
-		pipex_exec(argv[3], pipe_fd[0], data->outfile, envp);
-	}
-	return (pid);
+void	pipex_error(char *s)
+{
+	ft_putstr_fd(s, STDERR_FILENO);
+	exit(1);
+}
+
+void	pipex_close_fd(int fd1, int fd2)
+{
+	if (fd1 >= 0)
+		close(fd1);
+	if (fd2 >= 0)
+		close(fd2);
 }
