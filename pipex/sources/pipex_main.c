@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:06:37 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/23 15:58:40 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/24 11:28:56 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ int	main(int ac, char **argv, char **envp)
 	pid1 = handle_first(&data, argv, pipe_fd, envp);
 	data.outfile = open(argv[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data.outfile < 0)
+	{
+		pipex_close_fd(pipe_fd[0], pipe_fd[1]);
 		pipex_error("Error opening output file\n");
+	}
 	pid2 = handle_second(&data, argv, pipe_fd, envp);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	close(data.outfile);
+	pipex_close_fd(pipe_fd[0], pipe_fd[1]);
+	pipex_close_fd(data.outfile, -1);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 	return (0);

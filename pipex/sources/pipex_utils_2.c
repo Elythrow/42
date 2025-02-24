@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:19:45 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/23 17:46:57 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/24 11:25:34 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	handle_first(t_data *data, char **argv, int *pipe_fd, char **envp)
 	pid = fork();
 	if (pid < 0)
 	{
-		if (data->infile >= 0)
-			close(data->infile);
+		pipex_close_fd(data->infile, -1);
+		pipex_close_fd(pipe_fd[0], pipe_fd[1]);
 		pipex_error("Fork error\n");
 	}
 	if (pid == 0)
@@ -29,14 +29,12 @@ int	handle_first(t_data *data, char **argv, int *pipe_fd, char **envp)
 		if (data->infile < 0)
 		{
 			handle_infile_error(argv[1]);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
+			pipex_close_fd(pipe_fd[0], pipe_fd[1]);
 			exit(1);
 		}
 		exec_first_command(argv, pipe_fd, envp, data->infile);
 	}
-	if (data->infile >= 0)
-		close(data->infile);
+	pipex_close_fd(data->infile, -1);
 	return (pid);
 }
 
@@ -47,7 +45,8 @@ int	handle_second(t_data *data, char **argv, int *pipe_fd, char **envp)
 	pid = fork();
 	if (pid < 0)
 	{
-		close(data->outfile);
+		pipex_close_fd(data->outfile, -1);
+		pipex_close_fd(pipe_fd[0], pipe_fd[1]);
 		pipex_error("Fork error\n");
 	}
 	if (pid == 0)

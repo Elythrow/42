@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:17:01 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/23 17:28:39 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/24 11:26:36 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void	pipex_exec(char *bin, int fd_in, int fd_out, char **env)
 	char	*exec_path;
 	char	*original_cmd;
 
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	close(fd_in);
-	close(fd_out);
+	if (dup2(fd_in, STDIN_FILENO) < 0 || dup2(fd_out, STDOUT_FILENO) < 0)
+		pipex_error("Dup2 error\n");
+	pipex_close_fd(fd_in, fd_out);
 	paths = pipex_get_path(env);
 	args = ft_split(bin, ' ');
 	if (!args)
@@ -48,6 +47,7 @@ void	pipex_exec(char *bin, int fd_in, int fd_out, char **env)
 	free(original_cmd);
 	args[0] = exec_path;
 	execve(args[0], args, env);
+	free(args[0]);
 	ft_free_tab(args);
 	if (paths)
 		ft_free_tab(paths);
