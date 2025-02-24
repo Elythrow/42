@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:17:01 by gbazin            #+#    #+#             */
-/*   Updated: 2025/02/24 11:26:36 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/02/24 12:42:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**pipex_get_path(char **env)
 	{
 		if (ft_strncmp(*env, "PATH=", 5) == 0)
 			break ;
-		env++;
+		env ++;
 	}
 	if (*env)
 		paths = ft_split(*env + 5, ':');
@@ -90,7 +90,7 @@ char	*pipex_get_exec(char *cmd, char **paths)
 		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
-		paths++;
+		paths ++;
 	}
 	return (NULL);
 }
