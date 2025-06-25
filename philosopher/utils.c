@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:48:53 by gbazin            #+#    #+#             */
-/*   Updated: 2025/04/08 10:48:56 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:19 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ int	ft_atoi(const char *str)
 	return (ft_check(t_p, tt));
 }
 
-/* Mainly check if the in string
- ** doesn't contain any ascii than numbers
- */
 int	ft_is_number(char *string)
 {
 	int	i;
@@ -65,9 +62,6 @@ int	ft_is_number(char *string)
 	return (GOOD);
 }
 
-/*
- ** Get the current time in ms
- */
 long long	ft_time_in_ms(void)
 {
 	struct timeval	te;
@@ -78,9 +72,8 @@ long long	ft_time_in_ms(void)
 	return (milliseconds);
 }
 
-/*
- ** Initialize philosophers struct
- */
+//initialisation de la structure d'un philosophe
+
 t_philo	**initialize_philosphers(t_din *din_table)
 {
 	t_philo	**philos;
@@ -106,29 +99,4 @@ t_philo	**initialize_philosphers(t_din *din_table)
 		i++;
 	}
 	return (philos);
-}
-
-pthread_mutex_t	*initialize_forks(t_din *din_table)
-{
-	pthread_mutex_t	*forks;
-	int				i;
-
-	i = 0;
-	if (din_table->nop == OFLOW || din_table->ttd == OFLOW
-		|| din_table->tte == OFLOW || din_table->tts == OFLOW
-		|| din_table->ntpme == OFLOW)
-	{
-		write(2, "Error: Invalid Argument\n", 23);
-		return (NULL);
-	}
-	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * din_table->nop);
-	if (forks == NULL)
-		return (NULL);
-	while (i < din_table->nop)
-	{
-		if (pthread_mutex_init(&forks[i], 0) != 0)
-			return (NULL);
-		i++;
-	}
-	return (forks);
 }

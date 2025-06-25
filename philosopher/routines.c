@@ -6,17 +6,15 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:48:19 by gbazin            #+#    #+#             */
-/*   Updated: 2025/04/08 10:48:21 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*
- ** Print status using a write mutex
- ** to avoid other philospher status be scrambled or intertwined
- ** with another philosopher’s status.
- */
+// Affiche le statut d'un philosophe dans un mutex
+// pour éviter que l'affichage soit confondu entre plusieurs philosophes
+
 void	print_status(t_din *din_table, int pid, char *string)
 {
 	pthread_mutex_lock(&din_table->write);
@@ -25,10 +23,9 @@ void	print_status(t_din *din_table, int pid, char *string)
 		pthread_mutex_unlock(&din_table->write);
 }
 
-/*
- ** Philosopher get both forks then start eating
- ** for an amount of time ( tte ).
- */
+// Le philosophe prend ses deux fourchettes et commence la routine manger
+// pendant une certaine durée (tte)
+
 void	eat_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
@@ -50,9 +47,8 @@ void	eat_routine(t_philo *philo)
 	return ;
 }
 
-/*
- ** Philospher time to sleep routine.
- */
+//Routine dormir 
+
 void	sleep_routine(t_philo *philo)
 {
 	long long	time;
@@ -65,20 +61,16 @@ void	sleep_routine(t_philo *philo)
 	return ;
 }
 
-/*
- ** Philospher time to think routine
- */
+//Routine réfléchir
+
 void	think_routine(t_philo *philo)
 {
 	print_status(philo->din_table, philo->pid, "is thinking\n");
 	return ;
 }
 
-/*
- ** Routine start here with infinite loop
- ** that includes all routines that philospher must do
- ** which are eat - sleep - think.
- */
+// Début de routine via une boucle infinie incluant toutes les routines que tous les philosophes doivent effectuer
+
 void	*start_routine(void *data)
 {
 	t_philo	*philo;

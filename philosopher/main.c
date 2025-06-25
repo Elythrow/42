@@ -6,16 +6,12 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:47:59 by gbazin            #+#    #+#             */
-/*   Updated: 2025/04/14 11:33:52 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:24 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*
- ** Mainly check arguments validity and return acceptance
- ** In case of an error a -1 is returned
- */
 int	check_arg_validity(int argSize, char **args)
 {
 	int	i;
@@ -32,10 +28,6 @@ int	check_arg_validity(int argSize, char **args)
 	return (GOOD);
 }
 
-/*
- ** Parse arguments into a valid struct
- ** Which we will use later
- */
 t_din	*fill_table(int argSize, char **args)
 {
 	t_din	*din_table;
@@ -64,13 +56,9 @@ t_din	*fill_table(int argSize, char **args)
 	return (din_table);
 }
 
-/*
- ** Mr mayhem check for a reason to kill
- ** one of the philospher either their
- ** time to die or number_of_times_each_philosopher_must_eat
- ** Each philosopher has it's own death master
- */
-void	*mr_mayhem(void *data)
+// kill_check vérifie si il faut tuer un philo (time to die ou nombre de repas nécessaires)
+
+void	*kill_check(void *data)
 {
 	t_philo	*philo;
 
@@ -93,9 +81,8 @@ void	*mr_mayhem(void *data)
 	return (NULL);
 }
 
-/*
- ** Initialize threads and start philospher
- */
+//Initialisation des threads
+
 int	start_threads(t_din *din_table)
 {
 	int	i;
@@ -114,8 +101,8 @@ int	start_threads(t_din *din_table)
 	i = 0;
 	while (i < din_table->nop)
 	{
-		if (pthread_create(&din_table->philos[i]->myhem, NULL, &mr_mayhem,
-		(void *)din_table->philos[i]) != 0)
+		if (pthread_create(&din_table->philos[i]->myhem, NULL, &kill_check, 
+			(void *)din_table->philos[i]) != 0)
 			return (ERROR);
 		usleep(100);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:47:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/04/14 11:34:48 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:03 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@
 # define ARGVALUE	4
 # define EOL		'\0'
 
-/*
- ** Philosopher struct
- ** Each philospher shoud have the same options: id[pid] number_of_ate[nta]
- ** last_time_ate[lta]
-*/
-
 typedef struct s_philo
 {
 	pthread_mutex_t	eating;
@@ -49,12 +43,6 @@ typedef struct s_philo
 	struct s_din	*din_table;
 }				t_philo;
 
-/*
- ** Each program should have the same options: number_of_philosophers[nop]
- ** time_to_die[ttd] time_to_eat[tte]
- ** time_to_sleep[tts] [number_of_times_each_philosopher_must_eat[ntpme]]
- ** starting_time[st]
- */
 
 typedef struct s_din
 {
