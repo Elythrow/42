@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:45:43 by gbazin            #+#    #+#             */
-/*   Updated: 2025/06/25 11:55:17 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/07/29 10:05:29 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ pthread_mutex_t	*initialize_forks(t_din *din_table)
 	{
 		if (pthread_mutex_init(&forks[i], 0) != 0)
 			return (NULL);
-		i++;
+		i ++;
 	}
 	return (forks);
 }

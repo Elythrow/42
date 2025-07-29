@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:47:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/06/25 11:55:03 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/07/29 10:23:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@
 # define STDOUT		1
 # define STDERR		2
 # define GOOD		3
-# define ARGVALUE	4
 # define EOL		'\0'
 
 typedef struct s_philo
 {
 	pthread_mutex_t	eating;
 	pthread_t		thd_philo;
-	pthread_t		myhem;
 	int				pid;
 	int				nta;
 	int				lf;
@@ -48,6 +46,7 @@ typedef struct s_din
 {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
+	pthread_mutex_t	death_mutex;
 	t_philo			**philos;
 	long long		st;
 	int				death;
@@ -65,5 +64,6 @@ long long		ft_time_in_ms(void);
 int				ft_atoi(const char *str);
 void			*start_routine(void *data);
 void			print_status(t_din *din_table, int pid, char *string);
+int				check_death(t_din *din_table);
 
 #endif

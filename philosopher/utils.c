@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:48:53 by gbazin            #+#    #+#             */
-/*   Updated: 2025/06/25 11:55:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/07/29 10:05:53 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	ft_atoi(const char *str)
 	if (*str == '-')
 	{
 		tt = -1;
-		str++;
+		str ++;
 	}
 	else if (*str == '+')
-		str++;
+		str ++;
 	while (*(str + j) >= 48 && *(str + j) <= 57)
 		t_p = t_p * 10 + (unsigned long long int)(*(str + j++) - '0');
 	return (ft_check(t_p, tt));
@@ -53,11 +53,15 @@ int	ft_is_number(char *string)
 	int	i;
 
 	i = 0;
+	if (string[0] == '-' || string[0] == '+')
+		i++;
+	if (string[i] == EOL)
+		return (ERROR);
 	while (string[i] != EOL)
 	{
-		if (string[i] <= '0' || string[i] >= '9')
+		if (string[i] < '0' || string[i] > '9')
 			return (ERROR);
-		i++;
+		i ++;
 	}
 	return (GOOD);
 }
@@ -72,31 +76,43 @@ long long	ft_time_in_ms(void)
 	return (milliseconds);
 }
 
-//initialisation de la structure d'un philosophe
-
 t_philo	**initialize_philosphers(t_din *din_table)
 {
 	t_philo	**philos;
 	int		i;
 
 	i = 0;
-	philos = (t_philo **)malloc(sizeof(t_philo *) * din_table->nop + 1);
+	philos = (t_philo **)malloc(sizeof(t_philo *) * din_table->nop);
 	if (philos == NULL)
 		return (NULL);
 	while (i < din_table->nop)
 	{
 		philos[i] = (t_philo *)malloc(sizeof(t_philo) * 1);
 		if (philos[i] == NULL)
+		{
+			while (--i >= 0)
+				free(philos[i]);
+			free(philos);
 			return (NULL);
+		}
 		if (pthread_mutex_init(&philos[i]->eating, 0) != 0)
+		{
+			free(philos[i]);
+			while (--i >= 0)
+			{
+				pthread_mutex_destroy(&philos[i]->eating);
+				free(philos[i]);
+			}
+			free(philos);
 			return (NULL);
+		}
 		philos[i]->din_table = din_table;
 		philos[i]->pid = i;
 		philos[i]->is_eating = 0;
 		philos[i]->nta = 0;
 		philos[i]->lf = i;
-		philos[i]->rf = (i + 1) % philos[i]->din_table->nop;
-		i++;
+		philos[i]->rf = (i + 1) % din_table->nop;
+		i ++;
 	}
 	return (philos);
 }
