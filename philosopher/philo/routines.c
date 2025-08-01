@@ -5,144 +5,104 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 10:48:19 by gbazin            #+#    #+#             */
-/*   Updated: 2025/08/01 10:03:31 by gbazin           ###   ########.fr       */
+/*   Created: 2025/08/01 11:21:48 by gbazin            #+#    #+#             */
+/*   Updated: 2025/08/01 11:36:56 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_death(t_din *din_table)
+/* Check if simulation should continue */
+bool	is_simulation_running(t_table *table)
 {
-	int	status;
-
-	pthread_mutex_lock(&din_table->death_mutex);
-	status = din_table->death;
-	pthread_mutex_unlock(&din_table->death_mutex);
-	return (status);
+	bool	running;
+	
+	pthread_mutex_lock(&table->death_lock);
+	running = !table->simulation_stop;
+	pthread_mutex_unlock(&table->death_lock);
+	return (running);
 }
 
-void	print_status(t_din *din_table, int pid, char *string)
+/* Simplified fork taking - avoid deadlock with consistent ordering */
+void	take_forks(t_philosopher *philo)
 {
-	pthread_mutex_lock(&din_table->death_mutex);
-	if (!din_table->death)
+	if (philo->id % 2 == 1)
 	{
-		pthread_mutex_unlock(&din_table->death_mutex);
-		return ;
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, MSG_FORK);
+		pthread_mutex_lock(philo->right_fork);
+		print_status(philo, MSG_FORK);
 	}
-	pthread_mutex_unlock(&din_table->death_mutex);
-	pthread_mutex_lock(&din_table->write);
-	printf("%lld %d %s", ft_time_in_ms() - din_table->st, pid + 1, string);
-	pthread_mutex_unlock(&din_table->write);
-}
-
-void	smart_sleep(t_din *din_table, long long duration)
-{
-	long long	start;
-	long long	elapsed;
-
-	start = ft_time_in_ms();
-	while (check_death(din_table))
-	{
-		elapsed = ft_time_in_ms() - start;
-		if (elapsed >= duration)
-			break;
-		if (duration - elapsed > 10)
-			usleep(10000);
-		else
-			usleep((duration - elapsed) * 1000);
-	}
-}
-
-static void	handle_single_philo(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-	print_status(philo->din_table, philo->pid, "has taken a fork\n");
-	smart_sleep(philo->din_table, philo->din_table->ttd + 1);
-	pthread_mutex_unlock(&philo->din_table->forks[philo->lf]);
-}
-
-static void	take_forks_even(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-	print_status(philo->din_table, philo->pid, "has taken a fork\n");
-	pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
-	print_status(philo->din_table, philo->pid, "has taken a fork\n");
-}
-
-static void	take_forks_odd(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
-	print_status(philo->din_table, philo->pid, "has taken a fork\n");
-	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-	print_status(philo->din_table, philo->pid, "has taken a fork\n");
-}
-
-static void	set_eating_state(t_philo *philo, long long eating_start_time)
-{
-	pthread_mutex_lock(&philo->eating);
-	philo->lta = eating_start_time;
-	philo->is_eating = 1;
-	pthread_mutex_unlock(&philo->eating);
-}
-
-static void	finish_eating(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->eating);
-	philo->nta++;
-	philo->is_eating = 0;
-	pthread_mutex_unlock(&philo->eating);
-	pthread_mutex_unlock(&philo->din_table->forks[philo->lf]);
-	pthread_mutex_unlock(&philo->din_table->forks[philo->rf]);
-}
-
-void	eat_routine(t_philo *philo)
-{
-	long long	eating_start_time;
-
-	if (philo->din_table->nop == 1)
-	{
-		handle_single_philo(philo);
-		return ;
-	}
-	if (philo->pid % 2 == 0)
-		take_forks_even(philo);
 	else
-		take_forks_odd(philo);
-	eating_start_time = ft_time_in_ms();
-	set_eating_state(philo, eating_start_time);
-	print_status(philo->din_table, philo->pid, "is eating\n");
-	smart_sleep(philo->din_table, philo->din_table->tte);
-	finish_eating(philo);
-}
-
-void	sleep_routine(t_philo *philo)
-{
-	print_status(philo->din_table, philo->pid, "is sleeping\n");
-	smart_sleep(philo->din_table, philo->din_table->tts);
-}
-
-void	think_routine(t_philo *philo)
-{
-	print_status(philo->din_table, philo->pid, "is thinking\n");
-	if (philo->din_table->nop % 2 == 1)
-		usleep(100);
-}
-
-void	*start_routine(void *data)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)data;
-	while (check_death(philo->din_table))
 	{
-		eat_routine(philo);
-		if (!check_death(philo->din_table))
-			break;
-		sleep_routine(philo);
-		if (!check_death(philo->din_table))
-			break;
-		think_routine(philo);
+		pthread_mutex_lock(philo->right_fork);
+		print_status(philo, MSG_FORK);
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, MSG_FORK);
+	}
+}
+
+void	release_forks(t_philosopher *philo)
+{
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+}
+
+/* Eating with proper synchronization */
+void	eat_action(t_philosopher *philo)
+{
+	take_forks(philo);
+	pthread_mutex_lock(&philo->meal_lock);
+	philo->last_meal_time = get_time_ms();
+	philo->is_eating = true;
+	pthread_mutex_unlock(&philo->meal_lock);
+	print_status(philo, MSG_EAT);
+	precise_sleep(philo->table->time_to_eat);
+	pthread_mutex_lock(&philo->meal_lock);
+	philo->meals_eaten ++;
+	philo->is_eating = false;
+	pthread_mutex_unlock(&philo->meal_lock);
+	release_forks(philo);
+}
+
+void	sleep_action(t_philosopher *philo)
+{
+	print_status(philo, MSG_SLEEP);
+	precise_sleep(philo->table->time_to_sleep);
+}
+
+void	think_action(t_philosopher *philo)
+{
+	long think_time;
+	
+	print_status(philo, MSG_THINK);
+	if (philo->table->philo_count % 2 == 1)
+	{
+		think_time = (philo->table->time_to_eat * 2 - philo->table->time_to_sleep) / 2;
+		if (think_time > 0)
+			precise_sleep(think_time);
+	}
+}
+
+void	*philosopher_routine(void *arg)
+{
+	t_philosopher *philo;
+	
+	philo = (t_philosopher *)arg;
+	if (philo->id % 2 == 0)
+		precise_sleep(philo->table->time_to_eat / 2);
+	while (is_simulation_running(philo->table))
+	{
+		eat_action(philo);
+		if (philo->table->required_meals != -1 
+			&& philo->meals_eaten >= philo->table->required_meals)
+			break ;
+		if (!is_simulation_running(philo->table))
+			break ;
+		sleep_action(philo);
+		if (!is_simulation_running(philo->table))
+			break ;
+		think_action(philo);
 	}
 	return (NULL);
 }

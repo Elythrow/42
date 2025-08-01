@@ -1,0 +1,11 @@
+5 599 200 200
+No death
+
+199 800 300 100
+Timestamp is incorrect with an error of 20 ms (820)
+
+200 410 200 200 10
+Philosopher 1 has not eaten enough times or has eaten too many times
+
+200 410 200 80 10
+Philosopher 1 has not eaten enough times or has eaten too many times

@@ -6,268 +6,136 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:47:59 by gbazin            #+#    #+#             */
-/*   Updated: 2025/08/01 10:03:33 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/08/01 12:11:06 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_arg_validity(int ac, char **av)
+static int	create_threads(t_table *table)
 {
 	int	i;
-
-	i = 1;
-	if (ac - 1 < 4 || ac - 1 > 6)
-		return (ERROR);
-	while (i < ac)
-	{
-		if (av[i][0] == '-' || ft_is_number(av[i]) != GOOD)
-			return (ERROR);
-		i++;
-	}
-	return (GOOD);
-}
-
-static int	init_mutexes(t_din *din_table)
-{
-	if (pthread_mutex_init(&din_table->write, 0) != 0)
-		return (ERROR);
-	if (pthread_mutex_init(&din_table->death_mutex, 0) != 0)
-		return (ERROR);
-	return (GOOD);
-}
-
-static int	fill_table_values(t_din *din_table, int ac, char **av)
-{
-	int	counter;
-
-	counter = 1;
-	din_table->nop = ft_atoi(av[counter++]);
-	din_table->ttd = ft_atoi(av[counter++]);
-	din_table->tte = ft_atoi(av[counter++]);
-	din_table->tts = ft_atoi(av[counter++]);
-	din_table->ntpme = -1;
-	din_table->death = 1;
-	if (ac - 1 == 5)
-		din_table->ntpme = ft_atoi(av[counter]);
-	return (GOOD);
-}
-
-t_din	*fill_table(int ac, char **av)
-{
-	t_din	*din_table;
-
-	din_table = (t_din *)malloc(sizeof(t_din) * 1);
-	if (din_table == NULL)
-		return (NULL);
-	fill_table_values(din_table, ac, av);
-	din_table->forks = initialize_forks(din_table);
-	if (din_table->forks == NULL)
-		return (NULL);
-	din_table->philos = initialize_philosphers(din_table);
-	if (din_table->philos == NULL || din_table->nop == 0)
-		return (NULL);
-	if (init_mutexes(din_table) != GOOD)
-		return (NULL);
-	return (din_table);
-}
-
-static int	check_philosopher_death(t_din *din_table, int i)
-{
-	long long	current_time;
-	long long	time_since_meal;
-
-	current_time = ft_time_in_ms();
-	time_since_meal = current_time - din_table->philos[i]->lta;
-	if (time_since_meal > din_table->ttd)
-	{
-		pthread_mutex_lock(&din_table->death_mutex);
-		din_table->death = 0;
-		pthread_mutex_unlock(&din_table->death_mutex);
-		pthread_mutex_lock(&din_table->write);
-		printf("%lld %d died\n", current_time - din_table->st,
-			din_table->philos[i]->pid + 1);
-		pthread_mutex_unlock(&din_table->write);
-		return (1);
-	}
-	return (0);
-}
-
-static int	monitor_single_philo(t_din *din_table, int i)
-{
-	int	death_occurred;
-
-	pthread_mutex_lock(&din_table->philos[i]->eating);
-	death_occurred = 0;
-	if (!din_table->philos[i]->is_eating)
-	{
-		death_occurred = check_philosopher_death(din_table, i);
-		if (death_occurred)
-		{
-			pthread_mutex_unlock(&din_table->philos[i]->eating);
-			return (1);
-		}
-	}
-	pthread_mutex_unlock(&din_table->philos[i]->eating);
-	return (0);
-}
-
-static int	check_all_ate_enough(t_din *din_table)
-{
-	int	i;
-
+	
 	i = 0;
-	while (i < din_table->nop)
+	while (i < table->philo_count)
 	{
-		if (din_table->ntpme != -1
-			&& din_table->philos[i]->nta < din_table->ntpme)
-			return (0);
-		i++;
+		if (pthread_create(&table->philosophers[i]->thread_id, NULL,
+						  philosopher_routine, table->philosophers[i]) != 0)
+			return (FAILURE);
+		i ++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
-void	*monitor_philosophers(void *data)
+static void	join_threads(t_table *table)
 {
-	t_din	*din_table;
-	int		i;
+	int	i;
+	
+	i = 0;
+	while (i < table->philo_count)
+	{
+		pthread_join(table->philosophers[i]->thread_id, NULL);
+		i ++;
+	}
+}
 
-	din_table = (t_din *)data;
-	usleep(10000);
-	while (din_table->death)
+int	start_simulation(t_table *table)
+{
+	pthread_t	monitor_thread;
+
+	if (create_threads(table) == FAILURE)
+		return (FAILURE);
+	if (pthread_create(&monitor_thread, NULL, death_monitor, table) != 0)
+		return (FAILURE);
+	pthread_join(monitor_thread, NULL);
+	join_threads(table);
+	return (SUCCESS);
+}
+
+void	cleanup_table(t_table *table)
+{
+	int	i;
+	
+	if (!table)
+		return;
+	if (table->philosophers)
 	{
 		i = 0;
-		while (i < din_table->nop)
+		while (i < table->philo_count && table->philosophers[i])
 		{
-			if (monitor_single_philo(din_table, i))
-				return (NULL);
-			i++;
+			pthread_mutex_destroy(&table->philosophers[i]->meal_lock);
+			free(table->philosophers[i]);
+			i ++;
 		}
-		if (din_table->ntpme != -1 && check_all_ate_enough(din_table))
+		free(table->philosophers);
+	}
+	if (table->forks)
+	{
+		i = 0;
+		while (i < table->philo_count)
 		{
-			pthread_mutex_lock(&din_table->death_mutex);
-			din_table->death = 0;
-			pthread_mutex_unlock(&din_table->death_mutex);
-			return (NULL);
+			pthread_mutex_destroy(&table->forks[i]);
+			i ++;
 		}
-		usleep(100);
+		free(table->forks);
 	}
-	return (NULL);
+	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->death_lock);
+	free(table);
 }
 
-static void	initialize_philosopher_times(t_din *din_table)
+static int	validate_args(int ac, char **av)
 {
-	int	i;
-
-	i = 0;
-	while (i < din_table->nop)
+	int i;
+	int	j;
+	
+	if (ac < 5 || ac > 6)
 	{
-		din_table->philos[i]->lta = din_table->st;
-		i++;
+		write(2, "Usage: ./philo nb_philos time_die time_eat time_sleep [nb_meals]\n", 66);
+		return (FAILURE);
 	}
-}
-
-static int	create_philosopher_threads(t_din *din_table)
-{
-	int	i;
-
-	i = 0;
-	while (i < din_table->nop)
+	i = 1;
+	while (i < ac)
 	{
-		if (pthread_create(&din_table->philos[i]->thd_philo, NULL,
-				&start_routine, (void *)din_table->philos[i]) != 0)
-			return (ERROR);
-		i++;
+		j = 0;
+		if (av[i][0] == '-' || av[i][0] == '\0')
+			return (FAILURE);
+		while (av[i][j])
+		{
+			if (av[i][j] < '0' || av[i][j] > '9')
+				return (FAILURE);
+			j ++;
+		}
+		i ++;
 	}
-	return (GOOD);
-}
-
-static void	join_philosopher_threads(t_din *din_table)
-{
-	int	i;
-
-	i = 0;
-	while (i < din_table->nop)
-	{
-		pthread_join(din_table->philos[i]->thd_philo, NULL);
-		i++;
-	}
-}
-
-int	start_threads(t_din *din_table)
-{
-	pthread_t	monitor;
-
-	din_table->st = ft_time_in_ms();
-	initialize_philosopher_times(din_table);
-	if (create_philosopher_threads(din_table) != GOOD)
-		return (ERROR);
-	if (pthread_create(&monitor, NULL, &monitor_philosophers,
-			(void *)din_table) != 0)
-		return (ERROR);
-	pthread_join(monitor, NULL);
-	join_philosopher_threads(din_table);
-	return (GOOD);
-}
-
-static void	cleanup_philosophers(t_din *din_table)
-{
-	int	i;
-
-	i = 0;
-	while (i < din_table->nop && din_table->philos && din_table->philos[i])
-	{
-		pthread_mutex_destroy(&din_table->philos[i]->eating);
-		free(din_table->philos[i]);
-		i++;
-	}
-}
-
-static void	cleanup_forks(t_din *din_table)
-{
-	int	i;
-
-	i = 0;
-	while (i < din_table->nop && din_table->forks)
-	{
-		pthread_mutex_destroy(&din_table->forks[i]);
-		i++;
-	}
-}
-
-void	cleanup_table(t_din *din_table)
-{
-	if (din_table == NULL)
-		return ;
-	cleanup_philosophers(din_table);
-	cleanup_forks(din_table);
-	pthread_mutex_destroy(&din_table->write);
-	pthread_mutex_destroy(&din_table->death_mutex);
-	if (din_table->philos)
-		free(din_table->philos);
-	if (din_table->forks)
-		free(din_table->forks);
-	free(din_table);
+	return (SUCCESS);
 }
 
 int	main(int ac, char **av)
 {
-	t_din	*din_table;
-
-	din_table = NULL;
-	if (check_arg_validity(ac, av) != GOOD)
+	t_table	*table;
+	
+	if (validate_args(ac, av) == FAILURE)
+		return (1);
+	table = init_table(ac, av);
+	if (!table)
 	{
-		write(2, "Error: Invalid Argument\n", 24);
-		return (ERROR);
+		write(2, "Error: Failed to initialize\n", 28);
+		return (1);
 	}
-	din_table = fill_table(ac, av);
-	if (din_table == NULL)
-		return (ERROR);
-	if (start_threads(din_table) != GOOD)
+	if (table->philo_count == 1)
 	{
-		cleanup_table(din_table);
-		return (ERROR);
+		printf("0 1 %s\n", MSG_FORK);
+		precise_sleep(table->time_to_die);
+		printf("%lld 1 %s\n", table->time_to_die, MSG_DIED);
+		cleanup_table(table);
+		return (0);
 	}
-	cleanup_table(din_table);
-	return (GOOD);
+	if (start_simulation(table) == FAILURE)
+	{
+		cleanup_table(table);
+		return (1);
+	}
+	cleanup_table(table);
+	return (0);
 }
