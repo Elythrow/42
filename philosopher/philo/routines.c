@@ -6,13 +6,12 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:48:19 by gbazin            #+#    #+#             */
-/*   Updated: 2025/07/29 10:19:56 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/08/01 10:03:31 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// Check if simulation should continue
 int	check_death(t_din *din_table)
 {
 	int	status;
@@ -23,8 +22,6 @@ int	check_death(t_din *din_table)
 	return (status);
 }
 
-// Affiche le statut d'un philosophe dans un mutex
-// pour éviter que l'affichage soit confondu entre plusieurs philosophes
 void	print_status(t_din *din_table, int pid, char *string)
 {
 	pthread_mutex_lock(&din_table->death_mutex);
@@ -57,70 +54,86 @@ void	smart_sleep(t_din *din_table, long long duration)
 	}
 }
 
-// Le philosophe prend ses deux fourchettes et commence la routine manger
-// pendant une certaine durée (tte)
-void	eat_routine(t_philo *philo)
+static void	handle_single_philo(t_philo *philo)
 {
-	if (philo->din_table->nop == 1)
-	{
-		pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-		print_status(philo->din_table, philo->pid, "has taken a fork\n");
-		smart_sleep(philo->din_table, philo->din_table->ttd + 1);
-		pthread_mutex_unlock(&philo->din_table->forks[philo->lf]);
-		return ;
-	}
-	if (philo->pid % 2 == 0)
-	{
-		pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-		print_status(philo->din_table, philo->pid, "has taken a fork\n");
-		pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
-		print_status(philo->din_table, philo->pid, "has taken a fork\n");
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
-		print_status(philo->din_table, philo->pid, "has taken a fork\n");
-		pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
-		print_status(philo->din_table, philo->pid, "has taken a fork\n");
-	}
+	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
+	print_status(philo->din_table, philo->pid, "has taken a fork\n");
+	smart_sleep(philo->din_table, philo->din_table->ttd + 1);
+	pthread_mutex_unlock(&philo->din_table->forks[philo->lf]);
+}
+
+static void	take_forks_even(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
+	print_status(philo->din_table, philo->pid, "has taken a fork\n");
+	pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
+	print_status(philo->din_table, philo->pid, "has taken a fork\n");
+}
+
+static void	take_forks_odd(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->din_table->forks[philo->rf]);
+	print_status(philo->din_table, philo->pid, "has taken a fork\n");
+	pthread_mutex_lock(&philo->din_table->forks[philo->lf]);
+	print_status(philo->din_table, philo->pid, "has taken a fork\n");
+}
+
+static void	set_eating_state(t_philo *philo, long long eating_start_time)
+{
 	pthread_mutex_lock(&philo->eating);
-	philo->lta = ft_time_in_ms();
+	philo->lta = eating_start_time;
 	philo->is_eating = 1;
-	print_status(philo->din_table, philo->pid, "is eating\n");
 	pthread_mutex_unlock(&philo->eating);
-	smart_sleep(philo->din_table, philo->din_table->tte);
+}
+
+static void	finish_eating(t_philo *philo)
+{
 	pthread_mutex_lock(&philo->eating);
-	philo->nta ++;
+	philo->nta++;
 	philo->is_eating = 0;
 	pthread_mutex_unlock(&philo->eating);
 	pthread_mutex_unlock(&philo->din_table->forks[philo->lf]);
 	pthread_mutex_unlock(&philo->din_table->forks[philo->rf]);
 }
 
-//Routine dormir 
+void	eat_routine(t_philo *philo)
+{
+	long long	eating_start_time;
+
+	if (philo->din_table->nop == 1)
+	{
+		handle_single_philo(philo);
+		return ;
+	}
+	if (philo->pid % 2 == 0)
+		take_forks_even(philo);
+	else
+		take_forks_odd(philo);
+	eating_start_time = ft_time_in_ms();
+	set_eating_state(philo, eating_start_time);
+	print_status(philo->din_table, philo->pid, "is eating\n");
+	smart_sleep(philo->din_table, philo->din_table->tte);
+	finish_eating(philo);
+}
+
 void	sleep_routine(t_philo *philo)
 {
 	print_status(philo->din_table, philo->pid, "is sleeping\n");
 	smart_sleep(philo->din_table, philo->din_table->tts);
 }
 
-//Routine réfléchir
 void	think_routine(t_philo *philo)
 {
 	print_status(philo->din_table, philo->pid, "is thinking\n");
 	if (philo->din_table->nop % 2 == 1)
-		usleep(1000);
+		usleep(100);
 }
 
-// Début de routine via une boucle infinie incluant toutes les routines
 void	*start_routine(void *data)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if (philo->pid % 2 == 1)
-		usleep(15000);
-	
 	while (check_death(philo->din_table))
 	{
 		eat_routine(philo);

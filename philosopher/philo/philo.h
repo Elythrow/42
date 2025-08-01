@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:47:28 by gbazin            #+#    #+#             */
-/*   Updated: 2025/07/29 10:23:31 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/07/30 15:43:15 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int				ft_atoi(const char *str);
 void			*start_routine(void *data);
 void			print_status(t_din *din_table, int pid, char *string);
 int				check_death(t_din *din_table);
+void			print_status_with_time(t_din *din_table, int pid, char *string, long long timestamp);
 
 #endif

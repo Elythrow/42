@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 10:48:53 by gbazin            #+#    #+#             */
-/*   Updated: 2025/07/29 10:05:53 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/08/01 10:03:24 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_is_number(char *string)
 	{
 		if (string[i] < '0' || string[i] > '9')
 			return (ERROR);
-		i ++;
+		i++;
 	}
 	return (GOOD);
 }
@@ -76,6 +76,50 @@ long long	ft_time_in_ms(void)
 	return (milliseconds);
 }
 
+static void	cleanup_philosophers(t_philo **philos, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (philos[i])
+		{
+			pthread_mutex_destroy(&philos[i]->eating);
+			free(philos[i]);
+		}
+		i++;
+	}
+	free(philos);
+}
+
+static void	init_philosopher_fields(t_philo *philo, t_din *din_table, int i)
+{
+	philo->din_table = din_table;
+	philo->pid = i;
+	philo->is_eating = 0;
+	philo->nta = 0;
+	philo->lf = i;
+	philo->rf = (i + 1) % din_table->nop;
+	philo->lta = 0;
+}
+
+static t_philo	*create_single_philosopher(t_din *din_table, int i)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)malloc(sizeof(t_philo) * 1);
+	if (philo == NULL)
+		return (NULL);
+	if (pthread_mutex_init(&philo->eating, 0) != 0)
+	{
+		free(philo);
+		return (NULL);
+	}
+	init_philosopher_fields(philo, din_table, i);
+	return (philo);
+}
+
 t_philo	**initialize_philosphers(t_din *din_table)
 {
 	t_philo	**philos;
@@ -87,32 +131,13 @@ t_philo	**initialize_philosphers(t_din *din_table)
 		return (NULL);
 	while (i < din_table->nop)
 	{
-		philos[i] = (t_philo *)malloc(sizeof(t_philo) * 1);
+		philos[i] = create_single_philosopher(din_table, i);
 		if (philos[i] == NULL)
 		{
-			while (--i >= 0)
-				free(philos[i]);
-			free(philos);
+			cleanup_philosophers(philos, i);
 			return (NULL);
 		}
-		if (pthread_mutex_init(&philos[i]->eating, 0) != 0)
-		{
-			free(philos[i]);
-			while (--i >= 0)
-			{
-				pthread_mutex_destroy(&philos[i]->eating);
-				free(philos[i]);
-			}
-			free(philos);
-			return (NULL);
-		}
-		philos[i]->din_table = din_table;
-		philos[i]->pid = i;
-		philos[i]->is_eating = 0;
-		philos[i]->nta = 0;
-		philos[i]->lf = i;
-		philos[i]->rf = (i + 1) % din_table->nop;
-		i ++;
+		i++;
 	}
 	return (philos);
 }

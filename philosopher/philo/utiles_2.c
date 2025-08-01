@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 11:45:43 by gbazin            #+#    #+#             */
-/*   Updated: 2025/07/29 10:05:29 by gbazin           ###   ########.fr       */
+/*   Updated: 2025/07/30 15:43:16 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ pthread_mutex_t	*initialize_forks(t_din *din_table)
 		i ++;
 	}
 	return (forks);
+}
+
+void	print_status_with_time(t_din *din_table, int pid, char *string, long long timestamp)
+{
+	pthread_mutex_lock(&din_table->death_mutex);
+	if (!din_table->death)
+	{
+		pthread_mutex_unlock(&din_table->death_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&din_table->death_mutex);
+	pthread_mutex_lock(&din_table->write);
+	printf("%lld %d %s", timestamp - din_table->st, pid + 1, string);
+	pthread_mutex_unlock(&din_table->write);
 }
