@@ -9,3 +9,75 @@ Philosopher 1 has not eaten enough times or has eaten too many times
 
 200 410 200 80 10
 Philosopher 1 has not eaten enough times or has eaten too many times
+
+
+// Fixed print_status function (time.c)
+void print_status(t_philosopher *philo, char *action)
+{
+    pthread_mutex_lock(&philo->table->death_lock);
+    if (!philo->table->simulation_stop)
+    {
+        pthread_mutex_unlock(&philo->table->death_lock);
+        
+        pthread_mutex_lock(&philo->table->print_lock);
+        printf("%lld %d %s\n", 
+            get_time_ms() - philo->table->start_time,
+            philo->id,
+            action);
+        pthread_mutex_unlock(&philo->table->print_lock);
+    }
+    else
+        pthread_mutex_unlock(&philo->table->death_lock);
+}
+
+// Fixed all_philosophers_satisfied function (monitor.c)
+static bool all_philosophers_satisfied(t_table *table)
+{
+    int i;
+    int meals;
+    
+    if (table->required_meals == -1)
+        return (false);
+    i = 0;
+    while (i < table->philo_count)
+    {
+        pthread_mutex_lock(&table->philosophers[i]->meal_lock);
+        meals = table->philosophers[i]->meals_eaten;
+        pthread_mutex_unlock(&table->philosophers[i]->meal_lock);
+        if (meals < table->required_meals)
+            return (false);
+        i++;
+    }
+    return (true);
+}
+
+// Alternative: Add a synchronization barrier in main.c
+// Add to t_table structure in philo.h:
+// pthread_barrier_t    start_barrier;
+
+// In init_table (init.c), after other mutex inits:
+// if (pthread_barrier_init(&table->start_barrier, NULL, table->philo_count + 1) != 0)
+// {
+//     free(table);
+//     return (NULL);
+// }
+
+// In philosopher_routine (routines.c), at the very beginning:
+// pthread_barrier_wait(&philo->table->start_barrier);
+
+// In start_simulation (main.c), after creating all threads:
+// pthread_barrier_wait(&table->start_barrier);
+
+// In cleanup_table (main.c):
+// pthread_barrier_destroy(&table->start_barrier);
+
+
+
+valgrind --tool=helgrind --history-level=full ./philo 5 800 200 200
+
+Additional Recommendations:
+
+Fork initialization race: Make sure all forks are initialized before any philosopher thread starts.The barrier solution mentioned above would help with this.
+Memory barriers: Some compilers might reorder operations. Consider using pthread_mutex_lock even for simple boolean checks to ensure proper memory synchronization.
+Double-check pattern: In some places, you're using a pattern where you check a condition, lock, then check again. This is good but make sure the first check is also protected or use atomic operations.
+Consistent lock ordering: You're already doing this well with the even/odd philosopher fork ordering, which prevents deadlock.
