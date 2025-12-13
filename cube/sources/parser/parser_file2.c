@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_file2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 17:33:45 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/05 16:42:55 by gbazin           ###   ########.fr       */
+/*   Created: 2025/12/05 18:35:57 by zomar             #+#    #+#             */
+/*   Updated: 2025/12/05 18:59:12 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	main(int argc, char **argv)
+char	*file_to_string(const char *path)
 {
-	t_config	config;
-	t_game		game;
+	int		fd;
+	char	*line;
+	char	*content;
+	char	*tmp;
 
-	if (argc != 2)
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	content = ft_strdup("");
+	line = get_next_line(fd);
+	while (line)
 	{
-		ft_putstr_fd("Error\nUsage: ./cub3D <map.cub>\n", 2);
-		return (1);
+		tmp = content;
+		content = ft_strjoin(content, line);
+		free(tmp);
+		free(line);
+		if (!content)
+			return (close(fd), NULL);
+		line = get_next_line(fd);
 	}
-	ft_memset(&game, 0, sizeof(t_game));
-	parse_file(argv[1], &config);
-	game.param = config;
-	exec_game(&game, &config);
-	free_config(&config);
-	return (0);
+	close(fd);
+	return (content);
 }

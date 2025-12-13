@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleaning.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 17:33:45 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/05 16:42:55 by gbazin           ###   ########.fr       */
+/*   Created: 2025/12/04 17:59:17 by zomar             #+#    #+#             */
+/*   Updated: 2025/12/05 16:59:40 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	main(int argc, char **argv)
+int	close_game(t_game *game)
 {
-	t_config	config;
-	t_game		game;
-
-	if (argc != 2)
+	free_textures(game);
+	if (game->img.img_ptr)
+		mlx_destroy_image(game->mlx, game->img.img_ptr);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
 	{
-		ft_putstr_fd("Error\nUsage: ./cub3D <map.cub>\n", 2);
-		return (1);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
 	}
-	ft_memset(&game, 0, sizeof(t_game));
-	parse_file(argv[1], &config);
-	game.param = config;
-	exec_game(&game, &config);
-	free_config(&config);
+	free_config(&game->param);
+	exit(0);
 	return (0);
 }

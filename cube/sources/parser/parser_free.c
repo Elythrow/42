@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 17:33:45 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/05 16:42:55 by gbazin           ###   ########.fr       */
+/*   Created: 2025/10/27 14:17:00 by gbazin            #+#    #+#             */
+/*   Updated: 2025/10/27 17:55:08 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	main(int argc, char **argv)
+void	free_config(t_config *cfg)
 {
-	t_config	config;
-	t_game		game;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nUsage: ./cub3D <map.cub>\n", 2);
-		return (1);
-	}
-	ft_memset(&game, 0, sizeof(t_game));
-	parse_file(argv[1], &config);
-	game.param = config;
-	exec_game(&game, &config);
-	free_config(&config);
-	return (0);
+	if (!cfg)
+		return ;
+	if (cfg->textures.north)
+		free(cfg->textures.north);
+	if (cfg->textures.south)
+		free(cfg->textures.south);
+	if (cfg->textures.east)
+		free(cfg->textures.east);
+	if (cfg->textures.west)
+		free(cfg->textures.west);
+	if (cfg->map.grid)
+		free_split(cfg->map.grid);
 }

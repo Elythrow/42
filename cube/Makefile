@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/03 15:14:40 by gbazin            #+#    #+#              #
-#    Updated: 2025/03/01 17:04:00 by gbazin           ###   ########.fr        #
+#    Created: 2025/11/27 12:00:00 by gbazin            #+#    #+#              #
+#    Updated: 2025/12/05 16:58:25 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 ## VARIABLES ##
 
@@ -29,18 +30,34 @@ CFLAGS += -g3
 
 SRCS_DIR := sources
 
-SRCS += ${SRCS_DIR}/fractol_main.c
-SRCS += ${SRCS_DIR}/fractol_parsing.c
-SRCS += ${SRCS_DIR}/fractol_calcul.c
-SRCS += ${SRCS_DIR}/fractol_render.c
-SRCS += ${SRCS_DIR}/fractol_init.c
-SRCS += ${SRCS_DIR}/fractol_events.c
+SRCS += ${SRCS_DIR}/main.c
+SRCS += ${SRCS_DIR}/cleaning.c
+SRCS += ${SRCS_DIR}/exec_game.c
+SRCS += ${SRCS_DIR}/visual.c
+SRCS += ${SRCS_DIR}/commands.c
+SRCS += ${SRCS_DIR}/init.c
+SRCS += ${SRCS_DIR}/movement.c
+SRCS += ${SRCS_DIR}/raycasting.c
+SRCS += ${SRCS_DIR}/raycasting_utils.c
+SRCS += ${SRCS_DIR}/rotation.c
+SRCS += ${SRCS_DIR}/texture.c
+SRCS += ${SRCS_DIR}/parser/parser_color.c
+SRCS += ${SRCS_DIR}/parser/parser_error.c
+SRCS += ${SRCS_DIR}/parser/parser_file.c
+SRCS += ${SRCS_DIR}/parser/parser_file2.c
+SRCS += ${SRCS_DIR}/parser/parser_free.c
+SRCS += ${SRCS_DIR}/parser/parser_map.c
+SRCS += ${SRCS_DIR}/parser/parser_texture.c
+SRCS += ${SRCS_DIR}/parser/parser_utils.c
+SRCS += ${SRCS_DIR}/parser/parser_validate.c
+SRCS += ${SRCS_DIR}/parser/parser_validate_check.c
 
 # HEADERS #
 
 HEADERS_DIR := includes
 
 HEADERS += ${HEADERS_DIR}/cub3d.h
+HEADERS += ${HEADERS_DIR}/parser.h
 
 # LIBFT #
 
@@ -49,7 +66,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 # MINILIBX #
 
-MLX_PATH = ./minilibx
+MLX_PATH = ./minilibx-linux
 MLX = $(MLX_PATH)/libmlx.a
 LIBS = -Lminilibx-linux -L/usr/lib -lXext -lX11 -lm -lft
 
