@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 19:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/16 15:54:54 by gbazin           ###   ########.fr       */
+/*   Created: 2025/12/16 16:18:23 by gbazin            #+#    #+#             */
+/*   Updated: 2025/12/18 09:18:47 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include <iostream>
+#include <iostream>
 
- int main(int ac, char **av)
- {
-	int		i;
-	int		j;
-
-	std::string str = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	if (ac < 2)
-		std::cout << str;
-	else
-	{
-		for (i = 1; av[i] != NULL; i ++)
-		{
-			str = av[i];
-			j = 0;
-			while (str[j] != '\0')
-			{
-				str[j] = std::toupper(str[j]);
-				j ++;
-			}
-			std::cout << str;
-		}
-	}
-	std::cout << "\n";
-	return (0);
- }
+class Contact {
+	private :
+		std::string first_name;
+		std::string last_name;
+		std::string nickname;
+		std::string phone_number;
+		std::string darkest_secret;
+	public :
+	
+}

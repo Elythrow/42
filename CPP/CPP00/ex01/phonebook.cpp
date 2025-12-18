@@ -1,39 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/13 19:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/16 15:54:54 by gbazin           ###   ########.fr       */
+/*   Created: 2025/12/16 16:18:19 by gbazin            #+#    #+#             */
+/*   Updated: 2025/12/16 16:18:20 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include <iostream>
-
- int main(int ac, char **av)
- {
-	int		i;
-	int		j;
-
-	std::string str = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	if (ac < 2)
-		std::cout << str;
-	else
-	{
-		for (i = 1; av[i] != NULL; i ++)
-		{
-			str = av[i];
-			j = 0;
-			while (str[j] != '\0')
-			{
-				str[j] = std::toupper(str[j]);
-				j ++;
-			}
-			std::cout << str;
-		}
-	}
-	std::cout << "\n";
-	return (0);
- }
