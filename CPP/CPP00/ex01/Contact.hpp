@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:18:01 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 00:24:37 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/05 00:32:20 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CONTACT_HPP
 
 #include <iostream>
+#include <string>
 
 class Contact {
 	private :
