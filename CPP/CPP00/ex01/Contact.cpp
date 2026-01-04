@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:18:09 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 00:12:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/05 00:21:05 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,14 @@ std::string Contact::get_PhoneNumber()
 std::string Contact::get_DarkestSecret()
 {
     return this->DarkestSecret;
+}
+
+void Contact::set_contact(std::string fn, std::string ln, std::string nn, std::string pn, std::string ds)
+{
+    FirstName = fn;
+    LastName = ln;
+    Nickname = nn;
+    PhoneNumber = pn;
+    DarkestSecret = ds;
 }
 
