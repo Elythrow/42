@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 16:18:19 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 00:34:13 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/05 10:34:34 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,3 @@ void PhoneBook::search_contact()
 	}
 	display_contact(index);
 }
-

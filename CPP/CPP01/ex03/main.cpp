@@ -5,35 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 16:18:14 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 10:24:10 by gbazin           ###   ########.fr       */
+/*   Created: 2026/01/05 16:00:14 by gbazin            #+#    #+#             */
+/*   Updated: 2026/01/05 18:16:51 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
+#include "Weapon.hpp"
 
-int	main(void)
+int main()
 {
-	PhoneBook	phonebook;
-	std::string	command;
-
-	std::cout << "Welcome to your PhoneBook!" << std::endl;
-	std::cout << "Available commands: ADD, SEARCH, EXIT" << std::endl;
-
-	while (true)
 	{
-		std::cout << "> ";
-		if (!std::getline(std::cin, command))
-		{
-			std::cout << std::endl;
-			break;
-		}
-		if (command == "ADD")
-			phonebook.add_contact();
-		else if (command == "SEARCH")
-			phonebook.search_contact();
-		else if (command == "EXIT")
-			break;
+		Weapon club = Weapon("crude spiked club");
+		HumanA bob("Bob", club);
+		bob.attack();
+		club.setType("some other type of club");
+		bob.attack();
+	}
+	{
+		Weapon club = Weapon("crude spiked club");
+		HumanB jim("Jim");
+		jim.attack();
+		jim.setWeapon(club);
+		jim.attack();
+		club.setType("some other type of club");
+		jim.attack();
 	}
 	return (0);
 }

@@ -5,35 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 16:18:14 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 10:24:10 by gbazin           ###   ########.fr       */
+/*   Created: 2026/01/05 15:38:39 by gbazin            #+#    #+#             */
+/*   Updated: 2026/01/05 15:56:54 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
+#include <iostream>
 
-int	main(void)
+int main()
 {
-	PhoneBook	phonebook;
-	std::string	command;
+	std::string		str = "HI THIS IS BRAIN";
+	std::string*	stringPTR = &str;
+	std::string&	stringREF = str;
 
-	std::cout << "Welcome to your PhoneBook!" << std::endl;
-	std::cout << "Available commands: ADD, SEARCH, EXIT" << std::endl;
+	std::cout << "string address: " << &str << std::endl;
+	std::cout << "stringPTR hold address: " << stringPTR << std::endl;
+	std::cout << "stringREF hold address: " << &stringREF << std::endl << std::endl << std::endl;
 
-	while (true)
-	{
-		std::cout << "> ";
-		if (!std::getline(std::cin, command))
-		{
-			std::cout << std::endl;
-			break;
-		}
-		if (command == "ADD")
-			phonebook.add_contact();
-		else if (command == "SEARCH")
-			phonebook.search_contact();
-		else if (command == "EXIT")
-			break;
-	}
+	std::cout << "string value: " << str << std::endl;
+	std::cout << "stringPTR value: " << *stringPTR << std::endl;
+	std::cout << "stringREF value: " << stringREF << std::endl;
+	
 	return (0);
 }
