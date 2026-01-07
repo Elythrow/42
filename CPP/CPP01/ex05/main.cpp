@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sed.hpp                                            :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 18:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/07 20:09:58 by gbazin           ###   ########.fr       */
+/*   Created: 2026/01/07 20:37:29 by gbazin            #+#    #+#             */
+/*   Updated: 2026/01/07 20:54:12 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SED_HPP
-#define SED_HPP
+#include "Harl.hpp"
+#include <unistd.h>
 
-#include <iostream>
-#include <string>
-#include <fstream>
-
-struct sed
+int main(int ac, char **av)
 {
-	std::string  filename;
-	std::string  s1;
-	std::string  s2;
-};
+    Harl harl;
 
-#endif
+    if (ac == 2)
+    {
+        harl.complain(av[1]);
+		return (0);
+    }
+	std::cout << "Usage: ./harl <level> (DEBUG, INFO, WARNING, ERROR)" << std::endl;
+    return (0);
+}

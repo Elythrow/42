@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sed.hpp                                            :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 18:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/07 20:09:58 by gbazin           ###   ########.fr       */
+/*   Created: 2026/01/07 20:26:47 by gbazin            #+#    #+#             */
+/*   Updated: 2026/01/07 20:35:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SED_HPP
-#define SED_HPP
+#ifndef HARL_HPP
+#define HARL_HPP
 
 #include <iostream>
 #include <string>
-#include <fstream>
 
-struct sed
-{
-	std::string  filename;
-	std::string  s1;
-	std::string  s2;
+class Harl {
+	private :
+		void debug();
+		void info();
+		void warning();
+		void error ();
+	public :
+		Harl();
+		~Harl();
+		void complain(std::string level);
 };
 
 #endif

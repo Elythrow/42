@@ -5,17 +5,16 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/01/05 18:25:01 by gbazin            #+#    #+#              #
-#    Updated: 2026/01/07 20:05:53 by gbazin           ###   ########.fr        #
+#    Created: 2026/01/07 20:26:39 by gbazin            #+#    #+#              #
+#    Updated: 2026/01/07 20:42:31 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 ## VARIABLES ##
 
 # TARGET #
 
-NAME := sed
+NAME := harl
 
 # COMPILATION #
 
@@ -29,6 +28,7 @@ CFLAGS += -std=c++98
 # SOURCES #
 
 SRCS += main.cpp
+SRCS += Harl.cpp
 
 # OBJECTS #
 
