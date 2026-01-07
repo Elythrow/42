@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 18:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 18:32:57 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/07 18:31:13 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <string>
 
-struct Sed
+struct sed
 {
 	std::string  filename;
 	std::string  s1;
