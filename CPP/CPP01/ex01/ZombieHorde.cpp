@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:50:03 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/05 18:23:55 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/07 21:25:47 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 Zombie* zombieHorde( int N, std::string name )
 {
-	int i = 0;
-	std::ostringstream oss;
-	Zombie* horde = new Zombie[N];
+	int					i = 0;
+	std::ostringstream	oss;
+	Zombie*				horde = new Zombie[N];
 
 	for (i = 0; i < N; i++)
 	{
