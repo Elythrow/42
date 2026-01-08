@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:12:58 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/08 14:43:28 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/08 14:57:26 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,14 @@ Fixed::Fixed(float const value)
 Fixed::Fixed(Fixed const &src)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	this->value = src.getRawBits();
+	*this = src;
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
 {
+	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
-	{
-		std::cout << "Copy assignment operator called" << std::endl;
 		this->value = other.getRawBits();
-	}
 	return *this;
 }
 
