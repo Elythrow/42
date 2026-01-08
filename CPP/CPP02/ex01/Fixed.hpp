@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:12:54 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/08 12:03:39 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/08 14:42:39 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define FIXED_HPP
 
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 	private:
@@ -31,5 +32,7 @@ class Fixed {
 		float toFloat() const;
 		int toInt() const;
 };
+
+std::ostream &operator<<(std::ostream &o, Fixed const &fixed);
 
 #endif
