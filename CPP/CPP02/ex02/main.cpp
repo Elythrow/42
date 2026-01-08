@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:13:01 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/08 16:34:55 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/08 18:41:37 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int main( void ) {
 	std::cout << d - c << std::endl;     // 5
 	std::cout << c * d << std::endl;     // 50
 	std::cout << d / c << std::endl;     // 2
-
+	std::cout << d / 0 << std::endl; 
 	// Test min/max
 	std::cout << Fixed::min(c, d) << std::endl; // 5
 	std::cout << Fixed::max(c, d) << std::endl; // 10

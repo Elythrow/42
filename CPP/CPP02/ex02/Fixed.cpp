@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:12:58 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/08 16:33:24 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/08 18:31:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@ Fixed::Fixed()
 	this->value = 0;
 }
 
-Fixed::Fixed(int const value)
+Fixed::Fixed(int const value) : value(value  * (1 << fractionalBits))
 {
-	this->value = value << fractionalBits;
 }
 
-Fixed::Fixed(float const value)
+Fixed::Fixed(float const value) : value(roundf(value * (1 << fractionalBits)))
 {
-	this->value = roundf(value * (1 << fractionalBits));
 }
 
-Fixed::Fixed(Fixed const &src)
+Fixed::Fixed(Fixed const &src) : value(src.value)
 {
-	*this = src;
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
@@ -55,12 +52,12 @@ void Fixed::setRawBits(int const raw)
 
 float Fixed::toFloat() const
 {
-	return ((float)this->value / (1 << fractionalBits));
+	return (static_cast<float>(this->value) / (1 << fractionalBits));
 }
 		
 int Fixed::toInt() const
 {
-	return (this->value >> fractionalBits);
+	return (this->value / (1 << fractionalBits));
 }
 
 Fixed &Fixed::min(Fixed &nb1, Fixed &nb2)
@@ -135,12 +132,27 @@ Fixed Fixed::operator-(const Fixed &nb1) const
 
 Fixed Fixed::operator*(const Fixed &nb1) const
 {
-    return (Fixed(this->toFloat() * nb1.toFloat()));
+	Fixed		result;
+	long long 	temp;
+
+	temp = (static_cast<long long>(this->value) * nb1.value) >> fractionalBits;
+    result.setRawBits(static_cast<int>(temp));
+    return (result);
 }
 
 Fixed Fixed::operator/(const Fixed &nb1) const
 {
-    return (Fixed(this->toFloat() / nb1.toFloat()));
+	Fixed		result;
+	long long 	temp;
+
+	if(nb1.value == 0)
+	{
+		std::cerr << "Error: Division by zero" << std::endl;
+		return (result);
+	}
+	temp = (static_cast<long long>(this->value) << fractionalBits) / nb1.value;
+    result.setRawBits(static_cast<int>(temp));
+    return (result);
 }
 
 Fixed &Fixed::operator++()

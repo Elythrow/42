@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 11:12:58 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/08 14:57:26 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/08 18:38:06 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@ Fixed::Fixed()
 	this->value = 0;
 }
 
-Fixed::Fixed(int const value)
+Fixed::Fixed(int const value) : value(value  * (1 << fractionalBits))
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->value = value << fractionalBits;
 }
 
-Fixed::Fixed(float const value)
+Fixed::Fixed(float const value) : value(roundf(value * (1 << fractionalBits)))
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->value = roundf(value * (1 << fractionalBits));
 }
 
 Fixed::Fixed(Fixed const &src)
