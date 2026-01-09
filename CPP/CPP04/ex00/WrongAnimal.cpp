@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 16:18:07 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 16:24:15 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 17:49:54 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ WrongAnimal::WrongAnimal(const WrongAnimal &other)
 }
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal &other)
 {
-	if (this != &other) {
+	if (this != &other)
 		this->type = other.type;
-	}
-	return *this;
+	return (*this);
 }
 
 WrongAnimal::~WrongAnimal()
@@ -44,5 +43,5 @@ void WrongAnimal::makeSound() const
 
 const std::string& WrongAnimal::getType() const
 {
-	return this->type;
+	return (this->type);
 }

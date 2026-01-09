@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 16:18:17 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 16:23:41 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 17:49:35 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ WrongCat::WrongCat(const WrongCat &other) : WrongAnimal(other)
 
 WrongCat& WrongCat::operator=(const WrongCat &other)
 {
-    if (this != &other) {
+    if (this != &other)
         WrongAnimal::operator=(other);
-    }
     std::cout << "WrongCat Assignment Operator Called!" << std::endl;
     return *this;
 }
