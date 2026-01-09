@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:26:45 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 12:19:49 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 12:46:45 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ int main(void)
 	st.takeDamage(20);
 	st.beRepaired(10);
 	st.guardGate();
+	std::cout << std::endl;
+	std::cout << "---- ScavTrap delete test ----" << std::endl;
+	ScavTrap*	bernard = new ScavTrap();
+	bernard->guardGate();
+	delete bernard;
 	std::cout << std::endl;
 	return (0);
 }

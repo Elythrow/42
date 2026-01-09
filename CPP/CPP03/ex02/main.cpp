@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 19:26:45 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 12:25:32 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 14:57:17 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,20 @@ int main(void)
 	st.guardGate();
 	std::cout << std::endl;
 	std::cout << "---- FragTrap tests ----" << std::endl;
-	ft.attack("the door");
-	ft.takeDamage(20);
+	ft.attack("the wall");
+	ft.takeDamage(30);
 	ft.beRepaired(10);
 	ft.highFivesGuys();
+	std::cout << std::endl;
+	std::cout << "---- Delete test ----" << std::endl;
+	ScavTrap*	bernard = new ScavTrap();
+	FragTrap*	igor = new FragTrap();
+	std::cout << std::endl;
+	bernard->guardGate();
+	igor->highFivesGuys();
+	std::cout << std::endl;
+	delete bernard;
+	delete igor;
 	std::cout << std::endl;
 	return (0);
 }

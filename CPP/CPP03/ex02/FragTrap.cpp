@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:23:15 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 12:25:42 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 14:58:54 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,19 @@
 
 FragTrap::FragTrap() : ClapTrap()
 {
-	set_name("Default_FragTrap");
+	this->name = "Default_FragTrap";
 	this->hit_points = 100;
-	this->energy_points = 50;
-	this->attack_damage = 20;
+	this->energy_points = 100;
+	this->attack_damage = 30;
 	std::cout << "FragTrap Default Constructor Called" << std::endl;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
-	set_name(name);
 	this->hit_points = 100;
-	this->energy_points = 50;
-	this->attack_damage = 20;
-	std::cout << "FragTrap " << get_name() << " Constructor Called" << std::endl;
+	this->energy_points = 100;
+	this->attack_damage = 30;
+	std::cout << "FragTrap " << this->name << " Constructor Called" << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap &other) : ClapTrap(other)
@@ -67,7 +66,7 @@ void FragTrap::attack(const std::string &target)
 	else if (this->energy_points > 0 && this->hit_points > 0)
 	{
 		this->energy_points--;
-		std::cout << "FragTrap " << get_name() << " attacks " << target << " causing " << this->attack_damage << " damages." << std::endl;
+		std::cout << "FragTrap " << get_name() << " fiercely attacks " << target << " causing " << this->attack_damage << " damages." << std::endl;
 		return ;
 	}
 }

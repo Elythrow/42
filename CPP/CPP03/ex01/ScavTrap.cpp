@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 23:36:17 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 12:02:05 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 14:54:22 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 ScavTrap::ScavTrap() : ClapTrap()
 {
-	set_name("Default_ScavTrap");
+	this->name = "Default_ScavTrap";
 	this->hit_points = 100;
 	this->energy_points = 50;
 	this->attack_damage = 20;
@@ -23,11 +23,10 @@ ScavTrap::ScavTrap() : ClapTrap()
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
-	set_name(name);
 	this->hit_points = 100;
 	this->energy_points = 50;
 	this->attack_damage = 20;
-	std::cout << "ScavTrap " << get_name() << " Constructor Called" << std::endl;
+	std::cout << "ScavTrap " << this->name << " Constructor Called" << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
@@ -67,7 +66,7 @@ void ScavTrap::attack(const std::string &target)
 	else if (this->energy_points > 0 && this->hit_points > 0)
 	{
 		this->energy_points--;
-		std::cout << "ScavTrap " << get_name() << " attacks " << target << " causing " << this->attack_damage << " damages." << std::endl;
+		std::cout << "ScavTrap " << get_name() << " viciously attacks " << target << " causing " << this->attack_damage << " damages." << std::endl;
 		return ;
 	}
 }
