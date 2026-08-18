@@ -6,11 +6,12 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 19:48:25 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/18 15:00:31 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/18 15:56:38 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : name("NewGuy"), grade(150) {}
 
@@ -39,10 +40,11 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 
 Bureaucrat::~Bureaucrat() {}
 
-std::string& Bureaucrat::getName() const
+const std::string& Bureaucrat::getName() const
 {
 	return (name);
 }
+
 int Bureaucrat::getGrade() const
 {
 	return (grade);
@@ -66,6 +68,17 @@ void Bureaucrat::decrementGrade()
 	grade += 1;
 }
 
+void	Bureaucrat::signForm(Form& form) const
+{
+	try {
+		form.beSigned(*this);
+		std::cout << name << " signed " << form.getName() << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cout << name << " couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
+	}
+}
+
 const char	*Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return ("Error: Grade is too high!");
@@ -74,7 +87,7 @@ const char	*Bureaucrat::GradeTooHighException::what() const throw()
 const char	*Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Error: Grade is too low!");
-};
+}
 
 std::ostream&	operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
 {

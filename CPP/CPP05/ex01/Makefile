@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 14:02:25 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/18 14:37:58 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/18 15:32:35 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # TARGET #
 
-NAME := bureaucrat
+NAME := bureaucrat+forms
 
 # COMPILATION #
 
@@ -29,6 +29,12 @@ CXXFLAGS += -std=c++98
 
 SRCS += main.cpp
 SRCS += Bureaucrat.cpp
+SRCS += Form.cpp
+
+# HEADERS #
+
+HDS += Bureaucrat.hpp
+HDS += Form.hpp
 
 # OBJECTS #
 
@@ -44,7 +50,7 @@ $(NAME): $(OBJS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJS): Bureaucrat.hpp
+$(OBJS): $(HDS)
 
 clean:
 	rm -f $(OBJS)
