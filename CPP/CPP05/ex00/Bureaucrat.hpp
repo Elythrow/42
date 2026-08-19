@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 19:48:23 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 15:12:02 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:28:21 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ class Bureaucrat
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		std::string&	getName() const;
-		int				getGrade() const;
-		void			incrementGrade();
-		void			decrementGrade();
+		const std::string&	getName() const;
+		int					getGrade() const;
+		void				incrementGrade();
+		void				decrementGrade();
 
 		class GradeTooHighException : public std::exception
 		{
