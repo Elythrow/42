@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 14:39:23 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 13:59:41 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 15:12:59 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
 #include "Bureaucrat.hpp"
 
 class Form

@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 14:02:25 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/19 16:37:30 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/19 16:37:18 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRCS += AForm.cpp
 SRCS += PresidentialPardonForm.cpp
 SRCS += RobotomyRequestForm.cpp
 SRCS += ShrubberyCreationForm.cpp
+SRCS += Intern.cpp
+
 # HEADERS #
 
 HDS += Bureaucrat.hpp
@@ -40,6 +42,7 @@ HDS += AForm.hpp
 HDS += PresidentialPardonForm.hpp
 HDS += RobotomyRequestForm.hpp
 HDS += ShrubberyCreationForm.hpp
+HDS += Intern.hpp
 
 # OBJECTS #
 
@@ -63,7 +66,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f *_shrubbery
-	
+
 re: fclean all
 
 .PHONY: all clean fclean re

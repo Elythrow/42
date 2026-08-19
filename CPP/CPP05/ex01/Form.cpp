@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 14:39:19 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 14:04:20 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 16:23:35 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,12 @@ const char	*Form::GradeTooLowException::what() const throw()
 
 std::ostream&	operator<<(std::ostream& os, const Form& form)
 {
-	os << "Form name: " << form.getName() << ", signed: " << form.getsignedStatus() << ", required grade to sign: " << form.getgrade2Sign() << ", required grade to execute: " << form.getgrade2Exec() << ".";
+	std::string status;
+	if (AForm.getsignedStatus())
+		status = "signed";
+	else
+		status = "not signed";
+	os << "Form name: " << form.getName() << ", signed: " << status << ", required grade to sign: " << form.getgrade2Sign() << ", required grade to execute: " << form.getgrade2Exec() << ".";
 	return (os);
 }
 

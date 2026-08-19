@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 14:06:33 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 14:59:15 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 16:22:58 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,69 +16,84 @@
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 
-
-int	main(void) {
-
-	srand(time(NULL));
-	Bureaucrat	stagiaire;
-	Bureaucrat	middle("Joseph", 25);
-	Bureaucrat	superior("Superior", 1);
-
-	std::cout << "--- Valides ---" << std::endl;
-
-	AForm	*pardon = new PresidentialPardonForm("pardon");	
-	AForm	*robotomy = new RobotomyRequestForm("robot");
-	AForm	*shrubbery = new ShrubberyCreationForm("shrub");
-
-	RobotomyRequestForm original("original");
-	RobotomyRequestForm copy;
-	copy = original;
-
-	middle.signForm(*robotomy);
-	middle.executeForm(*robotomy);
+int main(void)
+{
+    std::cout << "--- signer sans le rang ---" << std::endl;
 	std::cout << std::endl;
 
-	superior.signForm(*pardon);
-	superior.executeForm(*pardon);
-	std::cout << std::endl;
-
-	superior.signForm(*shrubbery);
-	superior.executeForm(*shrubbery);
-
-	superior.signForm(copy);
-	superior.executeForm(copy);
+	Bureaucrat  bureaucrat("bureaucrat", 150);
+	std::cout << bureaucrat << std::endl;
+	ShrubberyCreationForm shrubbery("home");
+	bureaucrat.signForm(shrubbery);
+	bureaucrat.executeForm(shrubbery);
 
 	std::cout << std::endl;
-
-	std::cout << "--- Invalides ---" << std::endl;
-
-	AForm	*pardon2 = new PresidentialPardonForm("pardon2");
-	AForm	*robotomy2 = new RobotomyRequestForm("robot2");
-	AForm	*shrubbery2 = new ShrubberyCreationForm("shrub2");
-
-	stagiaire.signForm(*robotomy2);
-	stagiaire.executeForm(*robotomy2);
-	superior.signForm(*robotomy2);
-	stagiaire.executeForm(*robotomy2);
+	std::cout << "--- executer sans le rang ---" << std::endl;
 	std::cout << std::endl;
 
-	stagiaire.signForm(*shrubbery2);
-	stagiaire.executeForm(*shrubbery2);
-	superior.signForm(*shrubbery2);
-	stagiaire.executeForm(*shrubbery2);
+	Bureaucrat  bureaucrat2("bureaucrat2", 140);
+	std::cout << bureaucrat2 << std::endl;
+	bureaucrat2.signForm(shrubbery);
+	bureaucrat2.executeForm(shrubbery);
+
+	std::cout << std::endl;
+    std::cout << "--- executer sans signer ---" << std::endl;
 	std::cout << std::endl;
 
-	stagiaire.signForm(*pardon2);
-	stagiaire.executeForm(*pardon2);
-	superior.signForm(*pardon2);
-	stagiaire.executeForm(*pardon2);
+	Bureaucrat  bureaucrat3("bureaucrat3", 145);
+	ShrubberyCreationForm shrubbery3("home");
+	bureaucrat3.executeForm(shrubbery3);
 
-	delete robotomy;
-	delete pardon;
-	delete shrubbery;
-	delete robotomy2;
-	delete pardon2;
-	delete shrubbery2;
+	std::cout << std::endl;
+    std::cout << "--- shrubbery bon rang ---" << std::endl;
+	std::cout << std::endl;
 
+	Bureaucrat  bureaucrat4("bureaucrat4", 1);
+	std::cout << bureaucrat4 << std::endl;
+	ShrubberyCreationForm shrubbery4("home");
+	bureaucrat4.signForm(shrubbery4);
+	bureaucrat4.executeForm(shrubbery4);
+
+	std::cout << std::endl;
+    std::cout << "--- robotomy bon rang ---" << std::endl;
+	std::cout << std::endl;
+
+	Bureaucrat  bureaucrat5("bureaucrat5", 1);
+	std::cout << bureaucrat5 << std::endl;
+	RobotomyRequestForm robotomy("home");
+	bureaucrat5.signForm(robotomy);
+	bureaucrat5.executeForm(robotomy);
+
+	std::cout << std::endl;
+    std::cout << "--- pardon bon rang ---" << std::endl;
+	std::cout << std::endl;
+
+	Bureaucrat  bureaucrat6("bureaucrat6", 1);
+	std::cout << bureaucrat6 << std::endl;
+	PresidentialPardonForm presidential("home");
+	bureaucrat6.signForm(presidential);	
+	bureaucrat6.executeForm(presidential);
+
+	std::cout << std::endl;
+    std::cout << "--- poly ---" << std::endl;
+	std::cout << std::endl;
+
+	Bureaucrat  bureaucrat7("bureaucrat7", 1);
+	AForm* forms[3];
+	forms[0] = new ShrubberyCreationForm("home");
+	forms[1] = new RobotomyRequestForm("home");
+	forms[2] = new PresidentialPardonForm("home");
+	for (int i = 0; i < 3; i++)
+	{
+		std::cout << *forms[i] << std::endl;		
+		bureaucrat7.signForm(*forms[i]);
+		bureaucrat7.executeForm(*forms[i]);
+	}
+	std::cout << *forms[2] << std::endl;
+	for (int i = 0; i < 3; i++)
+	{
+		delete forms[i];
+	}
+	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 19:48:23 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 13:59:38 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 15:11:56 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
 
 class Form;
 
