@@ -6,15 +6,14 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 19:48:23 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/18 15:00:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 14:00:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+# define BUREAUCRAT_HPP
 
 #include <iostream>
-#include <exception>
 #include <string>
 
 class Bureaucrat
