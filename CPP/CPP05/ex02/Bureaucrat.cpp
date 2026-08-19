@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 19:48:25 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 14:29:34 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:35:37 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	Bureaucrat::signForm(AForm& form) const
 		std::cout << name << " signed " << form.getName() << std::endl;
 	}
 	catch (const std::exception& e) {
-		std::cout << name << " couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
+		std::cout << name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 16:25:06 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 16:40:22 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:46:43 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,24 @@ const char	*Intern::InvalidForm::what() const throw() {
 	return ("Intern: Invalid form type");
 }
 
+AForm* Intern::makeShrubbery(const std::string& t) const { return (new ShrubberyCreationForm(t)); }
+AForm* Intern::makeRobotomy(const std::string& t) const { return (new RobotomyRequestForm(t)); }
+AForm* Intern::makePresidential(const std::string& t) const { return (new PresidentialPardonForm(t)); }
+
 AForm* Intern::makeForm(const std::string& name, const std::string& target) const
 {
-    std::string form_names[3] = {"shrubbery", "robotomy", "presidential"};
+	typedef AForm* (Intern::*FormMaker)(const std::string&) const;
 
-    for (int i = 0; i < 3; i++)
-    {
-        if (name.find(form_names[i]) != std::string::npos)
-        {
-            std::cout << "Intern creates " << name << std::endl;
-            switch (i)
-            {
-                case 0:
-                    return (new ShrubberyCreationForm(target));
-                case 1:
-                    return (new RobotomyRequestForm(target));
-                case 2:
-                    return (new PresidentialPardonForm(target));
-            }
-        }
-    }
-    throw Intern::InvalidForm();
-    return (NULL);
+	const std::string	names[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+	const FormMaker		makers[3] = {&Intern::makeShrubbery, &Intern::makeRobotomy, &Intern::makePresidential};
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (name == names[i])
+		{
+			std::cout << "Intern creates " << name << std::endl;
+			return ((this->*makers[i])(target));
+		}
+	}
+	throw Intern::InvalidForm();
 }

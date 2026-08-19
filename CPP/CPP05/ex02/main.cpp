@@ -6,10 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 14:06:33 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 16:22:58 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:34:48 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ctime>
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
@@ -18,6 +19,7 @@
 
 int main(void)
 {
+	srand(time(NULL));
     std::cout << "--- signer sans le rang ---" << std::endl;
 	std::cout << std::endl;
 

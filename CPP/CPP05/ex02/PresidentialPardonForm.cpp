@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 13:35:12 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 15:41:44 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:37:36 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) const
 	{
 		throw GradeTooLowException();
 	}
-	std::cout << getTarget() << "has been pardoned by Zaphod Beeblebrox." << std::endl;
+	std::cout << getTarget() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }

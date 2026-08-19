@@ -6,10 +6,11 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/18 14:06:33 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 17:04:19 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:34:42 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ctime>
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
@@ -19,6 +20,7 @@
 
 int	main(void)
 {
+	srand(time(NULL));
 	Bureaucrat	bureaucrat1("Joseph", 25);
 	Bureaucrat	bureaucrat2("Superior", 1);
 	AForm		*robotomy = NULL;

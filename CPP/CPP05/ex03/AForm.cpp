@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 12:56:22 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 16:21:55 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:38:50 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ const char	*AForm::FormNotSignedException::what() const throw()
 	return ("Form: is not signed!");
 }
 
-std::ostream&	operator<<(std::ostream& os, const AForm& AForm)
+std::ostream&	operator<<(std::ostream& os, const AForm& aForm)
 {
 	std::string status;
-	if (AForm.getsignedStatus())
+	if (aForm.getsignedStatus())
 		status = "signed";
 	else
 		status = "not signed";
-	os << "AForm name: " << AForm.getName() << ", signed: " << status << ", required grade to sign: " << AForm.getgrade2Sign() << ", required grade to execute: " << AForm.getgrade2Exec() << ".";
+	os << "AForm name: " << aForm.getName() << ", signed: " << status << ", required grade to sign: " << aForm.getgrade2Sign() << ", required grade to execute: " << aForm.getgrade2Exec() << ".";
 	return (os);
 }
 

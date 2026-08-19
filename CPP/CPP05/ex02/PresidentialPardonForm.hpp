@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 13:35:16 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 15:37:51 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:37:23 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class PresidentialPardonForm : public AForm
 {
 	private :
-		std::string target;
+		const std::string	target;
 
 	public :
 		PresidentialPardonForm();

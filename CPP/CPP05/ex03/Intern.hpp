@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 16:25:00 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/19 16:40:14 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/19 17:42:46 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@
 
 class Intern
 {
-	public:
+	private :
+		AForm*	makeShrubbery(const std::string& target) const;
+		AForm*	makeRobotomy(const std::string& target) const;
+		AForm*	makePresidential(const std::string& target) const;
+		
+	public :
 		Intern();
 		Intern(const Intern& other);
 		Intern& operator=(const Intern& other);
