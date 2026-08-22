@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 20:22:44 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/22 20:54:37 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/22 21:50:30 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,19 @@ Base* generate ()
 
 void	identify(Base* base)
 {
-	A* a = dynamic_cast<A*>(base);
-	if (a)
+	if (!base)
+	{
+		std::cout << "Unknown" << std::endl;
+		return;
+	}
+	if (dynamic_cast<A*>(base))
 		std::cout << "A" << std::endl;
-	B* b = dynamic_cast<B*>(base);
-	if (b)
+	else if (dynamic_cast<B*>(base))
 		std::cout << "B" << std::endl;
-	C* c = dynamic_cast<C*>(base);
-	if (c)
+	else if (dynamic_cast<C*>(base))
 		std::cout << "C" << std::endl;
+	else
+		std::cout << "Unknown" << std::endl;
 }
 
 void	identify(Base& base)

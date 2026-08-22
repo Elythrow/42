@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 21:43:12 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/20 14:04:48 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/22 21:50:35 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include <cmath>
 #include <limits>
 #include <iomanip>
-#include <stdlib.h>
+#include <cstdlib>
+#include <cctype>
 #include <cfloat>
 
 class ScalarConverter {

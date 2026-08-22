@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 21:43:08 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/20 14:15:43 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/22 21:50:34 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ ScalarConverter::ScalarConverter(const ScalarConverter &copy)
  
 ScalarConverter::~ScalarConverter() {}
 
-static bool isWhole(double value)
+bool isWhole(double value)
 {
     return (value == std::floor(value));
 }
  
-static void resetFloatFormat(int precision)
+void resetFloatFormat(int precision)
 {
     std::cout.unsetf(std::ios::floatfield);
     std::cout << std::setprecision(precision);
@@ -137,40 +137,35 @@ void	ScalarConverter::convert(const std::string &literal)
 		printPseudo("+inff", "+inf");
 		return;
 	}
-	 
-	/* Check for -inf or -inff values */
 	if (literal == "-inf" || literal == "-inff")
 	{
 		printPseudo("-inff", "-inf");
 		return;
 	}
  
-	/* Check if it's a char */
 	if (literal.length() == 1 && std::isprint(literal[0])
 		&& !std::isdigit(literal[0]))
 	{
 		printAll(static_cast<double>(literal[0]));
 		return;
 	}
- 
+
 	long int i = std::strtol(literal.c_str(), &end, 10);
-	if (*end == '\0' && i >= std::numeric_limits<int>::min() && i <= std::numeric_limits<int>::max())
+	if (*end == '\0' && end != literal.c_str() && i >= std::numeric_limits<int>::min() && i <= std::numeric_limits<int>::max())
 	{
 		printAll(static_cast<double>(i));
 		return;
 	}
  
-	/* Check if it's a float */
 	double f = std::strtod(literal.c_str(), &end);
-	if ((*end == 'f' || *end == 'F') && *(end + 1) == '\0')
+	if ((*end == 'f' || *end == 'F') && *(end + 1) == '\0' && end != literal.c_str())
 	{
 		printAll(f);
 		return;
 	}
  
-	/* Check if it's a double */
 	double d = std::strtod(literal.c_str(), &end);
-	if (*end == '\0')
+	if (*end == '\0' && end != literal.c_str())
 	{
 		if (d == HUGE_VAL)
 		{
