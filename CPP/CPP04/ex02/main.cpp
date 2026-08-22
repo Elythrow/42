@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/09 12:32:35 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 18:30:11 by gbazin           ###   ########.fr       */
+/*   Created: 2026/01/09 12:32:42 by gbazin            #+#    #+#             */
+/*   Updated: 2026/01/09 18:46:58 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
+#include "Dog.hpp"
+#include "Cat.hpp"
 
-#include "Animal.hpp"
-#include "Brain.hpp"
 
-class Cat : public Animal
+int main()
 {
-	private:
-		Brain* brain;
-	public:
-		Cat();
-		Cat(const Cat &other);
-		Cat& operator=(const Cat &other);
-		~Cat();
-		void makeSound() const;
-		Brain* getBrain() const;
-};
-
-#endif
+	const Animal* j = new Dog();
+	const Animal* i = new Cat();
+	//const Animal x;
+	delete j;
+	delete i;
+	return (0);
+}

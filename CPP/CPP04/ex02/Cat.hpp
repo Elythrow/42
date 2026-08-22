@@ -6,14 +6,14 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:32:35 by gbazin            #+#    #+#             */
-/*   Updated: 2026/01/09 18:30:11 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/09 18:45:01 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAT_HPP
 #define CAT_HPP
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 
 class Cat : public Animal

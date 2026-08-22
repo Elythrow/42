@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/18 14:02:25 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/19 16:37:18 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/19 18:09:15 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # TARGET #
 
-NAME := forms
+NAME := intern
 
 # COMPILATION #
 

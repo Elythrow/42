@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/09 12:32:45 by gbazin            #+#    #+#              #
-#    Updated: 2026/01/09 17:44:45 by gbazin           ###   ########.fr        #
+#    Updated: 2026/01/09 18:45:20 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ CXXFLAGS += -std=c++98
 # SOURCES #
 
 SRCS += main.cpp
-SRCS += Animal.cpp
+SRCS += AAnimal.cpp
 SRCS += Dog.cpp
 SRCS += Cat.cpp
 SRCS += Brain.cpp
