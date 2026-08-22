@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/20 13:10:30 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/22 20:15:10 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/22 20:22:32 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # TARGET #
 
-NAME := Serializer
+NAME := Base
 
 # COMPILATION #
 
@@ -28,11 +28,11 @@ CXXFLAGS += -std=c++98
 # SOURCES #
 
 SRCS += main.cpp
-SRCS += Serializer.cpp
+SRCS += Base.cpp
 
 # HEADERS #
 
-HDS += Serializer.hpp
+HDS += Base.hpp
 
 # OBJECTS #
 
