@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 06:18:08 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/24 19:19:24 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/24 19:34:58 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ T min(T a, T b)
 template <typename T>
 void swap(T &a, T &b)
 {
-	T temp = a;
+	T	temp = a;
 	a = b;
 	b = temp;
 }
