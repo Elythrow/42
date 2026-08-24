@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/23 20:36:12 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/23 20:36:30 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/24 18:33:23 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # TARGET #
 
-NAME := whatever
+NAME := array
 
 # COMPILATION #
 
