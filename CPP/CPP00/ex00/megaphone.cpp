@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 19:25:05 by gbazin            #+#    #+#             */
-/*   Updated: 2025/12/16 15:54:54 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/01/04 19:42:33 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
  int main(int ac, char **av)
  {
-	int		i;
+	int		i = 1;
 	int		j;
-
 	std::string str = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
+	
 	if (ac < 2)
 		std::cout << str;
 	else
 	{
-		for (i = 1; av[i] != NULL; i ++)
+		while (i < ac && av[i])
 		{
 			str = av[i];
 			j = 0;
@@ -32,6 +32,7 @@
 				j ++;
 			}
 			std::cout << str;
+			i ++;
 		}
 	}
 	std::cout << "\n";

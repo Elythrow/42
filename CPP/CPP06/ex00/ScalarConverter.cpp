@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 21:43:08 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/22 21:50:34 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/23 01:15:21 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,5 @@ void	ScalarConverter::convert(const std::string &literal)
 		printAll(d);
 		return;
 	}
- 
 	printImpossible();
 }

@@ -6,14 +6,14 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:36:20 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/23 21:02:52 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/24 02:18:20 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
-#include <stdexcept>
+#include <exception>
 #include <string>
 #include <cstddef>
 
@@ -32,7 +32,7 @@ class Array
     	~Array();
 		
     	T &operator[](std::size_t index);
-		const T &operator[](std::size_t index) const;
+		T &operator[](std::size_t index) const;
     	unsigned int size() const;
 };
 

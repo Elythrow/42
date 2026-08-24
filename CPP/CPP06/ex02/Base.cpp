@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 20:22:44 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/22 21:50:30 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/23 01:15:02 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	identify(Base* base)
 {
 	if (!base)
 	{
-		std::cout << "Unknown" << std::endl;
 		return;
 	}
 	if (dynamic_cast<A*>(base))
@@ -38,8 +37,6 @@ void	identify(Base* base)
 		std::cout << "B" << std::endl;
 	else if (dynamic_cast<C*>(base))
 		std::cout << "C" << std::endl;
-	else
-		std::cout << "Unknown" << std::endl;
 }
 
 void	identify(Base& base)
