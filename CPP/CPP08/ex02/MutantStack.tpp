@@ -2,16 +2,6 @@
 
 #include "MutantStack.hpp"
 
-/*
-** std::stack stores its underlying container in a protected member named "c"
-** (guaranteed by the standard). Inheriting from std::stack gives us access to
-** it, so we can simply forward the container's own iterators.
-**
-** "this->c" is required rather than plain "c": the base class depends on the
-** template parameters, so a bare name is not looked up there during phase one
-** of two-phase name lookup.
-*/
-
 template <typename T, typename Container>
 MutantStack<T, Container>::MutantStack() : std::stack<T, Container>() {}
 
