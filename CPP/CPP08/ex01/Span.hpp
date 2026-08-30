@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 06:21:48 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/29 06:05:00 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/29 18:15:29 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 #include <vector>
 #include <algorithm>
 #include <exception>
+#include <cstddef>
 
 class Span
 {
 	private:
-		unsigned int		_n;
-		std::vector<int>	_numbers;
+		unsigned int		n;
+		std::vector<int>	numbers;
  
 		Span();
  
@@ -31,12 +32,12 @@ class Span
 		Span &operator=(const Span &rhs);
 		~Span();
  
-		void			addNumber(int n);
+		void			addNumber(int x);
 		unsigned int	shortestSpan() const;
 		unsigned int	longestSpan() const;
  
-		template <typename InputIt>
-		void			addRange(InputIt first, InputIt last);
+    	template <typename Iterator>
+    	void addRange(Iterator begin, Iterator end);
  
 		class SpanFullException : public std::exception
 		{
@@ -50,5 +51,14 @@ class Span
 				virtual const char *what() const throw();
 		};
 };
- 
-#include "Span.tpp"
+
+template <typename Iterator>
+void	Span::addRange(Iterator begin, Iterator end)
+{
+	size_t	count;
+
+	count = static_cast<size_t>(std::distance(begin, end));
+	if (count > n - numbers.size())
+		throw SpanFullException();
+	numbers.insert(numbers.end(), begin, end);
+}

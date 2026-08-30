@@ -6,7 +6,7 @@
 /*   By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 06:21:51 by gbazin            #+#    #+#             */
-/*   Updated: 2026/08/29 06:03:12 by gbazin           ###   ########.fr       */
+/*   Updated: 2026/08/29 18:16:23 by gbazin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,13 @@ Span &Span::operator=(const Span &rhs)
  
 Span::~Span() {}
  
-void	Span::addNumber(int n)
+void	Span::addNumber(int x)
 {
-	if (numbers.size() >= n)
+	if (numbers.size() >= static_cast<size_t>(n))
 		throw SpanFullException();
-	numbers.push_back(n);
+	numbers.push_back(x);
 }
  
-/*
-** The two numbers are cast to unsigned int before subtracting.
-** sorted[i] >= sorted[i - 1], so the true difference always fits in an
-** unsigned int, while (INT_MAX - INT_MIN) as a signed int would overflow.
-** Unsigned arithmetic is defined to wrap, so this is safe.
-*/
 unsigned int	Span::shortestSpan() const
 {
 	if (numbers.size() < 2)

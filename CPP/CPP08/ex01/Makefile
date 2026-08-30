@@ -6,7 +6,7 @@
 #    By: gbazin <gbazin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/28 06:21:22 by gbazin            #+#    #+#              #
-#    Updated: 2026/08/28 06:21:40 by gbazin           ###   ########.fr        #
+#    Updated: 2026/08/29 18:33:36 by gbazin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 # TARGET #
 
-NAME := easyfind
+NAME := span
 
 # COMPILATION #
 
